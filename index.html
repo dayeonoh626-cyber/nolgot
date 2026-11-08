@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>놀곳</title>
+  <meta name="description" content="내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에" />
+  <meta name="theme-color" content="#ff5a36" />
+
+  <!-- iOS Safari: 홈 화면에 추가 시 앱처럼 실행 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="놀곳" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="regionBtn" class="region-btn" aria-haspopup="dialog">
+      <span class="pin" aria-hidden="true">📍</span>
+      <span id="regionLabel">서울</span>
+      <span class="caret" aria-hidden="true">▾</span>
+    </button>
+    <div id="sampleBadge" class="sample-badge" hidden>샘플 데이터</div>
+  </header>
+
+  <nav class="kinds" id="kindTabs" aria-label="카테고리"></nav>
+
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <nav class="tabbar" aria-label="메뉴">
+    <button data-tab="browse" class="active"><span aria-hidden="true">🏠</span>둘러보기</button>
+    <button data-tab="calendar"><span aria-hidden="true">📅</span>캘린더</button>
+    <button data-tab="saved"><span aria-hidden="true">♥</span>관심<em id="savedCount" hidden></em></button>
+    <button data-tab="settings"><span aria-hidden="true">⚙︎</span>설정</button>
+  </nav>
+
+  <!-- 이벤트 상세 -->
+  <dialog id="detail" class="sheet"></dialog>
+
+  <!-- 지역 선택 -->
+  <dialog id="regionSheet" class="sheet small"></dialog>
+
+  <!-- iOS 설치 안내 -->
+  <div id="installHint" class="install-hint" hidden>
+    <div>
+      <strong>홈 화면에 앱 설치하기</strong>
+      <p>Safari 하단의 <b>공유 버튼 <span class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span></b>을 누르고 <b>‘홈 화면에 추가’</b>를 선택하세요. 설치하면 알림도 받을 수 있어요.</p>
+    </div>
+    <button id="installClose" aria-label="닫기">✕</button>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-08T19:57:51.206Z",
+  "updatedAt": "2026-11-08T20:07:40.441Z",
   "source": "sample",
   "counts": {
    "festival": 11,
@@ -31,7 +31,14 @@
    "overview": "강변에서 열리는 헌책·독립출판 야시장. 작가 사인회와 버스킹이 함께해요.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Han River Night Book Market",
+   "genreEn": "Market",
+   "placeEn": "Banpo Hangang Park",
+   "addressEn": "40 Sinbanpo-ro 11-gil, Seocho-gu, Seoul",
+   "timeEn": "18:00–22:00",
+   "feeEn": "Free",
+   "overviewEn": "A riverside night market of used books and indie zines, with author signings and street music."
   },
   {
    "id": "sample-2",
@@ -52,7 +59,14 @@
    "overview": "국내 소규모 브루어리 30곳이 참여하는 맥주 축제.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Seongsu Craft Beer Festa",
+   "genreEn": "Food & drink",
+   "placeEn": "Seongsu-dong Culture Lot",
+   "addressEn": "20 Seongsui-ro, Seongdong-gu, Seoul",
+   "timeEn": "14:00–21:00",
+   "feeEn": "Free entry · Tasting pass ₩15,000",
+   "overviewEn": "A beer festival with 30 small Korean breweries."
   },
   {
    "id": "sample-3",
@@ -73,7 +87,14 @@
    "overview": "정원 곳곳을 수놓은 조명 산책길.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Winter Light Garden Illumination",
+   "genreEn": "Light festival",
+   "placeEn": "Seoul Botanic Park",
+   "addressEn": "161 Magokdong-ro, Gangseo-gu, Seoul",
+   "timeEn": "17:30–22:00",
+   "feeEn": "₩5,000",
+   "overviewEn": "A walking trail of lights winding through the gardens."
   },
   {
    "id": "sample-4",
@@ -94,7 +115,14 @@
    "overview": "야외 잔디밭에서 즐기는 재즈 페스티벌.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Jazz in the Garden",
+   "genreEn": "Jazz",
+   "placeEn": "Olympic Park 88 Lawn",
+   "addressEn": "424 Olympic-ro, Songpa-gu, Seoul",
+   "timeEn": "16:00–20:30",
+   "feeEn": "R ₩99,000 · S ₩77,000",
+   "overviewEn": "An outdoor jazz festival on the lawn."
   },
   {
    "id": "sample-5",
@@ -115,7 +143,14 @@
    "overview": "30년 만에 도착한 편지를 둘러싼 가족 이야기.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Play: \"The Old Letter\"",
+   "genreEn": "Theater",
+   "placeEn": "Daehangno Byeolbit Theater",
+   "addressEn": "31 Daehak-ro 12-gil, Jongno-gu, Seoul",
+   "timeEn": "Weekdays 19:30 / Weekends 15:00, 18:00",
+   "feeEn": "₩35,000",
+   "overviewEn": "A family story about a letter that arrives 30 years late."
   },
   {
    "id": "sample-6",
@@ -136,7 +171,14 @@
    "overview": "인기 뮤지컬 넘버를 한 무대에서.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Musical Gala Concert \"Midsummer Night\"",
+   "genreEn": "Musical",
+   "placeEn": "Sejong Center Grand Theater",
+   "addressEn": "175 Sejong-daero, Jongno-gu, Seoul",
+   "timeEn": "19:30",
+   "feeEn": "VIP ₩130,000 · R ₩110,000",
+   "overviewEn": "Favorite musical numbers on a single stage."
   },
   {
    "id": "sample-7",
@@ -157,7 +199,14 @@
    "overview": "몰입형 미디어아트 12개 작품.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Light & Shadow: Media Art",
+   "genreEn": "Media art",
+   "placeEn": "DDP Exhibition Hall 1",
+   "addressEn": "281 Eulji-ro, Jung-gu, Seoul",
+   "timeEn": "10:00–20:00 (closed Mon)",
+   "feeEn": "Adults ₩18,000",
+   "overviewEn": "Twelve immersive media art installations."
   },
   {
    "id": "sample-8",
@@ -178,7 +227,14 @@
    "overview": "도시의 일상을 기록한 신진 작가 7인의 사진전.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Seven Young Photographers",
+   "genreEn": "Photography",
+   "placeEn": "Gallery On, Seochon",
+   "addressEn": "50 Jahamun-ro, Jongno-gu, Seoul",
+   "timeEn": "11:00–19:00",
+   "feeEn": "Free",
+   "overviewEn": "Seven emerging photographers capture everyday city life."
   },
   {
    "id": "sample-9",
@@ -199,7 +255,14 @@
    "overview": "물레로 나만의 머그컵 만들기. 2주 후 소성 완료 작품 수령.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Pottery Wheel One-Day Class",
+   "genreEn": "Craft",
+   "placeEn": "Yeonnam Studio Heuk",
+   "addressEn": "240 Donggyo-ro, Mapo-gu, Seoul",
+   "timeEn": "14:00–16:30",
+   "feeEn": "₩65,000 (materials included)",
+   "overviewEn": "Throw your own mug on the wheel. Pick up the fired piece two weeks later."
   },
   {
    "id": "sample-10",
@@ -220,7 +283,14 @@
    "overview": "성곽길을 따라 걷는 야간 문화 행사.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Suwon Hwaseong Moonlight Walk",
+   "genreEn": "Night tour",
+   "placeEn": "Janganmun Gate, Suwon Hwaseong",
+   "addressEn": "910 Jeongjo-ro, Jangan-gu, Suwon, Gyeonggi-do",
+   "timeEn": "19:00–22:00",
+   "feeEn": "Free",
+   "overviewEn": "A night culture walk along the fortress wall."
   },
   {
    "id": "sample-11",
@@ -241,7 +311,14 @@
    "overview": "기술과 예술이 만나는 체험형 전시.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Pangyo Tech & Art Week",
+   "genreEn": "Exhibition",
+   "placeEn": "Hyundai Children's Book Art Museum, Pangyo",
+   "addressEn": "20 Pangyoyeok-ro 146beon-gil, Bundang-gu, Seongnam, Gyeonggi-do",
+   "timeEn": "10:30–19:00",
+   "feeEn": "Free",
+   "overviewEn": "A hands-on exhibition where technology meets art."
   },
   {
    "id": "sample-12",
@@ -262,7 +339,14 @@
    "overview": "직접 담근 김치를 가져가는 가족 체험 축제.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Dumulmeori Kimchi-Making Festival",
+   "genreEn": "Hands-on",
+   "placeEn": "Dumulmeori Eco Learning Center",
+   "addressEn": "Yangsu-ri, Yangseo-myeon, Yangpyeong-gun, Gyeonggi-do",
+   "timeEn": "10:00–16:00",
+   "feeEn": "Activity ₩20,000",
+   "overviewEn": "A family festival where you make kimchi and take it home."
   },
   {
    "id": "sample-13",
@@ -283,7 +367,14 @@
    "overview": "근대 건축물 야간 개방과 거리 공연.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Incheon Open Port Night Culture Walk",
+   "genreEn": "Night tour",
+   "placeEn": "Incheon Open Port Street",
+   "addressEn": "Sinpo-ro 27beon-gil, Jung-gu, Incheon",
+   "timeEn": "18:00–23:00",
+   "feeEn": "Free",
+   "overviewEn": "Modern-era buildings open at night, with street performances."
   },
   {
    "id": "sample-14",
@@ -304,7 +395,14 @@
    "overview": "광안대교를 배경으로 펼쳐지는 불꽃쇼.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Busan Fireworks & Light Show",
+   "genreEn": "Fireworks",
+   "placeEn": "Gwangalli Beach",
+   "addressEn": "219 Gwanganhaebyeon-ro, Suyeong-gu, Busan",
+   "timeEn": "20:00–21:00",
+   "feeEn": "Free (paid seats available)",
+   "overviewEn": "Fireworks over Gwangan Bridge."
   },
   {
    "id": "sample-15",
@@ -325,7 +423,14 @@
    "overview": "바다 앞 무대에서 매일 열리는 버스킹 공연.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Haeundae Winter Busking Festival",
+   "genreEn": "Busking",
+   "placeEn": "Haeundae Beach Event Plaza",
+   "addressEn": "264 Haeundaehaebyeon-ro, Haeundae-gu, Busan",
+   "timeEn": "15:00–20:00",
+   "feeEn": "Free",
+   "overviewEn": "Daily busking on a stage by the sea."
   },
   {
    "id": "sample-16",
@@ -346,7 +451,14 @@
    "overview": "부산 로스터리 40곳이 모이는 커피 축제.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Yeongdo Coffee Festival",
+   "genreEn": "Food & drink",
+   "placeEn": "Bongnaenaru-ro, Yeongdo",
+   "addressEn": "33 Bongnaenaru-ro, Yeongdo-gu, Busan",
+   "timeEn": "11:00–19:00",
+   "feeEn": "Ticket ₩10,000",
+   "overviewEn": "Forty Busan roasteries in one place."
   },
   {
    "id": "sample-17",
@@ -367,7 +479,14 @@
    "overview": "문화해설사와 함께 걷는 2시간 골목 투어.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Daegu Modern Alleys Guided Tour",
+   "genreEn": "Guided tour",
+   "placeEn": "Cheongna Hill area",
+   "addressEn": "2029 Dalgubeol-daero, Jung-gu, Daegu",
+   "timeEn": "Sat & Sun 10:00 / 14:00",
+   "feeEn": "Free (booking required)",
+   "overviewEn": "A two-hour alley walk with a local culture guide."
   },
   {
    "id": "sample-18",
@@ -388,7 +507,14 @@
    "overview": "아시아 현대미술 작가 50인의 특별전.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Gwangju Biennale Special Exhibition",
+   "genreEn": "Contemporary art",
+   "placeEn": "Gwangju Biennale Exhibition Hall",
+   "addressEn": "111 Biennale-ro, Buk-gu, Gwangju",
+   "timeEn": "09:00–18:00",
+   "feeEn": "Adults ₩14,000",
+   "overviewEn": "A special show of 50 contemporary Asian artists."
   },
   {
    "id": "sample-19",
@@ -409,7 +535,14 @@
    "overview": "천체관측과 야간 과학 체험.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Daejeon Science Night",
+   "genreEn": "Science",
+   "placeEn": "National Science Museum",
+   "addressEn": "481 Daedeok-daero, Yuseong-gu, Daejeon",
+   "timeEn": "17:00–22:00",
+   "feeEn": "Free",
+   "overviewEn": "Stargazing and after-dark science activities."
   },
   {
    "id": "sample-20",
@@ -430,7 +563,14 @@
    "overview": "바다 앞 커피거리에서 열리는 핸드드립 대회와 마켓.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Gangneung Coffee & Sea Festival",
+   "genreEn": "Food & drink",
+   "placeEn": "Anmok Beach Coffee Street",
+   "addressEn": "Changhae-ro 14beon-gil, Gangneung, Gangwon",
+   "timeEn": "10:00–20:00",
+   "feeEn": "Free",
+   "overviewEn": "A hand-drip contest and market on the seaside coffee street."
   },
   {
    "id": "sample-21",
@@ -451,7 +591,14 @@
    "overview": "한옥 지붕 아래에서 듣는 퓨전 국악.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Jeonju Hanok Village Gugak Concert",
+   "genreEn": "Korean traditional music",
+   "placeEn": "In front of Gyeonggijeon Shrine",
+   "addressEn": "44 Taejo-ro, Wansan-gu, Jeonju, Jeonbuk",
+   "timeEn": "19:00",
+   "feeEn": "Free",
+   "overviewEn": "Fusion Korean traditional music under hanok rooftops."
   },
   {
    "id": "sample-22",
@@ -472,7 +619,14 @@
    "overview": "스마트폰으로 듣는 40분 야경 오디오 가이드.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Gyeongju Silla Moonlight Audio Walk",
+   "genreEn": "Audio guide",
+   "placeEn": "Donggung Palace and Wolji Pond",
+   "addressEn": "102 Wonhwa-ro, Gyeongju, Gyeongsangbuk-do",
+   "timeEn": "18:00–22:00",
+   "feeEn": "₩3,000 (admission separate)",
+   "overviewEn": "A 40-minute night audio guide on your phone."
   },
   {
    "id": "sample-23",
@@ -493,7 +647,14 @@
    "overview": "직접 딴 감귤을 담아가는 겨울 체험 축제.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Jeju Tangerine Picking Festival",
+   "genreEn": "Hands-on",
+   "placeEn": "Seogwipo Citrus Museum",
+   "addressEn": "441 Hyodonsunhwan-ro, Seogwipo, Jeju",
+   "timeEn": "09:00–17:00",
+   "feeEn": "Activity ₩10,000",
+   "overviewEn": "Pick your own tangerines and take them home."
   },
   {
    "id": "sample-24",
@@ -514,7 +675,14 @@
    "overview": "현지 가이드와 함께 오르는 일출 오름 트레킹.",
    "homepage": "",
    "tel": "",
-   "source": "샘플 데이터"
+   "source": "샘플 데이터",
+   "titleEn": "Jeju Oreum Trekking Tour",
+   "genreEn": "Guided tour",
+   "placeEn": "Saebyeol Oreum parking lot",
+   "addressEn": "Bongseong-ri, Aewol-eup, Jeju",
+   "timeEn": "08:30–12:00",
+   "feeEn": "₩25,000",
+   "overviewEn": "A sunrise oreum (volcanic cone) hike with a local guide."
   }
  ]
 }

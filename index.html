@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>놀곳</title>
-  <meta name="description" content="내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에" />
-  <meta name="theme-color" content="#ff5a36" />
+  <meta name="description" content="내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에 · Festivals, shows and exhibitions near you this week" />
+  <meta name="theme-color" content="#f26a1b" />
 
   <!-- iOS Safari: 홈 화면에 추가 시 앱처럼 실행 -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,6 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="놀곳" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
   <link rel="manifest" href="manifest.webmanifest" />
 
@@ -20,23 +21,26 @@
 </head>
 <body>
   <header class="topbar">
-    <button id="regionBtn" class="region-btn" aria-haspopup="dialog">
-      <span class="pin" aria-hidden="true">📍</span>
+    <button id="regionBtn" class="region-btn" aria-haspopup="dialog" data-i18n-aria="region.aria">
+      <span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="var(--accent)" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.6" fill="var(--surface, #fff)"/></svg></span>
       <span id="regionLabel">서울</span>
       <span class="caret" aria-hidden="true">▾</span>
     </button>
-    <div id="sampleBadge" class="sample-badge" hidden>샘플 데이터</div>
+    <div class="topbar-right">
+      <div id="sampleBadge" class="sample-badge" data-i18n="sample.badge" hidden>샘플 데이터</div>
+      <button id="langBtn" class="lang-btn" type="button" data-i18n="lang.switch" data-i18n-aria="lang.switchAria">EN</button>
+    </div>
   </header>
 
-  <nav class="kinds" id="kindTabs" aria-label="카테고리"></nav>
+  <nav class="kinds" id="kindTabs" data-i18n-aria="nav.kinds"></nav>
 
   <main id="view" class="view" tabindex="-1"></main>
 
-  <nav class="tabbar" aria-label="메뉴">
-    <button data-tab="browse" class="active"><span aria-hidden="true">🏠</span>둘러보기</button>
-    <button data-tab="calendar"><span aria-hidden="true">📅</span>캘린더</button>
-    <button data-tab="saved"><span aria-hidden="true">♥</span>관심<em id="savedCount" hidden></em></button>
-    <button data-tab="settings"><span aria-hidden="true">⚙︎</span>설정</button>
+  <nav class="tabbar" data-i18n-aria="nav.menu">
+    <button data-tab="browse" class="active"><span aria-hidden="true">🏠</span><b class="tab-label" data-i18n="tab.browse">둘러보기</b></button>
+    <button data-tab="calendar"><span aria-hidden="true">📅</span><b class="tab-label" data-i18n="tab.calendar">캘린더</b></button>
+    <button data-tab="saved"><span aria-hidden="true">♥</span><b class="tab-label" data-i18n="tab.saved">관심</b><em id="savedCount" hidden></em></button>
+    <button data-tab="settings"><span aria-hidden="true">⚙︎</span><b class="tab-label" data-i18n="tab.settings">설정</b></button>
   </nav>
 
   <!-- 이벤트 상세 -->
@@ -48,10 +52,10 @@
   <!-- iOS 설치 안내 -->
   <div id="installHint" class="install-hint" hidden>
     <div>
-      <strong>홈 화면에 앱 설치하기</strong>
-      <p>Safari 하단의 <b>공유 버튼 <span class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span></b>을 누르고 <b>‘홈 화면에 추가’</b>를 선택하세요. 설치하면 알림도 받을 수 있어요.</p>
+      <strong data-i18n="install.title">홈 화면에 앱 설치하기</strong>
+      <p data-i18n-html="install.body"></p>
     </div>
-    <button id="installClose" aria-label="닫기">✕</button>
+    <button id="installClose" data-i18n-aria="install.close" aria-label="닫기">✕</button>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

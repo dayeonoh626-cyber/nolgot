@@ -28,6 +28,34 @@ const T = [
   ['제주 오름 트레킹 투어', 'tour', '가이드투어', '제주', '새별오름 주차장 집결', '제주특별자치도 제주시 애월읍 봉성리', 33.3660, 126.3578, 5, 1, '08:30~12:00', '25,000원', '현지 가이드와 함께 오르는 일출 오름 트레킹.'],
 ];
 
+// 위 T와 같은 순서의 영문 번역: [titleEn, genreEn, placeEn, addressEn, timeEn, feeEn, overviewEn]
+const EN = [
+  ['Han River Night Book Market', 'Market', 'Banpo Hangang Park', '40 Sinbanpo-ro 11-gil, Seocho-gu, Seoul', '18:00–22:00', 'Free', 'A riverside night market of used books and indie zines, with author signings and street music.'],
+  ['Seongsu Craft Beer Festa', 'Food & drink', 'Seongsu-dong Culture Lot', '20 Seongsui-ro, Seongdong-gu, Seoul', '14:00–21:00', 'Free entry · Tasting pass ₩15,000', 'A beer festival with 30 small Korean breweries.'],
+  ['Winter Light Garden Illumination', 'Light festival', 'Seoul Botanic Park', '161 Magokdong-ro, Gangseo-gu, Seoul', '17:30–22:00', '₩5,000', 'A walking trail of lights winding through the gardens.'],
+  ['Jazz in the Garden', 'Jazz', 'Olympic Park 88 Lawn', '424 Olympic-ro, Songpa-gu, Seoul', '16:00–20:30', 'R ₩99,000 · S ₩77,000', 'An outdoor jazz festival on the lawn.'],
+  ['Play: "The Old Letter"', 'Theater', 'Daehangno Byeolbit Theater', '31 Daehak-ro 12-gil, Jongno-gu, Seoul', 'Weekdays 19:30 / Weekends 15:00, 18:00', '₩35,000', 'A family story about a letter that arrives 30 years late.'],
+  ['Musical Gala Concert "Midsummer Night"', 'Musical', 'Sejong Center Grand Theater', '175 Sejong-daero, Jongno-gu, Seoul', '19:30', 'VIP ₩130,000 · R ₩110,000', 'Favorite musical numbers on a single stage.'],
+  ['Light & Shadow: Media Art', 'Media art', 'DDP Exhibition Hall 1', '281 Eulji-ro, Jung-gu, Seoul', '10:00–20:00 (closed Mon)', 'Adults ₩18,000', 'Twelve immersive media art installations.'],
+  ['Seven Young Photographers', 'Photography', 'Gallery On, Seochon', '50 Jahamun-ro, Jongno-gu, Seoul', '11:00–19:00', 'Free', 'Seven emerging photographers capture everyday city life.'],
+  ['Pottery Wheel One-Day Class', 'Craft', 'Yeonnam Studio Heuk', '240 Donggyo-ro, Mapo-gu, Seoul', '14:00–16:30', '₩65,000 (materials included)', 'Throw your own mug on the wheel. Pick up the fired piece two weeks later.'],
+  ['Suwon Hwaseong Moonlight Walk', 'Night tour', 'Janganmun Gate, Suwon Hwaseong', '910 Jeongjo-ro, Jangan-gu, Suwon, Gyeonggi-do', '19:00–22:00', 'Free', 'A night culture walk along the fortress wall.'],
+  ['Pangyo Tech & Art Week', 'Exhibition', 'Hyundai Children\'s Book Art Museum, Pangyo', '20 Pangyoyeok-ro 146beon-gil, Bundang-gu, Seongnam, Gyeonggi-do', '10:30–19:00', 'Free', 'A hands-on exhibition where technology meets art.'],
+  ['Dumulmeori Kimchi-Making Festival', 'Hands-on', 'Dumulmeori Eco Learning Center', 'Yangsu-ri, Yangseo-myeon, Yangpyeong-gun, Gyeonggi-do', '10:00–16:00', 'Activity ₩20,000', 'A family festival where you make kimchi and take it home.'],
+  ['Incheon Open Port Night Culture Walk', 'Night tour', 'Incheon Open Port Street', 'Sinpo-ro 27beon-gil, Jung-gu, Incheon', '18:00–23:00', 'Free', 'Modern-era buildings open at night, with street performances.'],
+  ['Busan Fireworks & Light Show', 'Fireworks', 'Gwangalli Beach', '219 Gwanganhaebyeon-ro, Suyeong-gu, Busan', '20:00–21:00', 'Free (paid seats available)', 'Fireworks over Gwangan Bridge.'],
+  ['Haeundae Winter Busking Festival', 'Busking', 'Haeundae Beach Event Plaza', '264 Haeundaehaebyeon-ro, Haeundae-gu, Busan', '15:00–20:00', 'Free', 'Daily busking on a stage by the sea.'],
+  ['Yeongdo Coffee Festival', 'Food & drink', 'Bongnaenaru-ro, Yeongdo', '33 Bongnaenaru-ro, Yeongdo-gu, Busan', '11:00–19:00', 'Ticket ₩10,000', 'Forty Busan roasteries in one place.'],
+  ['Daegu Modern Alleys Guided Tour', 'Guided tour', 'Cheongna Hill area', '2029 Dalgubeol-daero, Jung-gu, Daegu', 'Sat & Sun 10:00 / 14:00', 'Free (booking required)', 'A two-hour alley walk with a local culture guide.'],
+  ['Gwangju Biennale Special Exhibition', 'Contemporary art', 'Gwangju Biennale Exhibition Hall', '111 Biennale-ro, Buk-gu, Gwangju', '09:00–18:00', 'Adults ₩14,000', 'A special show of 50 contemporary Asian artists.'],
+  ['Daejeon Science Night', 'Science', 'National Science Museum', '481 Daedeok-daero, Yuseong-gu, Daejeon', '17:00–22:00', 'Free', 'Stargazing and after-dark science activities.'],
+  ['Gangneung Coffee & Sea Festival', 'Food & drink', 'Anmok Beach Coffee Street', 'Changhae-ro 14beon-gil, Gangneung, Gangwon', '10:00–20:00', 'Free', 'A hand-drip contest and market on the seaside coffee street.'],
+  ['Jeonju Hanok Village Gugak Concert', 'Korean traditional music', 'In front of Gyeonggijeon Shrine', '44 Taejo-ro, Wansan-gu, Jeonju, Jeonbuk', '19:00', 'Free', 'Fusion Korean traditional music under hanok rooftops.'],
+  ['Gyeongju Silla Moonlight Audio Walk', 'Audio guide', 'Donggung Palace and Wolji Pond', '102 Wonhwa-ro, Gyeongju, Gyeongsangbuk-do', '18:00–22:00', '₩3,000 (admission separate)', 'A 40-minute night audio guide on your phone.'],
+  ['Jeju Tangerine Picking Festival', 'Hands-on', 'Seogwipo Citrus Museum', '441 Hyodonsunhwan-ro, Seogwipo, Jeju', '09:00–17:00', 'Activity ₩10,000', 'Pick your own tangerines and take them home.'],
+  ['Jeju Oreum Trekking Tour', 'Guided tour', 'Saebyeol Oreum parking lot', 'Bongseong-ri, Aewol-eup, Jeju', '08:30–12:00', '₩25,000', 'A sunrise oreum (volcanic cone) hike with a local guide.'],
+];
+
 export function sampleEvents(today = new Date()) {
   const base = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -37,5 +65,6 @@ export function sampleEvents(today = new Date()) {
     startDate: ymd(add(off)), endDate: ymd(add(off + days - 1)),
     time, fee, free: /^무료/.test(fee) && !/원/.test(fee.replace(/입장료 별도/, '')),
     poster: '', overview, homepage: '', tel: '', source: '샘플 데이터',
+    ...Object.fromEntries(['titleEn', 'genreEn', 'placeEn', 'addressEn', 'timeEn', 'feeEn', 'overviewEn'].map((k, j) => [k, EN[i][j]])),
   }));
 }

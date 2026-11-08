@@ -1,13 +1,13 @@
 {
-  "name": "놀곳 - 내 주변 이벤트",
+  "name": "놀곳 · Nolgot",
   "short_name": "놀곳",
-  "description": "내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에",
+  "description": "내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에 · Festivals, shows and exhibitions near you",
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f5f2",
-  "theme_color": "#ff5a36",
+  "background_color": "#faf6ef",
+  "theme_color": "#f26a1b",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },

@@ -28,21 +28,22 @@ const rot = (x, y, a) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y
 const inHeart = (x, y, s) => { const hx = x / s, hy = -y / s + 0.3; return (hx * hx + hy * hy - 1) ** 3 - hx * hx * hy ** 3 <= 0; };
 const inSparkle = (x, y, cx, cy, s) => Math.sqrt(Math.abs(x - cx)) + Math.sqrt(Math.abs(y - cy)) <= Math.sqrt(s);
 
+// 플랫 디자인: 그라데이션·글로우 없음, 모든 면은 단색 (docs/color-system.md §3)
 const C = {
-  bgA: hex('#ffc24d'), bgB: hex('#ff8a1f'), bgC: hex('#ee5a12'),
-  // 색채 근거: docs/color-system.md §3 — 앰버(낙관)→주황(에너지), 웜화이트 티켓, 레드오렌지 하트, 연노랑 반짝이
-  card: hex('#fffbf4'), cardShade: hex('#fff0d9'), perf: hex('#ffc98a'),
-  heartA: hex('#ff8a1f'), heartB: hex('#e2400e'), stub: hex('#f5a524'), spark: hex('#ffe9a8'),
+  bg: hex('#f26a1b'),          // 브랜드 주황 (에너지)
+  shadow: hex('#c9500f'),      // 단색 하드 섀도 (블러 없음)
+  card: hex('#fffbf4'),        // 웜화이트 티켓
+  stubBg: hex('#fff1dc'),      // 스텁: 크림-앰버 단색
+  perf: hex('#f5a524'),        // 절취선
+  heart: hex('#e2400e'),       // 레드오렌지 하트 (관심 저장)
+  stub: hex('#f5a524'),        // 스텁 별 (앰버, 낙관)
+  spark: hex('#ffe9a8'),       // 연노랑 반짝이
 };
 const ANGLE = -9 * Math.PI / 180;
 const BW = 0.285, BH = 0.195, BR = 0.055, NOTCH = 0.045, PERF_X = 0.115;
 
 function sample(x, y) {
-  // 배경: 대각 그라데이션 + 좌상단 하이라이트
-  const t = clamp((x * 0.55 + y * 0.75) / 1.3);
-  let col = t < 0.6 ? mix(C.bgA, C.bgB, t / 0.6) : mix(C.bgB, C.bgC, (t - 0.6) / 0.4);
-  const glow = Math.max(0, 1 - Math.hypot(x - 0.18, y - 0.12) / 0.6);
-  col = mix(col, [255, 255, 255], glow * glow * 0.22);
+  let col = C.bg;
 
   // 카드 좌표계 (중심, 회전)
   const [cx, cy] = rot(x - 0.5, y - 0.53, -ANGLE);
@@ -54,30 +55,26 @@ function sample(x, y) {
     return d;
   };
 
-  // 그림자
-  const [sx, sy] = rot(x - 0.5, y - 0.575, -ANGLE);
-  const dShadow = sdRoundBox(sx, sy, BW, BH, BR);
-  col = mix(col, hex('#7a3008'), (1 - smooth(-0.02, 0.07, dShadow)) * 0.28);
+  // 단색 하드 섀도: 같은 티켓 모양을 아래로 살짝 밀어 한 톤 진한 주황으로
+  const [sx, sy] = rot(x - 0.5, y - 0.56, -ANGLE);
+  let dShadow = sdRoundBox(sx - 0.0, sy, BW, BH, BR);
+  dShadow = Math.max(dShadow, NOTCH - Math.hypot(sx - PERF_X, sy - BH));
+  dShadow = Math.max(dShadow, NOTCH - Math.hypot(sx - PERF_X, sy + BH));
+  if (dShadow <= 0) col = C.shadow;
 
   if (dCard() <= 0) {
-    // 카드 본체 + 아래쪽 은은한 음영
-    col = mix(C.card, C.cardShade, smooth(-BH, BH, cy));
-    // 오른쪽 스텁
-    if (cx > PERF_X + 0.012) col = mix(col, hex('#fff8ec'), 0.9);
+    col = cx > PERF_X ? C.stubBg : C.card;
     // 절취선 (점선)
-    if (Math.abs(cx - PERF_X) < 0.006 && Math.abs(cy) < BH - NOTCH - 0.01 && ((cy + 1) * 40) % 2 < 1.05) col = C.perf;
+    if (Math.abs(cx - PERF_X) < 0.007 && Math.abs(cy) < BH - NOTCH - 0.012 && ((cy + 1) * 38) % 2 < 1.05) col = C.perf;
     // 하트
-    const hx = cx + 0.085, hy = cy + 0.005;
-    if (inHeart(hx, hy, 0.105)) col = mix(C.heartA, C.heartB, smooth(-0.1, 0.12, hy + hx * 0.4));
-    // 하트 하이라이트
-    if (Math.hypot(hx + 0.045, hy + 0.045) < 0.018) col = mix(col, [255, 255, 255], 0.55);
+    if (inHeart(cx + 0.085, cy + 0.005, 0.105)) col = C.heart;
     // 스텁 안의 작은 별
     if (inSparkle(cx, cy, PERF_X + 0.085, 0, 0.05)) col = C.stub;
   }
 
   // 반짝이 (카드 밖)
   if (inSparkle(x, y, 0.76, 0.215, 0.075)) col = C.spark;
-  if (inSparkle(x, y, 0.235, 0.80, 0.045)) col = mix(C.spark, [255, 255, 255], 0.3);
+  if (inSparkle(x, y, 0.235, 0.80, 0.045)) col = C.spark;
   if (Math.hypot(x - 0.66, y - 0.13) < 0.012) col = C.spark;
   return col;
 }

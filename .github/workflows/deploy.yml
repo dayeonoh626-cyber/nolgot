@@ -1,14 +1,19 @@
-# 이벤트 데이터를 매일 새로 받아 GitHub Pages로 배포한다.
+# 이벤트 데이터를 매일 새로 만들어 GitHub Pages로 배포한다.
 # Settings → Pages → Source 를 "GitHub Actions" 로 설정해야 동작한다.
-# API 키는 Settings → Secrets and variables → Actions 에 TOUR_API_KEY / KOPIS_API_KEY 로 등록.
+# API 키(모두 선택)는 Settings → Secrets and variables → Actions 에 등록. 키가 없어도 키 없는 공식 오픈데이터로 동작한다.
 name: Build data & deploy
 
 on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 21 * * *' # 매일 06:00 KST (21:00 UTC)
+    - cron: '0 21 * * *' # 매일 06:00 KST (21:00 UTC) = 22:00/23:00 독일
   workflow_dispatch:
+    inputs:
+      rebuild_tours:
+        description: '오디오투어를 캐시 없이 다시 생성'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -29,26 +34,45 @@ jobs:
         with:
           node-version: 22
 
-      - name: Fetch events
-        id: fetch
-        # 실패해도 배포는 계속한다: 스크립트가 이전 배포본(PREV_URL)을 캐시로 다시 쓰거나,
-        # 그마저 없으면 저장소에 커밋된 data/events.json(샘플)이 그대로 배포된다.
+      # 지오코딩·og:image 결과 캐시 (매일 같은 주소/페이지를 다시 요청하지 않도록)
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/geocache.json
+            data/imagecache.json
+          key: enrich-${{ github.run_id }}
+          restore-keys: enrich-
+
+      - name: Build event data
+        id: build
+        # 실패해도 배포는 계속한다: 소스별 실패는 이전 배포본(PREV_BASE_URL) 데이터로 대체되고,
+        # 스크립트 전체가 실패하면 저장소에 커밋된 data/ 가 그대로 배포된다.
         continue-on-error: true
-        timeout-minutes: 20
+        timeout-minutes: 30
         env:
           TOUR_API_KEY: ${{ secrets.TOUR_API_KEY }}
           KOPIS_API_KEY: ${{ secrets.KOPIS_API_KEY }}
-          PREV_URL: https://dayeonoh626-cyber.github.io/nolgot/data/events.json
-          ENABLE_EN: '1'
-        run: node scripts/fetch-events.mjs
+          SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
+          CULTURE_API_KEY: ${{ secrets.CULTURE_API_KEY }}
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+          GYG_API_KEY: ${{ secrets.GYG_API_KEY }}
+          IZI_API_KEY: ${{ secrets.IZI_API_KEY }}
+          PREV_BASE_URL: https://dayeonoh626-cyber.github.io/nolgot/data/cities/
+          REBUILD_TOURS: ${{ inputs.rebuild_tours && '1' || '0' }}
+        run: node scripts/build-data.mjs
 
-      - name: Check data file
+      - name: Check data files
         run: |
-          node -e "const j=require('./data/events.json'); if(!Array.isArray(j.events)) process.exit(1); console.log('events:', j.events.length, 'source:', j.meta && j.meta.source)"
+          node -e "
+            const fs=require('fs'); const j=JSON.parse(fs.readFileSync('data/cities.json','utf8'));
+            if(!Array.isArray(j.cities)||!j.cities.length) process.exit(1);
+            let n=0; for(const c of j.cities){ const f=JSON.parse(fs.readFileSync('data/cities/'+c.id+'.json','utf8')); if(!Array.isArray(f.events)) process.exit(1); n+=f.events.length; }
+            console.log('cities:', j.cities.length, 'events:', n);"
 
-      - name: Warn when fetch failed
-        if: steps.fetch.outcome == 'failure'
-        run: echo "::warning::이벤트 데이터 갱신에 실패해 이전/샘플 데이터로 배포합니다. 'Fetch events' 로그를 확인하세요."
+      - name: Warn when build failed
+        if: steps.build.outcome == 'failure'
+        run: echo "::warning::데이터 빌드가 실패해 저장소에 커밋된 데이터로 배포합니다. 'Build event data' 로그를 확인하세요."
 
       - uses: actions/configure-pages@v5
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>놀곳</title>
-  <meta name="description" content="내 주변에서 이번 주 열리는 축제·공연·전시를 한눈에 · Festivals, shows and exhibitions near you this week" />
+  <meta name="description" content="한국·독일 도시의 축제·공연·전시·클래스·투어·오디오가이드를 한눈에 · Festivals, shows, exhibitions, classes, tours and audio guides in Korean and German cities" />
   <meta name="theme-color" content="#f26a1b" />
 
   <!-- iOS Safari: 홈 화면에 추가 시 앱처럼 실행 -->
@@ -23,7 +23,7 @@
   <header class="topbar">
     <button id="regionBtn" class="region-btn" aria-haspopup="dialog" data-i18n-aria="region.aria">
       <span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="var(--accent)" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.6" fill="var(--surface, #fff)"/></svg></span>
-      <span id="regionLabel">서울</span>
+      <span id="regionLabel"></span>
       <span class="caret" aria-hidden="true">▾</span>
     </button>
     <div class="topbar-right">
@@ -39,6 +39,7 @@
   <nav class="tabbar" data-i18n-aria="nav.menu">
     <button data-tab="browse" class="active"><span aria-hidden="true">🏠</span><b class="tab-label" data-i18n="tab.browse">둘러보기</b></button>
     <button data-tab="calendar"><span aria-hidden="true">📅</span><b class="tab-label" data-i18n="tab.calendar">캘린더</b></button>
+    <button data-tab="map"><span aria-hidden="true">🗺️</span><b class="tab-label" data-i18n="tab.map">지도</b></button>
     <button data-tab="saved"><span aria-hidden="true">♥</span><b class="tab-label" data-i18n="tab.saved">관심</b><em id="savedCount" hidden></em></button>
     <button data-tab="settings"><span aria-hidden="true">⚙︎</span><b class="tab-label" data-i18n="tab.settings">설정</b></button>
   </nav>

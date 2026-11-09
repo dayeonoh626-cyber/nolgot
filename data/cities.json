@@ -1,0 +1,613 @@
+{
+ "updatedAt": "2026-11-09T08:15:11.785Z",
+ "cities": [
+  {
+   "id": "seoul",
+   "name": {
+    "ko": "서울",
+    "en": "Seoul"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 37.5665,
+   "lng": 126.978,
+   "radiusKm": 25,
+   "tz": "Asia/Seoul",
+   "count": 7,
+   "counts": {
+    "audioguide": 2,
+    "performance": 4,
+    "festival": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "busan",
+   "name": {
+    "ko": "부산",
+    "en": "Busan"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.1796,
+   "lng": 129.0756,
+   "radiusKm": 25,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "incheon",
+   "name": {
+    "ko": "인천",
+    "en": "Incheon"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 37.4563,
+   "lng": 126.7052,
+   "radiusKm": 30,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "daegu",
+   "name": {
+    "ko": "대구",
+    "en": "Daegu"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.8714,
+   "lng": 128.6014,
+   "radiusKm": 25,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "daejeon",
+   "name": {
+    "ko": "대전",
+    "en": "Daejeon"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 36.3504,
+   "lng": 127.3845,
+   "radiusKm": 20,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "gwangju",
+   "name": {
+    "ko": "광주",
+    "en": "Gwangju"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.1595,
+   "lng": 126.8526,
+   "radiusKm": 20,
+   "tz": "Asia/Seoul",
+   "count": 0,
+   "counts": {},
+   "coordCoverage": null,
+   "posterCoverage": null
+  },
+  {
+   "id": "ulsan",
+   "name": {
+    "ko": "울산",
+    "en": "Ulsan"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.5384,
+   "lng": 129.3114,
+   "radiusKm": 25,
+   "tz": "Asia/Seoul",
+   "count": 1,
+   "counts": {
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "sejong",
+   "name": {
+    "ko": "세종",
+    "en": "Sejong"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 36.48,
+   "lng": 127.289,
+   "radiusKm": 20,
+   "tz": "Asia/Seoul",
+   "count": 1,
+   "counts": {
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "gyeonggi",
+   "name": {
+    "ko": "경기",
+    "en": "Gyeonggi"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 37.2636,
+   "lng": 127.0286,
+   "radiusKm": 70,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "gangwon",
+   "name": {
+    "ko": "강원",
+    "en": "Gangwon"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 37.7519,
+   "lng": 128.8761,
+   "radiusKm": 120,
+   "tz": "Asia/Seoul",
+   "count": 0,
+   "counts": {},
+   "coordCoverage": null,
+   "posterCoverage": null
+  },
+  {
+   "id": "chungbuk",
+   "name": {
+    "ko": "충북",
+    "en": "Chungbuk"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 36.6424,
+   "lng": 127.489,
+   "radiusKm": 80,
+   "tz": "Asia/Seoul",
+   "count": 1,
+   "counts": {
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "chungnam",
+   "name": {
+    "ko": "충남",
+    "en": "Chungnam"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 36.4562,
+   "lng": 126.8022,
+   "radiusKm": 90,
+   "tz": "Asia/Seoul",
+   "count": 1,
+   "counts": {
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "jeonbuk",
+   "name": {
+    "ko": "전북",
+    "en": "Jeonbuk"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.8242,
+   "lng": 127.148,
+   "radiusKm": 80,
+   "tz": "Asia/Seoul",
+   "count": 0,
+   "counts": {},
+   "coordCoverage": null,
+   "posterCoverage": null
+  },
+  {
+   "id": "jeonnam",
+   "name": {
+    "ko": "전남",
+    "en": "Jeonnam"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 34.8161,
+   "lng": 126.4629,
+   "radiusKm": 110,
+   "tz": "Asia/Seoul",
+   "count": 1,
+   "counts": {
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "gyeongbuk",
+   "name": {
+    "ko": "경북",
+    "en": "Gyeongbuk"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 36.576,
+   "lng": 128.5056,
+   "radiusKm": 120,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "gyeongnam",
+   "name": {
+    "ko": "경남",
+    "en": "Gyeongnam"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 35.2383,
+   "lng": 128.6925,
+   "radiusKm": 100,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "jeju",
+   "name": {
+    "ko": "제주",
+    "en": "Jeju"
+   },
+   "country": "KR",
+   "countryName": {
+    "ko": "대한민국",
+    "en": "South Korea"
+   },
+   "lat": 33.4996,
+   "lng": 126.5312,
+   "radiusKm": 50,
+   "tz": "Asia/Seoul",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "berlin",
+   "name": {
+    "ko": "베를린",
+    "en": "Berlin"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 52.52,
+   "lng": 13.405,
+   "radiusKm": 25,
+   "tz": "Europe/Berlin",
+   "count": 334,
+   "counts": {
+    "exhibition": 50,
+    "festival": 87,
+    "performance": 109,
+    "audioguide": 2,
+    "workshop": 78,
+    "tour": 8
+   },
+   "coordCoverage": 99.4,
+   "posterCoverage": 7.5
+  },
+  {
+   "id": "munich",
+   "name": {
+    "ko": "뮌헨",
+    "en": "Munich"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 48.1374,
+   "lng": 11.5755,
+   "radiusKm": 20,
+   "tz": "Europe/Berlin",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "hamburg",
+   "name": {
+    "ko": "함부르크",
+    "en": "Hamburg"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 53.5511,
+   "lng": 9.9937,
+   "radiusKm": 20,
+   "tz": "Europe/Berlin",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  },
+  {
+   "id": "cologne",
+   "name": {
+    "ko": "쾰른",
+    "en": "Cologne"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 50.9375,
+   "lng": 6.9603,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 237,
+   "counts": {
+    "festival": 113,
+    "exhibition": 23,
+    "tour": 47,
+    "performance": 39,
+    "workshop": 13,
+    "audioguide": 2
+   },
+   "coordCoverage": 99.2,
+   "posterCoverage": 72.3
+  },
+  {
+   "id": "frankfurt",
+   "name": {
+    "ko": "프랑크푸르트",
+    "en": "Frankfurt"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 50.1109,
+   "lng": 8.6821,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 3,
+   "counts": {
+    "exhibition": 1,
+    "audioguide": 2
+   },
+   "coordCoverage": 66.7,
+   "posterCoverage": 0
+  },
+  {
+   "id": "stuttgart",
+   "name": {
+    "ko": "슈투트가르트",
+    "en": "Stuttgart"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 48.7758,
+   "lng": 9.1829,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 11,
+   "counts": {
+    "exhibition": 9,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "duesseldorf",
+   "name": {
+    "ko": "뒤셀도르프",
+    "en": "Düsseldorf"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 51.2277,
+   "lng": 6.7735,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 17,
+   "counts": {
+    "festival": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 86.7
+  },
+  {
+   "id": "leipzig",
+   "name": {
+    "ko": "라이프치히",
+    "en": "Leipzig"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 51.3397,
+   "lng": 12.3731,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 51,
+   "counts": {
+    "festival": 14,
+    "performance": 23,
+    "tour": 11,
+    "audioguide": 2,
+    "workshop": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 95.9
+  },
+  {
+   "id": "dresden",
+   "name": {
+    "ko": "드레스덴",
+    "en": "Dresden"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 51.0504,
+   "lng": 13.7373,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 11,
+   "counts": {
+    "audioguide": 2,
+    "festival": 9
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "nuremberg",
+   "name": {
+    "ko": "뉘른베르크",
+    "en": "Nuremberg"
+   },
+   "country": "DE",
+   "countryName": {
+    "ko": "독일",
+    "en": "Germany"
+   },
+   "lat": 49.4521,
+   "lng": 11.0767,
+   "radiusKm": 15,
+   "tz": "Europe/Berlin",
+   "count": 2,
+   "counts": {
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": null
+  }
+ ]
+}

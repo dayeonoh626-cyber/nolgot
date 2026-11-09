@@ -53,6 +53,21 @@
 ```
 앱은 `speechSynthesis`로 언어에 맞는 text를 읽는다(ko-KR / en-US). 텍스트 출처는 위키백과(CC BY-SA 4.0) — 출처·라이선스 표기 필수.
 
+## v2.1 추가 필드 (데이터 에이전트, 하위 호환 — 앱은 무시해도 됨)
+| 위치 | 필드 | 설명 |
+|---|---|---|
+| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `ticketmaster` `viator` `getyourguide` `izi` `wikipedia`). 소스 실패 시 이전 데이터 이월에 사용 |
+| 이벤트 | `alsoFrom` | 중복 병합된 다른 소스 이름 배열 |
+| 이벤트 | `geocoded` | 좌표를 주소 지오코딩(Nominatim)으로 얻었으면 `true` (정확도 낮을 수 있음) |
+| 이벤트 | `detail`, `enDetail`, `enSourceId` | 빌드 캐시용 내부 플래그 |
+| audioguide | `builtAt`, `distanceKm` | 생성일(30일마다 재생성), 코스 길이 |
+| stops | `titleDe`, `textDe`, `sourceUrlKo` | 독일 도시의 독일어 원문, 한국어 위키 링크 |
+| cities.json 각 도시 | `coordCoverage`, `posterCoverage` | 좌표/포스터 보유 비율(%) |
+| 도시 파일 `meta` | `cityId` `updatedAt` `tz` `total` `counts` `coordCoverage` `posterCoverage` `source` `sources[]` `warnings[]` | `sources[]` 각 항목: `{key,name,enabled,ok,count,carriedOver,reason,error,licence,url}` |
+
+빌드 캐시 파일(앱은 읽지 않음): `data/geocache.json`, `data/imagecache.json`. `data/events.json`(v1)은 삭제됨.
+`data/config.json`은 만들지 않는다(Ticketmaster 키를 클라이언트에 노출하지 않음).
+
 ## 원칙
 - 이미지는 **소스가 제공한 것**(API 이미지, 이벤트 공식 페이지의 og:image, Wikimedia Commons)만. 없으면 `poster` 생략 → 앱은 이미지 없는 단색 텍스트 카드.
 - Airbnb·GetYourGuide 웹페이지 스크래핑 금지(약관). 공식 파트너 API 또는 검색 딥링크만.

@@ -56,14 +56,22 @@
 ## v2.1 추가 필드 (데이터 에이전트, 하위 호환 — 앱은 무시해도 됨)
 | 위치 | 필드 | 설명 |
 |---|---|---|
-| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `ticketmaster` `viator` `getyourguide` `izi` `wikipedia`). 소스 실패 시 이전 데이터 이월에 사용 |
+| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` · 유럽: `parisqfap` `openagenda` `datatourisme` `madrid` `barcelona` `ivc` `andalucia` `firenze` `wienmarkets` `agendalx` `wellcome` · 공통: `ticketmaster` `viator` `getyourguide` `izi` `wikipedia`). 소스 실패 시 이전 데이터 이월에 사용 |
 | 이벤트 | `alsoFrom` | 중복 병합된 다른 소스 이름 배열 |
 | 이벤트 | `geocoded` | 좌표를 주소 지오코딩(Nominatim)으로 얻었으면 `true` (정확도 낮을 수 있음) |
 | 이벤트 | `detail`, `enDetail`, `enSourceId` | 빌드 캐시용 내부 플래그 |
 | audioguide | `builtAt`, `distanceKm` | 생성일(30일마다 재생성), 코스 길이 |
-| stops | `titleDe`, `textDe`, `sourceUrlKo` | 독일 도시의 독일어 원문, 한국어 위키 링크 |
+| stops | `titleDe`, `textDe`, `sourceUrlKo` | 독일어권 도시(독일·오스트리아, `wikiLang: de`)의 독일어 원문, 한국어 위키 링크 |
 | cities.json 각 도시 | `coordCoverage`, `posterCoverage` | 좌표/포스터 보유 비율(%) |
 | 도시 파일 `meta` | `cityId` `updatedAt` `tz` `total` `counts` `coordCoverage` `posterCoverage` `source` `sources[]` `warnings[]` | `sources[]` 각 항목: `{key,name,enabled,ok,count,carriedOver,reason,error,licence,url}` |
+
+### v2.2 (유럽 2단계) — 형식 변경 없음
+- 새 나라 코드: `GB` `FR` `ES` `HU` `AT` `IT` `NL` `CH` `PT` `CZ` `BE` (cities.json `country`, `countryName` ko/en 포함). 도시 29곳 추가 → 총 56곳.
+- `tz`는 도시별 IANA 타임존(`Europe/London` `Europe/Paris` `Europe/Madrid` `Europe/Budapest` `Europe/Vienna` `Europe/Rome` `Europe/Amsterdam` `Europe/Zurich` `Europe/Lisbon` `Europe/Prague` `Europe/Brussels`). `startDate`·`startTime`은 그 타임존의 현지 값.
+- `price.currency`는 `EUR` 외에 `GBP` `CHF` `HUF` `CZK`가 올 수 있다(Ticketmaster·Viator).
+- `posterCredit`는 소스가 준 저작자·라이선스 문자열 그대로. **Wellcome Collection 이미지는 대부분 `CC-BY-NC`이며 문자열 끝에 `(non-commercial licence)`를 붙인다** — 상업적 화면(광고·유료 기능)에 쓰면 안 됨.
+- `title`은 원어(프랑스어·스페인어·카탈루냐어·이탈리아어·포르투갈어 등). 이 소스들은 영문 제목을 주지 않아 `titleEn`은 대부분 없음.
+- `meta.sources[]`에는 그 도시에 해당하는 소스만 들어간다(예: 바르셀로나 파일에 마드리드 소스 없음).
 
 빌드 캐시 파일(앱은 읽지 않음): `data/geocache.json`, `data/imagecache.json`. `data/events.json`(v1)은 삭제됨.
 `data/config.json`은 만들지 않는다(Ticketmaster 키를 클라이언트에 노출하지 않음).

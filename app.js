@@ -1361,7 +1361,8 @@ function renderRegionSheet() {
 }
 
 // 지원 지역: 대한민국 → 독일 순 (그 외 나라는 뒤에)
-const COUNTRY_ORDER = ['KR', 'DE'];
+// 지역 선택 시트의 나라 순서: 한국·독일(1단계) → 유럽(2단계, 서→동 대략). 목록에 없는 나라는 뒤에 이름순.
+const COUNTRY_ORDER = ['KR', 'DE', 'FR', 'GB', 'ES', 'IT', 'AT', 'CH', 'NL', 'BE', 'PT', 'CZ', 'HU'];
 const countryRank = cc => { const i = COUNTRY_ORDER.indexOf(cc); return i < 0 ? COUNTRY_ORDER.length : i; };
 
 const cityMatches = (c, q) => norm([c.id, c.name?.ko, c.name?.en, c.country, countryName(c), c.countryName?.ko, c.countryName?.en].filter(Boolean).join(' ')).includes(norm(q));

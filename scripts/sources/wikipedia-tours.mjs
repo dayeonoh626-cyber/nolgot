@@ -14,7 +14,9 @@ const chunks = (a, n) => Array.from({ length: Math.ceil(a.length / n) }, (_, i) 
 const EXCLUDE = /\b(station|stop|district|neighbo(u)?rhood|borough|quarter of|locality|ward|subdivision|administrative|municipality|village|dong\b|school|universit|college|academy|institute|compan(y|ies)|corporation|organi[sz]ation|agency|ministry|authority|party|foundation|association|society|hospital|clinic|hotel|street|road|avenue|boulevard|lane|motorway|expressway|highway|railway|line of|rail line|subway line|airport|apartment|residential|constituency|embassy|consulate|bank|club|team|office|police|court|prison|military|barracks|cemetery|company|broadcaster|newspaper|magazine|shopping mall|department store|restaurant|cinema|parliament(ary)? group|faction|event|battle|protest|parade|competition|festival|human settlement|family name|given name|person|politician|footballer|actor|singer|coup|incident|uprising|movement|treaty|massacre|disaster|election|rebellion|revolution|war\b|capital|\bcity\b|town\b|federal state|state of germany|former (country|state|capital|polity)|historical (country|state|region)|polity|constitutional|legislat|parliament|government|document|manuscript|writing system|alphabet|\bbook\b|novel|edict|chamber of)/i;
 // 설명이 '도시/군/도 자체'인 문서, 음식·품종·소방서·경기장 등 명소가 아닌 것
 const NOT_PLACE = /b(province of|self-governing|metropolitan city of)b|^(capital|(big |port |metropolitan |special |independent |county-level )?city|town|county|province|federal state|state|district)|(dish|food|cuisine|breed|cattle|pig|species|fire (station|department|headquarters)|stadium|arena|sports venue|ballpark|football ground)/i;
-const MUSEUM = /\b(museum|gallery|art (center|centre|hall)|kunsthalle|exhibition)\b|박물관|미술관|기념관|Museum|Galerie|Kunsthalle/i;
+// 유럽 도시에서 걸러야 했던 것: 나라·주·지방(도심 좌표에 지오태그됨), 사건(올림픽·화재·정상회담), 기관·브랜드, 회화·조각 작품, 교통망·경기장
+const NOT_LANDMARK = /^(former |extinct |country|sovereign state|canton|region|autonomous (community|region)|province|roman province|historical|comune|commune|municipality|civil parish|parish|freguesia|area of|suburb|state of|federal|metropolitan)|\b(empire|kingdom|olympiad|olympics|games of|championships?|contest|summit|fire\b|shooting|attack|bombing|media outlet|fashion house|brand|painting by|sculpture by|marble sculptures|fresco|transport system|metro\b|rapid transit|stadium|football|sports (club|venue)|committee|broadcaster|television|radio|conference|experiment|particle (accelerator|collider))\b/i;
+const MUSEUM =/\b(museum|gallery|art (center|centre|hall)|kunsthalle|exhibition)\b|박물관|미술관|기념관|Museum|Galerie|Kunsthalle/i;
 
 // 도심은 지오태그 문서가 매우 많아 한 번의 검색(최대 500건)으로는 중심 1~2km만 잡힌다 → 중심+사방 2km 지점 5회 검색 합집합
 async function geosearch(lang, lat, lng, ringKm = 2) {
@@ -105,14 +107,23 @@ function nnOrder(stops) {
 const routeKm = s => s.slice(1).reduce((acc, x, i) => acc + km(s[i], x), 0);
 
 /** 도시 하나의 오디오투어 이벤트들 (보통 2개) */
+// 한 번의 빌드에서 새로 '생성'하는 도시 수 상한 (나머지는 이전 투어 재사용 또는 다음 실행으로 미룸)
+// → 도시가 크게 늘어도(유럽 29곳) 첫 실행이 길어지지 않고 며칠에 걸쳐 채워진다.
+let builtThisRun = 0;
+const hashDays = id => [...id].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7) % 7; // 0~6일: 재생성 날짜 분산
+
 export async function wikipediaTours(city, ctx) {
   const today0 = todayIn(city.tz);
   const prev = ['highlights', 'museums', 'more'].map(t => ctx.prevById?.get(`wikitour-${city.id}-${t}`)).filter(Boolean);
-  const maxAge = +(process.env.TOUR_REBUILD_DAYS || 30);
+  const maxAge = +(process.env.TOUR_REBUILD_DAYS || 30) + hashDays(city.id);
+  const reuse = () => prev.map(p => ({ ...p, startDate: today0, endDate: addDaysStr(today0, 365) }));
   if (prev.length && prev.every(p => p.builtAt && (Date.parse(today0) - Date.parse(p.builtAt)) / 864e5 < maxAge) && process.env.REBUILD_TOURS !== '1') {
-    return prev.map(p => ({ ...p, startDate: today0, endDate: addDaysStr(today0, 365) }));
+    return reuse();
   }
-  const lang = ctx.country.wikiLang || 'en';
+  const cap = +(process.env.WIKI_BUILD_MAX || 20);
+  if (builtThisRun >= cap) { ctx.warn?.(city.id, `오디오가이드 생성 보류 (이번 실행 상한 WIKI_BUILD_MAX=${cap})`); return reuse(); }
+  builtThisRun++;
+  const lang = city.wikiLang || ctx.country.wikiLang || 'en';
   const [clat, clng] = city.wikiCenter || [city.lat, city.lng];
   let cands = [], geo = [], why = {};
   // 명소가 적으면(지방·도 단위) 검색 범위를 넓혀 다시 시도: 중심±2km → ±12km
@@ -130,6 +141,7 @@ export async function wikipediaTours(city, ctx) {
     if (!i?.image || !w || w.n < minLinks) { why[!i ? 'noinfo' : !i.image ? 'noimg' : !w ? 'nowd' : 'fewlinks'] = (why[!i ? 'noinfo' : !i.image ? 'noimg' : !w ? 'nowd' : 'fewlinks'] || 0) + 1; continue; }
     if (process.env.DEBUG_TOURS && EXCLUDE.test(w.descEn)) { why.excl = (why.excl || 0) + 1; why.ex ||= []; if (why.ex.length < 8) why.ex.push(`${g.title}: ${w.descEn}`); }
     if ([city.name.en, city.name.ko, city.local].some(n => n && (w.labelEn === n || w.labelKo === n || w.labelDe === n || g.title === n))) continue; // 도시 문서 자체 제외
+    if (NOT_LANDMARK.test(w.descEn) || /^\d{4}\b/.test(w.labelEn || g.title) || /^(Flag|Coat_of_arms|Escudo|Wappen|Blason|Stemma)|locator|location_map|_map\b|\.svg$/i.test(i.image)) continue;
     if (EXCLUDE.test(w.descEn) || NOT_PLACE.test(w.descEn) || /품종|음식|요리|소방|의회|경기장|나들목|분기점|교차로|고속도로|Rasse|Gericht|Feuerwehr|Stadion|Autobahn/.test(w.descLocal) || (!w.descEn && EXCLUDE.test(w.labelEn || ''))) continue;
     if (/역$|선$|동$|구$|학교|대학교|병원|아파트|흑돼지|흑우|품종|소방|의회|경기장|운동장|체육관|나들목|분기점|교차로|터미널|경찰서|법원|청사$|요금소|Stadion|Arena|Feuerwehr|Polizei|Landtag|Autobahn|Anschlussstelle|Bahnhof|U-Bahn|S-Bahn|Straße$|straße$|Ministerium|Partei|Schule|Gymnasium/i.test(g.title)) continue;
     cands.push({ local: g.title, lat: g.lat, lng: g.lon, n: w.n, img: i.image, w, museum: MUSEUM.test(`${w.descEn} ${g.title} ${w.labelEn || ''}`) });
@@ -141,7 +153,8 @@ export async function wikipediaTours(city, ctx) {
   if (cands.length < 4) return [];
 
   // 코스 1: 하이라이트 산책 (최고 명소 기준 2.5km 이내 상위 8곳)
-  const start = cands[0];
+  // 시작점: 도심(중심 3km 이내)에서 가장 유명한 곳 — 외곽의 유명 시설(CERN 등)에서 코스가 시작되지 않게
+  const start = cands.find(x => km(x, { lat: clat, lng: clng }) <= 3) || cands[0];
   // 명소가 흩어진 도시·도(道)는 반경을 넓혀 최소 5곳을 확보 (1.8km 도보 → 최대 10km 대중교통 코스)
   let walk = [];
   for (const r of [1.8, 3, 5, 10]) { walk = cands.filter(x => km(x, start) <= r).slice(0, 8); if (walk.length >= 5) break; }
@@ -149,7 +162,7 @@ export async function wikipediaTours(city, ctx) {
   // 코스 2: 박물관·미술관 (없으면 나머지 명소)
   const used = new Set(walk.map(x => x.local));
   let second = cands.filter(x => x.museum && !used.has(x.local)).slice(0, 7), secondType = 'museums';
-  if (second.length < 4) { second = cands.filter(x => !used.has(x.local)).slice(0, 7); secondType = 'more'; }
+  if (second.length < 4) { second = cands.filter(x => !used.has(x.local) && km(x, start) <= 8).slice(0, 7); secondType = 'more'; } // 멀리 흩어진 '더 보기' 코스(경기장·외곽) 방지
   const tours = [['highlights', nnOrder(walk)]];
   if (second.length >= 4) tours.push([secondType, nnOrder(second)]);
 

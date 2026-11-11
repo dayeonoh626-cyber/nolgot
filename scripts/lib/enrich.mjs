@@ -8,7 +8,8 @@ function loadJson(path) { try { return existsSync(path) ? JSON.parse(readFileSyn
 /* ---------- og:image ---------- */
 const IMG_CACHE = 'data/imagecache.json';
 const IMG_TTL_DAYS = 30;
-const BAD_IMG = /(logo|favicon|sprite|placeholder|default[-_]?(image|og)|blank|spacer|icon[-_]?\d*\.(png|svg)|\.svg(\?|$))/i;
+const BAD_IMG = /(logo|favicon|sprite|placeholder|default[-_]?(image|og)|blank|spacer|escudo|wappen|\/marca\/|icon[-_]?\d*\.(png|svg)|\.svg(\?|$))/i;
+const GENERIC_MIN = 5; // 서로 다른 이벤트 5개 이상이 같은 og:image → 사이트 공통 이미지로 보고 버린다
 
 function ogFromHtml(html, base) {
   const head = html.slice(0, 200000);
@@ -34,7 +35,14 @@ export async function enrichImages(events, { max = 300, concurrency = 6 } = {}) 
   const now = Date.now();
   const fresh = c => c && now - c.t < IMG_TTL_DAYS * 864e5;
   let fetched = 0, found = 0;
-  const targets = events.filter(e => !e.poster && e.kind !== 'audioguide');
+  // _noOg: 소스가 "이 링크의 og:image는 이벤트 이미지가 아님"이라고 표시한 이벤트(예: madrid.es 문장)
+  const cand = events.filter(e => !e.poster && e.kind !== 'audioguide' && !e._noOg);
+  // 도시별로 번갈아(라운드로빈) 처리 → 한 도시가 상한(max)을 다 쓰지 않게. 도시 안에서는 가까운 날짜 우선.
+  const byCity = new Map();
+  for (const e of cand) { if (!byCity.has(e.cityId)) byCity.set(e.cityId, []); byCity.get(e.cityId).push(e); }
+  for (const l of byCity.values()) l.sort((a, b) => a.startDate.localeCompare(b.startDate));
+  const targets = []; const lists = [...byCity.values()];
+  for (let i = 0; lists.some(l => i < l.length); i++) for (const l of lists) if (i < l.length) targets.push(l[i]);
   const todo = [];
   for (const e of targets) {
     // 사이트 첫 화면(경로 없음)의 og:image는 기관 로고·대표사진일 뿐 이벤트 이미지가 아니므로 제외
@@ -55,11 +63,17 @@ export async function enrichImages(events, { max = 300, concurrency = 6 } = {}) 
     cache[url] = { img, t: now };
     if (img) { e.poster = img; e.posterCredit ||= `${new URL(url).host} (og:image)`; found++; }
   });
+  // 사이트 공통 이미지(로고·대표사진)를 여러 이벤트에 붙인 경우 제거
+  const isOg = e => e.poster && /\(og:image\)$/.test(e.posterCredit || '');
+  const byImg = new Map();
+  for (const e of events) if (isOg(e)) { if (!byImg.has(e.poster)) byImg.set(e.poster, new Set()); byImg.get(e.poster).add(e.title); }
+  let generic = 0;
+  for (const e of events) if (isOg(e) && byImg.get(e.poster).size >= GENERIC_MIN) { e.poster = ''; e.posterCredit = undefined; generic++; found--; }
   // 캐시 크기 제한
   const keys = Object.keys(cache);
   if (keys.length > 20000) for (const k of keys.sort((a, b) => cache[a].t - cache[b].t).slice(0, keys.length - 20000)) delete cache[k];
   writeFileSync(IMG_CACHE, JSON.stringify(cache));
-  return { fetched, found, pending: Math.max(0, todo.length - batch.length) };
+  return { fetched, found: Math.max(0, found), pending: Math.max(0, todo.length - batch.length), generic };
 }
 
 /* ---------- 지오코딩 (Nominatim, 1 req/s, 캐시) ---------- */
@@ -86,7 +100,9 @@ export async function geocodeEvents(events, cityById, { max = 120, countries = [
     if (!city || !countries.includes(city.country.toLowerCase())) continue;
     const addr = e.address || '';
     if (!addr || addr.length < 6) continue;
-    const q = /\d{5}|berlin|münchen|hamburg|köln|frankfurt|stuttgart|düsseldorf|leipzig|dresden|nürnberg/i.test(addr) ? addr : `${addr}, ${city.name.en}`;
+    // 우편번호나 도시명이 이미 있으면 그대로, 아니면 ", 현지 도시명"을 붙인다 (나라 무관)
+    const names = [city.name.en, ...String(city.local || '').split('/')].map(x => x.trim().toLowerCase()).filter(Boolean);
+    const q = /\b\d{4,5}\b/.test(addr) || names.some(n => addr.toLowerCase().includes(n)) ? addr : `${addr}, ${String(city.local || city.name.en).split('/')[0].trim()}`;
     const key = normAddr(q);
     let c = geoCache[key];
     if (!c) {

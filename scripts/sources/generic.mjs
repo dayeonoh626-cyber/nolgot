@@ -24,6 +24,7 @@ export async function ticketmaster(city, ctx) {
       apikey: key, latlong: `${city.lat},${city.lng}`, radius: String(city.radiusKm), unit: 'km',
       startDateTime: `${today}T00:00:00Z`, endDateTime: `${until}T23:59:59Z`, size: '200', page: String(page), sort: 'date,asc',
       locale: '*',
+      ...(typeof ctx.country.ticketmaster === 'string' ? { countryCode: ctx.country.ticketmaster } : {}),
     })}`;
     const j = await getJson(u);
     raw.push(...(j._embedded?.events || []));

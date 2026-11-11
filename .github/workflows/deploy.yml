@@ -14,6 +14,10 @@ on:
         description: '오디오투어를 캐시 없이 다시 생성'
         type: boolean
         default: false
+      countries:
+        description: '일부 나라만 빌드 (예: FR,ES). 비우면 전체. 나머지 도시는 커밋된 데이터 그대로 배포'
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -48,7 +52,8 @@ jobs:
         # 실패해도 배포는 계속한다: 소스별 실패는 이전 배포본(PREV_BASE_URL) 데이터로 대체되고,
         # 스크립트 전체가 실패하면 저장소에 커밋된 data/ 가 그대로 배포된다.
         continue-on-error: true
-        timeout-minutes: 30
+        # 목표 20분 이내(KR+DE+유럽). 첫 실행에서 오디오가이드는 WIKI_BUILD_MAX 곳씩 나눠 생성된다
+        timeout-minutes: 35
         env:
           TOUR_API_KEY: ${{ secrets.TOUR_API_KEY }}
           KOPIS_API_KEY: ${{ secrets.KOPIS_API_KEY }}
@@ -60,6 +65,9 @@ jobs:
           IZI_API_KEY: ${{ secrets.IZI_API_KEY }}
           PREV_BASE_URL: https://dayeonoh626-cyber.github.io/nolgot/data/cities/
           REBUILD_TOURS: ${{ inputs.rebuild_tours && '1' || '0' }}
+          BUILD_COUNTRIES: ${{ inputs.countries || '' }}
+          WIKI_BUILD_MAX: '20'
+          # 키를 받으면 추가 (아직 통합 전 — README '유럽 키 소스' 참고): UITDATABANK_CLIENT_ID, EDFEST_API_KEY, EDFEST_API_SECRET, SKIDDLE_API_KEY
         run: node scripts/build-data.mjs
 
       - name: Check data files

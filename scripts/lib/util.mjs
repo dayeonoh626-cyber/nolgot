@@ -18,7 +18,8 @@ const hostGap = new Map([
   // Wikimedia: 비로그인 API 속도 제한 → 호스트당 요청 간격 + 직렬 실행
   ['www.wikidata.org', 400],
   ['commons.wikimedia.org', 400],
-  ['en.wikipedia.org', 400], ['ko.wikipedia.org', 400], ['de.wikipedia.org', 400],
+  ...['en', 'ko', 'de', 'fr', 'es', 'it', 'nl', 'pt', 'cs', 'hu', 'ca'].map(l => [`${l}.wikipedia.org`, 400]),
+  ['www.agendalx.pt', 300],
 ]);
 const hostNext = new Map();
 async function throttle(url) {
@@ -120,10 +121,43 @@ export const deDate = s => {
   const y = m[3].length === 2 ? '20' + m[3] : m[3];
   return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 };
+/** 유럽식 DD/MM/YYYY (스페인·이탈리아·포르투갈) → YYYY-MM-DD */
+export const dmyDate = s => {
+  const m = String(s || '').match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  return m ? `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}` : null;
+};
+/** UTC ISO 시각 → 도시 타임존의 현지 날짜/시각 { date: 'YYYY-MM-DD', time: 'HH:MM' } */
+export function tzParts(iso, tz) {
+  const d = new Date(iso);
+  if (isNaN(d)) return { date: null, time: null };
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d).map(x => [x.type, x.value]));
+  return { date: `${p.year}-${p.month}-${p.day}`, time: `${p.hour}:${p.minute}` };
+}
 export const allDeDates = s => [...String(s || '').matchAll(/(\d{1,2})\.(\d{1,2})\.(\d{4})/g)].map(m => `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`);
 /** ISO(오프셋 포함)의 현지 날짜/시각 부분 */
 export const isoLocalDate = s => (String(s || '').match(/^(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
 export const isoLocalTime = s => { const m = String(s || '').match(/T(\d{2}):(\d{2})/); return m && !(m[1] === '00' && m[2] === '00') ? `${m[1]}:${m[2]}` : null; };
+
+/* ---------- 유럽 공통 종류 분류 (fr/es/ca/it/pt/nl/de/en 키워드) ---------- */
+// 우선순위: 가이드투어 > 워크숍 > 전시 > 공연 > (나머지) 축제·행사
+const EU_TOUR = /visite[s]? guidée|balade|promenade|parcours|randonn|visita[s]? guiad|visites? guiad|visita teatral|itinerari|recorrid|ruta[s]?\b|rutes\b|percorso|passeggiata|visitas guiadas|roteiro|passeio|rondleiding|stadswandeling|führung|stadtrundgang|guided (tour|walk)|\b(walking|city|food|bike|boat|museum|gallery|night|ghost|history|audio) tour|tour guidé|\bvisite\b|\bvisita\b/i; // 단독 'tour'는 'World Tour'(콘서트)와 겹쳐 제외
+const EU_WORK = /atelier|cours\b|initiation|taller|tallers|curs\b|cursos|laboratorio|laboratori\b|workshop|oficina|\bcurso\b|masterclass|cursus|werkplaats|\bkurs\b|class\b/i;
+const EU_EXPO = /exposition|\bexpo\b|exposici|exposici[oó]|esposizion|mostra\b|exposiç|exposição|exposicao|tentoonstelling|ausstellung|exhibition|gallery|galerie|installation|vernissage/i;
+const EU_PERF = /concert|spectacle|théâtre|theatre|théatre|danse|opéra|opera\b|cirque|humour|one.man|cinéma|projection|ciné|lecture\b|conférence|conference|récital|concierto|concerts?|teatro|teatre|danza|dansa|baile|ball\b|flamenco|zarzuela|espectacl|cine\b|projecci|proyecci|cuentacuentos|títeres|marionet|recital|conferenci|confer[eèé]nci|xerrad|colloqui|col·loqui|lectures|charla|presentaci|concerto|spettacolo|danza|cinema|proiezion|incontro|reading|concerto|espetáculo|teatro|música|musica|fado|dança|cinema|conferência|sessão|performance|comedy|talk|screening|music|dance|jazz|orchestr|symphon|ballet|musical|voorstelling|toneel|theater|optreden|konzert|\bdj\b|techno|electro|house music|soirée|clubbing|\brave\b/i;
+const EU_FEST = /festival|fête|fete\b|fiesta|festa|feira|fira\b|fires\b|marché|mercado|mercat|mercatino|markt|market|salon\b|carnaval|carnival|christmas|noël|navidad|nadal|natale|natal|kermis|braderie|brocante|parade|desfile|cavalcada|cercavila|correfoc/i;
+
+/** 텍스트(분류·키워드·제목)로 kind 추정 */
+export function kindEu(text, fallback = 'festival') {
+  const t = String(text || '');
+  if (EU_TOUR.test(t)) return 'tour';
+  if (EU_WORK.test(t)) return 'workshop';
+  if (EU_EXPO.test(t)) return 'exhibition';
+  if (EU_PERF.test(t)) return 'performance';
+  if (EU_FEST.test(t)) return 'festival';
+  return fallback;
+}
+export const GENRE_KO = { tour: '가이드 투어', workshop: '워크숍·클래스', exhibition: '전시', performance: '공연', festival: '축제·행사', audioguide: '오디오 가이드' };
+export const GENRE_EN = { tour: 'Guided tour', workshop: 'Workshop', exhibition: 'Exhibition', performance: 'Performance', festival: 'Festival & event', audioguide: 'Audio guide' };
 
 /* ---------- 지리 ---------- */
 export function km(a, b) {

@@ -1,6 +1,6 @@
 // 커버하는 도시와 나라별 소스 모듈 등록부.
 //
-// 새 나라 추가 = (1) 아래 CITIES에 도시 추가  (2) 필요하면 scripts/sources/{cc}.mjs 작성 후 COUNTRIES에 등록.
+// 새 나라 추가 = (1) 아래 CITIES에 도시 추가 (도시별 wikiLang 으로 나라 기본값을 덮어쓸 수 있음)  (2) 필요하면 scripts/sources/{cc}.mjs 작성 후 COUNTRIES에 등록.
 // 공통 소스(Wikipedia 오디오투어, Ticketmaster, Viator, GetYourGuide, izi.TRAVEL, og:image 보강)는
 // 나라 모듈 없이도 모든 도시에 자동 적용된다.
 
@@ -20,6 +20,21 @@ export const COUNTRIES = {
     ticketmaster: true,
     geocode: true,             // 주소만 있는 이벤트를 Nominatim으로 좌표화
   },
+
+  // ---- 유럽 (2단계) — docs/sources-research-europe.md 표 1 ----
+  // ticketmaster: 문자열이면 Discovery API countryCode 로도 거른다 (국경 너머 이벤트 제외). true = 반경만.
+  // module 이 없는 나라(HU·NL·CZ)는 공식 오픈 이벤트 피드가 없어 공통 소스만 쓴다.
+  GB: { name: { ko: '영국', en: 'United Kingdom' }, wikiLang: 'en', currency: 'GBP', module: './sources/gb.mjs', ticketmaster: 'GB', geocode: true },
+  FR: { name: { ko: '프랑스', en: 'France' }, wikiLang: 'fr', currency: 'EUR', module: './sources/fr.mjs', ticketmaster: 'FR', geocode: true },
+  ES: { name: { ko: '스페인', en: 'Spain' }, wikiLang: 'es', currency: 'EUR', module: './sources/es.mjs', ticketmaster: 'ES', geocode: true },
+  HU: { name: { ko: '헝가리', en: 'Hungary' }, wikiLang: 'hu', currency: 'HUF', ticketmaster: 'HU', geocode: true },
+  AT: { name: { ko: '오스트리아', en: 'Austria' }, wikiLang: 'de', currency: 'EUR', module: './sources/at.mjs', ticketmaster: 'AT', geocode: true },
+  IT: { name: { ko: '이탈리아', en: 'Italy' }, wikiLang: 'it', currency: 'EUR', module: './sources/it.mjs', ticketmaster: 'IT', geocode: true },
+  NL: { name: { ko: '네덜란드', en: 'Netherlands' }, wikiLang: 'nl', currency: 'EUR', ticketmaster: 'NL', geocode: true },
+  CH: { name: { ko: '스위스', en: 'Switzerland' }, wikiLang: 'de', currency: 'CHF', module: './sources/ch.mjs', ticketmaster: 'CH', geocode: true }, // 제네바는 도시별 wikiLang fr
+  PT: { name: { ko: '포르투갈', en: 'Portugal' }, wikiLang: 'pt', currency: 'EUR', module: './sources/pt.mjs', ticketmaster: 'PT', geocode: true },
+  CZ: { name: { ko: '체코', en: 'Czechia' }, wikiLang: 'cs', currency: 'CZK', ticketmaster: 'CZ', geocode: true },
+  BE: { name: { ko: '벨기에', en: 'Belgium' }, wikiLang: 'fr', currency: 'EUR', module: './sources/be.mjs', ticketmaster: 'BE', geocode: true }, // 안트베르펜은 도시별 wikiLang nl
 };
 
 const c = (id, country, ko, en, lat, lng, radiusKm, tz, extra = {}) => ({ id, country, name: { ko, en }, lat, lng, radiusKm, tz, ...extra });
@@ -55,6 +70,47 @@ export const CITIES = [
   c('leipzig', 'DE', '라이프치히', 'Leipzig', 51.3397, 12.3731, 15, 'Europe/Berlin', { local: 'Leipzig' }),
   c('dresden', 'DE', '드레스덴', 'Dresden', 51.0504, 13.7373, 15, 'Europe/Berlin', { local: 'Dresden' }),
   c('nuremberg', 'DE', '뉘른베르크', 'Nuremberg', 49.4521, 11.0767, 15, 'Europe/Berlin', { local: 'Nürnberg' }),
+
+  // ---- 영국 ----
+  c('london', 'GB', '런던', 'London', 51.5074, -0.1278, 30, 'Europe/London', { local: 'London' }),
+  c('manchester', 'GB', '맨체스터', 'Manchester', 53.4808, -2.2426, 20, 'Europe/London', { local: 'Manchester' }),
+  c('edinburgh', 'GB', '에든버러', 'Edinburgh', 55.9533, -3.1883, 15, 'Europe/London', { local: 'Edinburgh' }),
+  c('liverpool', 'GB', '리버풀', 'Liverpool', 53.4084, -2.9916, 15, 'Europe/London', { local: 'Liverpool' }),
+  // ---- 프랑스 ----
+  c('paris', 'FR', '파리', 'Paris', 48.8566, 2.3522, 20, 'Europe/Paris', { local: 'Paris' }),
+  c('lyon', 'FR', '리옹', 'Lyon', 45.7640, 4.8357, 15, 'Europe/Paris', { local: 'Lyon' }),
+  c('marseille', 'FR', '마르세유', 'Marseille', 43.2965, 5.3698, 20, 'Europe/Paris', { local: 'Marseille' }),
+  c('nice', 'FR', '니스', 'Nice', 43.7102, 7.2620, 15, 'Europe/Paris', { local: 'Nice' }),
+  // ---- 스페인 ----
+  c('madrid', 'ES', '마드리드', 'Madrid', 40.4168, -3.7038, 20, 'Europe/Madrid', { local: 'Madrid' }),
+  c('barcelona', 'ES', '바르셀로나', 'Barcelona', 41.3874, 2.1686, 15, 'Europe/Madrid', { local: 'Barcelona' }),
+  c('valencia', 'ES', '발렌시아', 'Valencia', 39.4699, -0.3763, 15, 'Europe/Madrid', { local: 'València' }),
+  c('seville', 'ES', '세비야', 'Seville', 37.3891, -5.9845, 15, 'Europe/Madrid', { local: 'Sevilla' }),
+  // ---- 헝가리 ----
+  c('budapest', 'HU', '부다페스트', 'Budapest', 47.4979, 19.0402, 20, 'Europe/Budapest', { local: 'Budapest' }),
+  // ---- 오스트리아 ----
+  c('vienna', 'AT', '빈', 'Vienna', 48.2082, 16.3738, 20, 'Europe/Vienna', { local: 'Wien' }),
+  c('salzburg', 'AT', '잘츠부르크', 'Salzburg', 47.8095, 13.0550, 15, 'Europe/Vienna', { local: 'Salzburg' }),
+  // ---- 이탈리아 ----
+  c('rome', 'IT', '로마', 'Rome', 41.9028, 12.4964, 20, 'Europe/Rome', { local: 'Roma' }),
+  c('milan', 'IT', '밀라노', 'Milan', 45.4642, 9.1900, 20, 'Europe/Rome', { local: 'Milano' }),
+  c('florence', 'IT', '피렌체', 'Florence', 43.7696, 11.2558, 12, 'Europe/Rome', { local: 'Firenze' }),
+  c('venice', 'IT', '베네치아', 'Venice', 45.4408, 12.3155, 12, 'Europe/Rome', { local: 'Venezia' }),
+  c('naples', 'IT', '나폴리', 'Naples', 40.8518, 14.2681, 15, 'Europe/Rome', { local: 'Napoli' }),
+  // ---- 네덜란드 ----
+  c('amsterdam', 'NL', '암스테르담', 'Amsterdam', 52.3676, 4.9041, 15, 'Europe/Amsterdam', { local: 'Amsterdam' }),
+  c('rotterdam', 'NL', '로테르담', 'Rotterdam', 51.9244, 4.4777, 15, 'Europe/Amsterdam', { local: 'Rotterdam' }),
+  // ---- 스위스 ----
+  c('zurich', 'CH', '취리히', 'Zurich', 47.3769, 8.5417, 15, 'Europe/Zurich', { local: 'Zürich' }),
+  c('geneva', 'CH', '제네바', 'Geneva', 46.2044, 6.1432, 12, 'Europe/Zurich', { local: 'Genève', wikiLang: 'fr' }),
+  // ---- 포르투갈 ----
+  c('lisbon', 'PT', '리스본', 'Lisbon', 38.7223, -9.1393, 15, 'Europe/Lisbon', { local: 'Lisboa' }),
+  c('porto', 'PT', '포르투', 'Porto', 41.1579, -8.6291, 12, 'Europe/Lisbon', { local: 'Porto' }),
+  // ---- 체코 ----
+  c('prague', 'CZ', '프라하', 'Prague', 50.0755, 14.4378, 20, 'Europe/Prague', { local: 'Praha' }),
+  // ---- 벨기에 ----
+  c('brussels', 'BE', '브뤼셀', 'Brussels', 50.8503, 4.3517, 15, 'Europe/Brussels', { local: 'Bruxelles / Brussel', wikiLang: 'fr' }),
+  c('antwerp', 'BE', '안트베르펜', 'Antwerp', 51.2194, 4.4025, 12, 'Europe/Brussels', { local: 'Antwerpen', wikiLang: 'nl' }),
 ].map(city => ({ ...city, countryName: COUNTRIES[city.country].name }));
 
 export const cityById = new Map(CITIES.map(x => [x.id, x]));

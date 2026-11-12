@@ -11,7 +11,7 @@ export const REGION_EN = {
 export const DICT = {
   ko: {
     'app.name': '놀곳',
-    'app.desc': '한국·유럽·미국·호주·아시아 도시의 축제·공연·전시·체험을 한눈에',
+    'app.desc': '전 세계 도시의 축제·공연·전시·체험을 한눈에',
     'lang.switch': 'EN',
     'lang.switchAria': 'Switch to English',
     'sample.badge': '샘플 데이터',
@@ -110,7 +110,7 @@ export const DICT = {
     'set.installOther': '브라우저 메뉴에서 ‘앱 설치’ 또는 ‘홈 화면에 추가’',
     'set.data': '데이터', 'set.dataSample': '샘플 데이터 (API 키 연결 전)',
     'set.updated': '업데이트: {at} · {n}',
-    'set.cities': '지원 도시 {n}곳 (대한민국·유럽·미국·호주·아시아)',
+    'set.cities': '지원 도시 {n}곳 (전 세계 6개 대륙)',
     'set.reset': '관심 목록 초기화', 'set.resetConfirm': '관심 목록을 모두 지울까요?',
 
     'detail.close': '닫기', 'detail.days': ' · {n}일간', 'detail.localTime': ' · 현지 시간({tz})',
@@ -165,8 +165,8 @@ export const DICT = {
     'region.nearest': '가장 가까운 지원 도시: {city} · {km}km', 'region.isCovered': '지원 도시: {city}',
     'region.nearestNone': '{km}km 안에 지원 도시가 없어요',
     'region.nearestToast': '가장 가까운 지원 도시 {city}({km}km)로 이동했어요',
-    'region.noneNear': '‘{place}’ 주변 {km}km 안에는 아직 지원 도시가 없어요. 지금은 대한민국·유럽·미국·호주·아시아 주요 도시를 지원하고, 다른 지역도 차례로 늘려가고 있어요. 아래 사이트에서 이 지역의 체험을 찾아볼 수 있어요.',
-    'region.nearFar': '가장 가까운 지원 도시는 {city}({km}km)예요. 지금은 대한민국·유럽·미국·호주·아시아 주요 도시를 지원해요.',
+    'region.noneNear': '‘{place}’ 주변 {km}km 안에는 아직 지원 도시가 없어요. 지금은 세계 주요 도시를 지원하고, 다른 지역도 차례로 늘려가고 있어요. 아래 사이트에서 이 지역의 체험을 찾아볼 수 있어요.',
+    'region.nearFar': '가장 가까운 지원 도시는 {city}({km}km)예요. 지금은 세계 주요 도시를 지원해요.',
     'region.back': '다시 검색하기',
     'region.geoCredit': '장소 검색: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (GeoNames, CC BY 4.0)',
 
@@ -191,7 +191,7 @@ export const DICT = {
 
   en: {
     'app.name': 'Nolgot',
-    'app.desc': 'Festivals, shows, exhibitions and experiences in cities across Korea, Europe, the US, Australia and Asia',
+    'app.desc': 'Festivals, shows, exhibitions and experiences in cities around the world',
     'lang.switch': '한',
     'lang.switchAria': '한국어로 보기',
     'sample.badge': 'Sample data',
@@ -290,7 +290,7 @@ export const DICT = {
     'set.installOther': 'Use your browser menu → “Install app” or “Add to Home Screen”',
     'set.data': 'Data', 'set.dataSample': 'Sample data (no API key connected yet)',
     'set.updated': 'Updated {at} · {n}',
-    'set.cities': v => `${plural(v.n, 'city', 'cities')} covered (Korea, Europe, the US, Australia & Asia)`,
+    'set.cities': v => `${plural(v.n, 'city', 'cities')} covered across six continents`,
     'set.reset': 'Clear saved events', 'set.resetConfirm': 'Remove all saved events?',
 
     'detail.close': 'Close', 'detail.days': v => ` · ${plural(v.n, 'day', 'days')}`, 'detail.localTime': ' · local time ({tz})',
@@ -345,8 +345,8 @@ export const DICT = {
     'region.nearest': 'Nearest covered city: {city} · {km} km', 'region.isCovered': 'Covered: {city}',
     'region.nearestNone': 'No covered city within {km} km',
     'region.nearestToast': 'Showing the nearest covered city, {city} ({km} km)',
-    'region.noneNear': 'There’s no covered city within {km} km of “{place}” yet — for now we cover major cities in South Korea, Europe, the US, Australia and Asia, with more regions on the way. You can still browse experiences there on the sites below.',
-    'region.nearFar': 'The nearest covered city is {city} ({km} km). For now we cover major cities in South Korea, Europe, the US, Australia and Asia.',
+    'region.noneNear': 'There’s no covered city within {km} km of “{place}” yet — for now we cover major cities around the world, with more regions on the way. You can still browse experiences there on the sites below.',
+    'region.nearFar': 'The nearest covered city is {city} ({km} km). For now we cover major cities around the world.',
     'region.back': 'Search again',
     'region.geoCredit': 'Place search: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (GeoNames, CC BY 4.0)',
 

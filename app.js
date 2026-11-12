@@ -119,7 +119,13 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platfor
 const isStandalone = () => navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
 
 // 필드 현지화 (docs/data-contract.md): e[field + 'Ko'|'En'] → 없으면 e[field]
-const L = (o, f) => (o ? (o[f + (getLang() === 'en' ? 'En' : 'Ko')] || o[f] || '') : '');
+// 한국어 모드에서 원문이 아랍·태국·에티오피아·키릴·데바나가리·히브리 문자면 영어 이름을 먼저 쓴다
+const HARD_SCRIPT = /[Ѐ-ӿ֐-ۿݐ-ࣿऀ-ॿ฀-๿ሀ-፿]/;
+const L = (o, f) => {
+  if (!o) return '';
+  if (getLang() === 'en') return o[f + 'En'] || o[f] || '';
+  return o[f + 'Ko'] || (HARD_SCRIPT.test(o[f] || '') && o[f + 'En']) || o[f] || '';
+};
 const L_title = o => L(o, 'title'); // Leaflet 전역 L과 이름이 겹치는 지도 코드에서 사용
 
 /* ------------------------------------------------------------------ */
@@ -1445,7 +1451,8 @@ function renderRegionSheet() {
 // 지원 지역: 대한민국 → 독일 순 (그 외 나라는 뒤에)
 // 지역 선택 시트의 나라 순서: 한국·독일(1단계) → 유럽(2단계, 서→동 대략). 목록에 없는 나라는 뒤에 이름순.
 const COUNTRY_ORDER = ['KR', 'DE', 'FR', 'GB', 'ES', 'IT', 'AT', 'CH', 'NL', 'BE', 'PT', 'CZ', 'HU',
-  'US', 'AU', 'JP', 'TW', 'HK', 'SG', 'TH', 'VN', 'MY', 'PH', 'ID', 'CN']; // 3단계: 미국·호주·아시아
+  'US', 'AU', 'JP', 'TW', 'HK', 'SG', 'TH', 'VN', 'MY', 'PH', 'ID', 'CN', // 3단계: 미국·호주·아시아
+  'CA', 'MX', 'BR', 'AR', 'CL', 'CO', 'PE', 'ZA', 'EG', 'MA', 'KE', 'NG', 'GH', 'TZ', 'ET', 'SN', 'RW']; // 4단계: 미주·아프리카
 const countryRank = cc => { const i = COUNTRY_ORDER.indexOf(cc); return i < 0 ? COUNTRY_ORDER.length : i; };
 
 const cityMatches = (c, q) => norm([c.id, c.name?.ko, c.name?.en, c.country, countryName(c), c.countryName?.ko, c.countryName?.en].filter(Boolean).join(' ')).includes(norm(q));

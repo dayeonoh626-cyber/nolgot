@@ -56,7 +56,7 @@
 ## v2.1 추가 필드 (데이터 에이전트, 하위 호환 — 앱은 무시해도 됨)
 | 위치 | 필드 | 설명 |
 |---|---|---|
-| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `hamburgtourismus` `bayerncloud` `visitfrankfurt` `stuttgart` `muenchenxmas` `wikidata`(독일 행사 회차) `openagenda` · 유럽: `parisqfap` `openagenda` `datatourisme` `madrid` `barcelona` `ivc` `andalucia` `firenze` `wienmarkets` `agendalx` `wellcome` · 3단계: `smithsonian` `our415` `nycparks` `chipublib` `chiparks` `nps`(키 필요) `brisbane` `iculture` `twtourism` `lcsd` `urbtix` `doorkeeper` `minato` · 공통: `ticketmaster` `viator` `getyourguide` `izi` `wikipedia` `places`). 소스 실패 시 이전 데이터 이월에 사용 |
+| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `hamburgtourismus` `bayerncloud` `visitfrankfurt` `stuttgart` `muenchenxmas` `wikidata`(독일 행사 회차) `openagenda` · 유럽: `parisqfap` `openagenda` `datatourisme` `madrid` `barcelona` `ivc` `andalucia` `firenze` `wienmarkets` `agendalx` `wellcome` · 3단계: `smithsonian` `our415` `nycparks` `chipublib` `chiparks` `nps`(키 필요) `brisbane` `iculture` `twtourism` `lcsd` `urbtix` `doorkeeper` `minato` · 4단계: `torontoevents` `montreal` `tpl` `quicket`(키 필요) · 공통: `ticketmaster` `viator` `getyourguide` `izi` `wikipedia` `places`). 소스 실패 시 이전 데이터 이월에 사용 |
 | 이벤트 | `alsoFrom` | 중복 병합된 다른 소스 이름 배열 |
 | 이벤트 | `geocoded` | 좌표를 주소 지오코딩(Nominatim)으로 얻었으면 `true` (정확도 낮을 수 있음) |
 | 이벤트 | `detail`, `enDetail`, `enSourceId` | 빌드 캐시용 내부 플래그 |
@@ -94,6 +94,18 @@
 - `doorkeeper` 항목: Doorkeeper API 약관상 **이벤트를 보여 줄 때 Doorkeeper 이벤트 페이지(`sourceUrl`) 링크를 반드시 함께 표시**해야 하고 `rel="nofollow"`를 붙이면 안 된다.
 - `smithsonian` 항목: 스미소니언 웹 이용약관(개방 라이선스 아님). 출처 표기 + `sourceUrl`(si.edu) 링크백 필수, 상업적 이용 전 확인 필요.
 - `nps`는 `NPS_API_KEY`가 있을 때만 켜진다(없으면 `meta.sources[]`에 `enabled:false, reason`).
+
+### v2.5 (4단계: 아메리카 나머지 · 아프리카) — 형식 변경 없음
+- 새 나라 코드: `CA` `MX` `BR` `AR` `CL` `CO` `PE` `ZA` `EG` `MA` `KE` `NG` `GH` `TZ` `ET` `SN` `RW`. 도시 23곳 추가(조사 문서 표 25곳 중 과달라하라·아바나 보류) → 총 110곳.
+- 새 `tz`: `America/Toronto`(토론토·몬트리올) `America/Vancouver` `America/Mexico_City` `America/Sao_Paulo` `America/Argentina/Buenos_Aires` `America/Santiago` `America/Bogota` `America/Lima` `Africa/Johannesburg` `Africa/Cairo` `Africa/Casablanca` `Africa/Nairobi` `Africa/Lagos` `Africa/Accra` `Africa/Dar_es_Salaam` `Africa/Addis_Ababa` `Africa/Dakar` `Africa/Kigali`.
+- `price.currency`에 `CAD` `MXN` `BRL` `ARS` `CLP` `COP` `PEN` `ZAR` `MAD` `GHS`가 올 수 있다(키 소스).
+- **`title`은 원어**: 몬트리올 `montreal`은 프랑스어. `places`는 도시 `wikiLang`의 이름을 `title`로 쓰므로 카이로는 아랍어(`ar`), 모로코·다카르·몬트리올은 프랑스어, 중남미는 스페인어·포르투갈어 — 영문 이름은 `titleEn`.
+- 키 없는 날짜 있는 이벤트는 **토론토·몬트리올뿐**. 나머지 21곳은 `places`(상설 명소)·`wikipedia`(오디오가이드)와 키 소스(Ticketmaster·Viator·GYG·izi, 남아공 Quicket)만 쓴다.
+- `places` 보조(채움) 순위에 **모스크·교회 건물**(Wikidata Q32815·Q16970)이 추가됐다. 박물관·명소가 10곳 미만인 도시에서만, 도시당 최대 5곳(`PLACES_WORSHIP_MAX`). `genre`는 `명소`/`Landmark`.
+- `torontoevents`: 포스터는 `https://secure.toronto.ca/c3api_upload/retrieve/festivals_events/{id}` (원본 1~2MB → lazy load 권장). 출처 표기 "Contains information licensed under the Open Government Licence – Toronto".
+- `tpl`(토론토 공공도서관): 분류 아이콘·공용 배너는 쓰지 않아 대부분 `posterKind: venue`(분관 사진). `sourceUrl`은 `tpl.bibliocommons.com/events/{id}`(봇 요청엔 202 챌린지, 브라우저는 정상).
+- `montreal`: 이미지는 행사 페이지(montreal.ca) og:image(Cloudinary). CC BY 4.0, 출처 "Ville de Montréal".
+- `quicket`은 `QUICKET_API_KEY`가 있을 때만 켜진다(없으면 `meta.sources[]`에 `enabled:false, reason`).
 
 ## 원칙
 - 이미지는 **소스가 제공한 것**(API 이미지, 이벤트 공식 페이지의 og:image, Wikimedia Commons)만. 없으면 `poster` 생략 → 앱은 이미지 없는 단색 텍스트 카드.

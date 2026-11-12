@@ -17,6 +17,8 @@ const TIMEOUT = {
   sydney: 'sydney', melbourne: 'melbourne', brisbane: 'brisbane', perth: 'perth', adelaide: 'adelaide',
   tokyo: 'tokyo', osaka: 'osaka', taipei: 'taipei', hongkong: 'hong-kong', singapore: 'singapore', bangkok: 'bangkok',
   kualalumpur: 'kuala-lumpur', hanoi: 'hanoi', manila: 'manila', jakarta: 'jakarta', bali: 'bali',
+  toronto: 'toronto', montreal: 'montreal', vancouver: 'vancouver', mexicocity: 'mexico-city', buenosaires: 'buenos-aires', bogota: 'bogota',
+  capetown: 'cape-town', johannesburg: 'johannesburg', marrakech: 'marrakech', accra: 'accra',
 };
 const LIVE = ['performance', 'festival'];
 const ART = ['exhibition'];
@@ -74,6 +76,66 @@ export const GUIDES = {
     MY: [
       ['Visit Kuala Lumpur', 'https://www.visitkualalumpur.com/', ALL, '쿠알라룸푸르 관광청', 'Kuala Lumpur tourism board'],
     ],
+    CA: [
+      ["Ticketmaster Canada", "https://www.ticketmaster.ca/search?q={en}", LIVE, "콘서트·공연 예매", "Concerts and shows"],
+    ],
+    MX: [
+      ["Ticketmaster México", "https://www.ticketmaster.com.mx/", LIVE, "콘서트·공연 예매", "Concerts and shows"],
+      ["eticket.mx", "https://www.eticket.mx/", LIVE, "공연·행사 예매", "Shows and events"],
+      ["Boletia", "https://boletia.com/", ALL, "행사·워크숍 예매", "Events and workshops"],
+    ],
+    BR: [
+      ["Sympla", "https://www.sympla.com.br/eventos", ALL, "브라질 최대 행사 플랫폼", "Brazil's largest events platform"],
+      ["Eventim Brasil", "https://www.eventim.com.br/", LIVE, "공연 예매", "Shows"],
+      ["Ticketmaster Brasil", "https://www.ticketmaster.com.br/", LIVE, "콘서트 예매", "Concerts"],
+    ],
+    AR: [
+      ["Alternativa Teatral", "https://www.alternativateatral.com/", ['performance'], "부에노스아이레스 연극 일정", "Buenos Aires theatre listings"],
+      ["Ticketek Argentina", "https://www.ticketek.com.ar/", LIVE, "공연 예매", "Shows"],
+    ],
+    CL: [
+      ["PuntoTicket", "https://www.puntoticket.com/", LIVE, "공연 예매", "Shows"],
+      ["Ticketmaster Chile", "https://www.ticketmaster.cl/", LIVE, "콘서트 예매", "Concerts"],
+    ],
+    CO: [
+      ["TuBoleta", "https://tuboleta.com/", LIVE, "공연·행사 예매", "Shows and events"],
+    ],
+    PE: [
+      ["Joinnus", "https://www.joinnus.com/", ALL, "행사·워크숍", "Events and workshops"],
+      ["Teleticket", "https://teleticket.com.pe/", LIVE, "공연 예매", "Shows"],
+    ],
+    ZA: [
+      ["Quicket", "https://www.quicket.co.za/events/", ALL, "남아공 행사 예매", "South African events"],
+      ["Webtickets", "https://www.webtickets.co.za/", LIVE, "공연 예매", "Shows"],
+      ["Howler", "https://www.howler.co.za/", ['festival'], "페스티벌 티켓", "Festival tickets"],
+      ["Computicket", "https://www.computicket.com/", LIVE, "남아공 대표 예매처", "Main South African ticket seller"],
+    ],
+    EG: [
+      ["Tazkarti", "https://www.tazkarti.com/", LIVE, "이집트 공식 예매", "Official Egyptian tickets"],
+      ["Ticketsmarché", "https://www.ticketsmarche.com/", LIVE, "공연·행사 예매", "Shows and events"],
+    ],
+    MA: [
+      ["Guichet", "https://guichet.com/ma-fr", LIVE, "모로코 공연·행사 예매", "Moroccan shows and events"],
+      ["Visit Morocco", "https://www.visitmorocco.com/en", ALL, "모로코 관광청", "Moroccan tourism board"],
+    ],
+    KE: [
+      ["Ticketsasa", "https://www.ticketsasa.com/", LIVE, "케냐 행사 예매", "Kenyan events"],
+      ["Mookh", "https://mookh.com/", ALL, "행사·체험 예매", "Events and experiences"],
+    ],
+    NG: [
+      ["Nairabox", "https://nairabox.com/", LIVE, "나이지리아 행사 예매", "Nigerian events"],
+      ["Tix Africa", "https://tix.africa/", LIVE, "행사 예매", "Events"],
+    ],
+    GH: [
+      ["Visit Ghana Events", "https://visitghana.com/events/", ALL, "가나 관광청 행사", "Ghana tourism events"],
+      ["Egotickets", "https://egotickets.com/", LIVE, "행사 예매", "Events"],
+    ],
+    RW: [
+      ["Visit Rwanda Events", "https://visitrwanda.com/events/", ALL, "르완다 관광청 행사", "Rwanda tourism events"],
+    ],
+    SN: [
+      ["Au Sénégal", "https://www.au-senegal.com/", ALL, "세네갈 여행·행사 가이드", "Senegal travel and events guide"],
+    ],
     DE: [
       ['Eventim', 'https://www.eventim.de/search/?searchterm={en}', LIVE, '독일 최대 티켓 예매처', "Germany's largest ticket seller"],
       ['Reservix', 'https://www.reservix.de/', LIVE, '지역 공연·축제 예매', 'Regional shows and festivals'],
@@ -87,6 +149,57 @@ export const GUIDES = {
     melbourne: [["What's On Melbourne", 'https://whatson.melbourne.vic.gov.au/', ALL, '멜버른시 공식 행사 달력', 'Official city events calendar']],
     brisbane: [['Visit Brisbane', 'https://www.visitbrisbane.com.au/whats-on', ALL, '관광청 이벤트', 'Tourism board events']],
     tokyo: [['Walkerplus 도쿄', 'https://www.walkerplus.com/event_list/today/ar0313/', ALL, '오늘 도쿄 이벤트 (일본어)', "Today's Tokyo events (Japanese)"]],
+    toronto: [
+      ["City of Toronto 행사", "https://www.toronto.ca/explore-enjoy/festivals-events/festivals-events-calendar/", ALL, "토론토시 공식 축제·행사 달력", "Official city festival calendar"],
+      ["Destination Toronto", "https://www.destinationtoronto.com/events/", ALL, "관광청 이벤트", "Tourism board events"],
+    ],
+    montreal: [
+      ["Ville de Montréal", "https://montreal.ca/evenements", ALL, "몬트리올시 공식 행사", "Official city events"],
+      ["Tourisme Montréal", "https://www.mtl.org/en/what-to-do/festivals-and-events", ['festival', 'performance'], "관광청 축제·행사", "Tourism board festivals"],
+    ],
+    vancouver: [
+      ["Destination Vancouver", "https://www.destinationvancouver.com/events", ALL, "관광청 이벤트", "Tourism board events"],
+    ],
+    mexicocity: [
+      ["Cartelera CDMX", "https://cartelera.cdmx.gob.mx/", ALL, "멕시코시티 공식 문화 달력", "Official city culture calendar"],
+      ["Time Out México", "https://www.timeoutmexico.mx/ciudad-de-mexico", ALL, "현지 도시 가이드 (스페인어)", "Local city guide (Spanish)"],
+    ],
+    saopaulo: [
+      ["Sesc São Paulo", "https://www.sescsp.org.br/programacao/", ALL, "상파울루 최대 문화기관 프로그램", "Programme of the city's biggest cultural network"],
+      ["Cidade de São Paulo", "https://www.cidadedesaopaulo.com/agenda/", ALL, "관광청 아젠다", "Tourism agenda"],
+    ],
+    riodejaneiro: [
+      ["Visit.Rio", "https://visit.rio/", ALL, "리우 관광청", "Rio tourism board"],
+    ],
+    buenosaires: [
+      ["Agenda BA", "https://linda.buenosaires.gob.ar/agenda", ALL, "부에노스아이레스시 공식 아젠다", "Official city agenda"],
+      ["Teatro Colón", "https://teatrocolon.org.ar/", ['performance'], "콜론 극장 공연", "Teatro Colón programme"],
+    ],
+    santiago: [
+      ["ChileCultura", "https://chilecultura.gob.cl/events/", ALL, "칠레 문화부 행사 달력", "Ministry of Culture events"],
+      ["Santiago Cultura", "https://www.santiagocultura.cl/", ALL, "산티아고시 문화", "City culture"],
+    ],
+    bogota: [
+      ["Agenda cultural de Bogotá", "https://bogota.gov.co/que-hacer/agenda-cultural", ALL, "보고타시 공식 문화 아젠다", "Official city culture agenda"],
+      ["IDARTES", "https://www.idartes.gov.co/es/agenda", ALL, "보고타 예술청 아젠다", "City arts agency agenda"],
+    ],
+    medellin: [
+      ["Medellín Travel", "https://www.medellin.travel/", ALL, "메데인 공식 관광", "Official tourism"],
+    ],
+    lima: [
+      ["Ministerio de Cultura", "https://www.gob.pe/cultura", ALL, "페루 문화부", "Peruvian Ministry of Culture"],
+    ],
+    capetown: [
+      ["Cape Town Tourism", "https://www.capetown.travel/events/", ALL, "관광청 이벤트", "Tourism board events"],
+    ],
+    cairo: [
+      ["Cairo 360", "https://www.cairo360.com/", ALL, "카이로 현지 가이드", "Local Cairo guide"],
+      ["Cairo Opera House", "https://www.cairoopera.org/", ['performance'], "카이로 오페라하우스", "Cairo Opera House"],
+      ["Experience Egypt", "https://www.experienceegypt.eg/en", ALL, "이집트 관광청", "Egypt tourism board"],
+    ],
+    nairobi: [
+      ["Magical Kenya", "https://magicalkenya.com/", ALL, "케냐 관광청", "Kenya tourism board"],
+    ],
     berlin: [
       ['berlin.de 행사 달력', 'https://www.berlin.de/en/events/', ALL, '베를린시 공식 행사 달력', 'Official city events calendar'],
       ['visitBerlin', 'https://www.visitberlin.de/en/event-calendar-berlin', ALL, '관광청 이벤트 캘린더', 'Tourism board event calendar'],

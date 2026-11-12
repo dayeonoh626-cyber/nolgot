@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-12T07:17:58.408Z",
+ "updatedAt": "2026-11-12T09:00:12.953Z",
  "cities": [
   {
    "id": "seoul",
@@ -2114,6 +2114,542 @@
    "counts": {
     "audioguide": 2,
     "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "toronto",
+   "name": {
+    "ko": "토론토",
+    "en": "Toronto"
+   },
+   "country": "CA",
+   "countryName": {
+    "ko": "캐나다",
+    "en": "Canada"
+   },
+   "lat": 43.6532,
+   "lng": -79.3832,
+   "radiusKm": 25,
+   "tz": "America/Toronto",
+   "count": 628,
+   "counts": {
+    "performance": 218,
+    "exhibition": 72,
+    "workshop": 186,
+    "festival": 136,
+    "tour": 14,
+    "audioguide": 2
+   },
+   "coordCoverage": 98.9,
+   "posterCoverage": 100
+  },
+  {
+   "id": "montreal",
+   "name": {
+    "ko": "몬트리올",
+    "en": "Montreal"
+   },
+   "country": "CA",
+   "countryName": {
+    "ko": "캐나다",
+    "en": "Canada"
+   },
+   "lat": 45.5019,
+   "lng": -73.5674,
+   "radiusKm": 20,
+   "tz": "America/Toronto",
+   "count": 514,
+   "counts": {
+    "workshop": 49,
+    "exhibition": 95,
+    "performance": 351,
+    "festival": 17,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "vancouver",
+   "name": {
+    "ko": "밴쿠버",
+    "en": "Vancouver"
+   },
+   "country": "CA",
+   "countryName": {
+    "ko": "캐나다",
+    "en": "Canada"
+   },
+   "lat": 49.2827,
+   "lng": -123.1207,
+   "radiusKm": 20,
+   "tz": "America/Vancouver",
+   "count": 16,
+   "counts": {
+    "exhibition": 14,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "mexicocity",
+   "name": {
+    "ko": "멕시코시티",
+    "en": "Mexico City"
+   },
+   "country": "MX",
+   "countryName": {
+    "ko": "멕시코",
+    "en": "Mexico"
+   },
+   "lat": 19.4326,
+   "lng": -99.1332,
+   "radiusKm": 25,
+   "tz": "America/Mexico_City",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "saopaulo",
+   "name": {
+    "ko": "상파울루",
+    "en": "São Paulo"
+   },
+   "country": "BR",
+   "countryName": {
+    "ko": "브라질",
+    "en": "Brazil"
+   },
+   "lat": -23.5505,
+   "lng": -46.6333,
+   "radiusKm": 25,
+   "tz": "America/Sao_Paulo",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "riodejaneiro",
+   "name": {
+    "ko": "리우데자네이루",
+    "en": "Rio de Janeiro"
+   },
+   "country": "BR",
+   "countryName": {
+    "ko": "브라질",
+    "en": "Brazil"
+   },
+   "lat": -22.9068,
+   "lng": -43.1729,
+   "radiusKm": 25,
+   "tz": "America/Sao_Paulo",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "buenosaires",
+   "name": {
+    "ko": "부에노스아이레스",
+    "en": "Buenos Aires"
+   },
+   "country": "AR",
+   "countryName": {
+    "ko": "아르헨티나",
+    "en": "Argentina"
+   },
+   "lat": -34.6037,
+   "lng": -58.3816,
+   "radiusKm": 20,
+   "tz": "America/Argentina/Buenos_Aires",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "santiago",
+   "name": {
+    "ko": "산티아고",
+    "en": "Santiago"
+   },
+   "country": "CL",
+   "countryName": {
+    "ko": "칠레",
+    "en": "Chile"
+   },
+   "lat": -33.4372,
+   "lng": -70.6506,
+   "radiusKm": 20,
+   "tz": "America/Santiago",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "bogota",
+   "name": {
+    "ko": "보고타",
+    "en": "Bogotá"
+   },
+   "country": "CO",
+   "countryName": {
+    "ko": "콜롬비아",
+    "en": "Colombia"
+   },
+   "lat": 4.5981,
+   "lng": -74.076,
+   "radiusKm": 20,
+   "tz": "America/Bogota",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "medellin",
+   "name": {
+    "ko": "메데인",
+    "en": "Medellín"
+   },
+   "country": "CO",
+   "countryName": {
+    "ko": "콜롬비아",
+    "en": "Colombia"
+   },
+   "lat": 6.2476,
+   "lng": -75.5658,
+   "radiusKm": 15,
+   "tz": "America/Bogota",
+   "count": 14,
+   "counts": {
+    "exhibition": 12,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "lima",
+   "name": {
+    "ko": "리마",
+    "en": "Lima"
+   },
+   "country": "PE",
+   "countryName": {
+    "ko": "페루",
+    "en": "Peru"
+   },
+   "lat": -12.0464,
+   "lng": -77.0428,
+   "radiusKm": 20,
+   "tz": "America/Lima",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "capetown",
+   "name": {
+    "ko": "케이프타운",
+    "en": "Cape Town"
+   },
+   "country": "ZA",
+   "countryName": {
+    "ko": "남아프리카공화국",
+    "en": "South Africa"
+   },
+   "lat": -33.9249,
+   "lng": 18.4241,
+   "radiusKm": 25,
+   "tz": "Africa/Johannesburg",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "johannesburg",
+   "name": {
+    "ko": "요하네스버그",
+    "en": "Johannesburg"
+   },
+   "country": "ZA",
+   "countryName": {
+    "ko": "남아프리카공화국",
+    "en": "South Africa"
+   },
+   "lat": -26.2041,
+   "lng": 28.0473,
+   "radiusKm": 25,
+   "tz": "Africa/Johannesburg",
+   "count": 16,
+   "counts": {
+    "exhibition": 14,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "cairo",
+   "name": {
+    "ko": "카이로",
+    "en": "Cairo"
+   },
+   "country": "EG",
+   "countryName": {
+    "ko": "이집트",
+    "en": "Egypt"
+   },
+   "lat": 30.0444,
+   "lng": 31.2357,
+   "radiusKm": 25,
+   "tz": "Africa/Cairo",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "marrakech",
+   "name": {
+    "ko": "마라케시",
+    "en": "Marrakesh"
+   },
+   "country": "MA",
+   "countryName": {
+    "ko": "모로코",
+    "en": "Morocco"
+   },
+   "lat": 31.6295,
+   "lng": -7.9811,
+   "radiusKm": 15,
+   "tz": "Africa/Casablanca",
+   "count": 15,
+   "counts": {
+    "exhibition": 13,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "casablanca",
+   "name": {
+    "ko": "카사블랑카",
+    "en": "Casablanca"
+   },
+   "country": "MA",
+   "countryName": {
+    "ko": "모로코",
+    "en": "Morocco"
+   },
+   "lat": 33.5731,
+   "lng": -7.5898,
+   "radiusKm": 20,
+   "tz": "Africa/Casablanca",
+   "count": 12,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "nairobi",
+   "name": {
+    "ko": "나이로비",
+    "en": "Nairobi"
+   },
+   "country": "KE",
+   "countryName": {
+    "ko": "케냐",
+    "en": "Kenya"
+   },
+   "lat": -1.2864,
+   "lng": 36.8172,
+   "radiusKm": 20,
+   "tz": "Africa/Nairobi",
+   "count": 11,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "lagos",
+   "name": {
+    "ko": "라고스",
+    "en": "Lagos"
+   },
+   "country": "NG",
+   "countryName": {
+    "ko": "나이지리아",
+    "en": "Nigeria"
+   },
+   "lat": 6.455,
+   "lng": 3.3941,
+   "radiusKm": 25,
+   "tz": "Africa/Lagos",
+   "count": 12,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "accra",
+   "name": {
+    "ko": "아크라",
+    "en": "Accra"
+   },
+   "country": "GH",
+   "countryName": {
+    "ko": "가나",
+    "en": "Ghana"
+   },
+   "lat": 5.6037,
+   "lng": -0.187,
+   "radiusKm": 20,
+   "tz": "Africa/Accra",
+   "count": 12,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 10
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "zanzibar",
+   "name": {
+    "ko": "잔지바르(스톤타운)",
+    "en": "Zanzibar (Stone Town)"
+   },
+   "country": "TZ",
+   "countryName": {
+    "ko": "탄자니아",
+    "en": "Tanzania"
+   },
+   "lat": -6.163,
+   "lng": 39.188,
+   "radiusKm": 30,
+   "tz": "Africa/Dar_es_Salaam",
+   "count": 11,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "addisababa",
+   "name": {
+    "ko": "아디스아바바",
+    "en": "Addis Ababa"
+   },
+   "country": "ET",
+   "countryName": {
+    "ko": "에티오피아",
+    "en": "Ethiopia"
+   },
+   "lat": 9.03,
+   "lng": 38.74,
+   "radiusKm": 20,
+   "tz": "Africa/Addis_Ababa",
+   "count": 12,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "dakar",
+   "name": {
+    "ko": "다카르",
+    "en": "Dakar"
+   },
+   "country": "SN",
+   "countryName": {
+    "ko": "세네갈",
+    "en": "Senegal"
+   },
+   "lat": 14.6928,
+   "lng": -17.4467,
+   "radiusKm": 20,
+   "tz": "Africa/Dakar",
+   "count": 12,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 10
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "kigali",
+   "name": {
+    "ko": "키갈리",
+    "en": "Kigali"
+   },
+   "country": "RW",
+   "countryName": {
+    "ko": "르완다",
+    "en": "Rwanda"
+   },
+   "lat": -1.9441,
+   "lng": 30.0619,
+   "radiusKm": 20,
+   "tz": "Africa/Kigali",
+   "count": 11,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 1
    },
    "coordCoverage": 100,
    "posterCoverage": 100

@@ -21,6 +21,9 @@ const COUNTRY_QID = {
   KR: ['Q884'], DE: ['Q183'], GB: ['Q145'], FR: ['Q142'], ES: ['Q29'], HU: ['Q28'], AT: ['Q40'], IT: ['Q38', 'Q237'], NL: ['Q55'], CH: ['Q39'], PT: ['Q45'], CZ: ['Q213'], BE: ['Q31'],
   // 3단계. 홍콩 항목은 Wikidata에서 대부분 P17=중국(Q148)이라 둘 다 받고, 아래 REGION_QID(홍콩 P131)로 선전(深圳)을 걸러낸다.
   US: ['Q30'], AU: ['Q408'], JP: ['Q17'], TW: ['Q865'], HK: ['Q8646', 'Q148'], SG: ['Q334'], TH: ['Q869'], VN: ['Q881'], MY: ['Q833'], PH: ['Q928'], ID: ['Q252'], CN: ['Q148'],
+  // 4단계 (docs/sources-research-phase4.md 1장 표)
+  CA: ['Q16'], MX: ['Q96'], BR: ['Q155'], AR: ['Q414'], CL: ['Q298'], CO: ['Q739'], PE: ['Q419'],
+  ZA: ['Q258'], EG: ['Q79'], MA: ['Q1028'], KE: ['Q114'], NG: ['Q1033'], GH: ['Q117'], TZ: ['Q924'], ET: ['Q115'], SN: ['Q1041'], RW: ['Q1037'],
 };
 // 반경이 이웃 행정구역과 겹치는 도시는 행정구역(P131 상위 체인)으로 거른다:
 // 한국 광역시·도(경기 ↔ 서울 등), 홍콩(반경 25km가 선전까지 닿음)
@@ -38,7 +41,12 @@ const LANDMARK = ['Q43501', 'Q2281788', 'Q167346', 'Q272231', 'Q1711697', 'Q6426
 // 위 두 범주로 10곳이 안 될 때만 채우는 보조 명소 (주로 한국 광역시: 박물관 항목이 적다)
 const EXTRA = ['Q2977', 'Q5393308', 'Q1566035', 'Q839954', 'Q570116', 'Q488856', 'Q5952771', 'Q276173', 'Q1440300', 'Q2416723',
   'Q22746', 'Q22698', 'Q1107656', 'Q330284', 'Q40080', 'Q46169', 'Q8502', 'Q23442', 'Q23397', 'Q34038']; // 대성당·사찰·유적·관광명소·서원·향교·정자·전망대·테마파크·(도시)공원·정원·시장·해변·국립공원·산·섬·호수·폭포
-const MUSEUM_SET = new Set(MUSEUM), LANDMARK_SET = new Set(LANDMARK);
+// 4단계: 모스크 · 교회 건물 — 이슬람권·라고스·중남미 구시가의 대표 명소(카사블랑카 하산 2세 모스크 등)가 이 분류라 보조 명소에 더한다.
+// EXTRA 와 같은 '부족할 때만 채우는' 순위이지만 검색은 따로 한다: 유럽·한국은 교회 항목이 수천 건이라 같은 검색에 넣으면
+// 결과 상한(500)을 교회가 차지해 기존 보조 명소(사찰·향교·전망대 등)가 밀려난다. 채움 단계에서도 도시당 WORSHIP_FILL_MAX 곳까지만.
+const WORSHIP = ['Q32815', 'Q16970'];
+const WORSHIP_FILL_MAX = +(process.env.PLACES_WORSHIP_MAX || 5);
+const MUSEUM_SET = new Set(MUSEUM), LANDMARK_SET = new Set(LANDMARK), WORSHIP_SET = new Set(WORSHIP), EXTRA_SET = new Set(EXTRA);
 // 관저 · 대통령궁 · 대사관 · 정부청사 · 의회 건물
 const CLOSED_USE = new Set(['Q481289', 'Q2114972', 'Q3917681', 'Q16831714', 'Q7138926', 'Q1588733']);
 
@@ -95,12 +103,22 @@ async function queryCity(city, lang) {
   const local = lang === 'en' || lang === 'ko' ? null : lang;
   const ids = await search([...MUSEUM, ...LANDMARK], city, cc, radius);
   const extraIds = await search(EXTRA, city, cc, radius);
-  const all = [...new Set([...ids, ...extraIds])];
-  const sl = await entities(all, 'sitelinks');
-  const ranked = all.map(q => ({ qid: q, n: Object.keys(sl.get(q)?.sitelinks || {}).length, sitelinks: sl.get(q)?.sitelinks || {} })).sort((a, b) => b.n - a.n);
+  const worshipIds = await search(WORSHIP, city, cc, radius);
+  const main = [...new Set([...ids, ...extraIds])];
+  const mainSet = new Set(main);
   const out = [];
   const region = REGION_QID[city.id];
-  for (let i = 0; i < ranked.length && out.length < MAX * 3; i += 50) {
+  // 모스크·교회는 따로 순위를 매기고 몫(WORSHIP_FILL_MAX*2)도 따로 둔다 — 같은 순위표에 넣으면 로마·베를린처럼
+  // 사이트링크가 많은 성당이 상위 MAX*3 후보 자리를 차지해 박물관이 밀려난다.
+  await collect(main, MAX * 3);
+  await collect(worshipIds.filter(q => !mainSet.has(q)), WORSHIP_FILL_MAX * 2);
+  return out;
+
+  async function collect(qids, budget) {
+  const sl = await entities(qids, 'sitelinks');
+  const ranked = qids.map(q => ({ qid: q, n: Object.keys(sl.get(q)?.sitelinks || {}).length, sitelinks: sl.get(q)?.sitelinks || {} })).sort((a, b) => b.n - a.n);
+  const start = out.length;
+  for (let i = 0; i < ranked.length && out.length - start < budget; i += 50) {
     const slice = ranked.slice(i, i + 50);
     const es = await entities(slice.map(x => x.qid), 'claims|labels', ['ko', 'en', local].filter(Boolean).join('|'));
     for (const x of slice) {
@@ -127,10 +145,11 @@ async function queryCity(city, lang) {
         labelKo: e.labels?.ko?.value, labelEn: e.labels?.en?.value, labelLocal: local ? e.labels?.[local]?.value : undefined,
         titleEn: s.enwiki?.title, titleKo: s.kowiki?.title, titleLocal: local ? s[`${local}wiki`]?.title : undefined,
         urlEn: wurl('en', s.enwiki?.title), urlKo: wurl('ko', s.kowiki?.title), urlLocal: local ? wurl(local, s[`${local}wiki`]?.title) : undefined,
+        urlAny: anyWiki(s, wurl),
       });
     }
   }
-  return out;
+  }
 }
 
 /* ---------- 위키백과 요약 · Commons 이미지 ---------- */
@@ -169,6 +188,14 @@ async function commonsImages(files) {
 }
 const fileName = u => { try { return decodeURIComponent(String(u).split('/Special:FilePath/')[1] || '').replace(/_/g, ' '); } catch { return ''; } };
 
+// en·ko·현지어 문서가 없는 항목의 다른 언어 위키백과 문서 (fr·es·pt·de·ar·sw·rw… 순) — 채움 단계 마지막 후보용
+const ANY_LANGS = ['fr', 'es', 'pt', 'de', 'it', 'nl', 'ar', 'sw', 'rw', 'am', 'yo', 'ha', 'ig', 'zu', 'af', 'wo'];
+function anyWiki(s, wurl) {
+  for (const l of ANY_LANGS) if (s[`${l}wiki`]?.title) return wurl(l, s[`${l}wiki`].title);
+  const k = Object.keys(s).find(k => /^[a-z]{2,3}wiki$/.test(k) && !/^(commons|species|meta|simple)wiki$/.test(k));
+  return k ? wurl(k.slice(0, -4), s[k].title) : undefined;
+}
+
 /* ---------- 선정 ---------- */
 function pick(cands, city) {
   const cityNames = new Set([city.name.en, city.name.ko, city.local].filter(Boolean));
@@ -178,7 +205,21 @@ function pick(cands, city) {
   const tier = c => c.cls.some(x => MUSEUM_SET.has(x) || LANDMARK_SET.has(x)) && c.n >= 2 ? 1 : 2;
   const primary = ok.filter(c => tier(c) === 1);
   const chosen = primary.slice(0, MAX);
-  if (chosen.length < MIN) chosen.push(...ok.filter(c => tier(c) === 2).slice(0, MIN - chosen.length));
+  if (chosen.length < MIN) {
+    // 보조 순위: 유명도순. 모스크·교회(다른 보조 분류에 속하지 않는 것)는 WORSHIP_FILL_MAX 곳까지만
+    let worship = 0;
+    const onlyWorship = c => c.cls.some(x => WORSHIP_SET.has(x)) && !c.cls.some(x => EXTRA_SET.has(x) || MUSEUM_SET.has(x) || LANDMARK_SET.has(x));
+    // 같은 보조 순위 안에서는 사진(P18) 있는 곳 먼저 — 섬·산 등 사진 없는 항목이 대표 이미지 없이 들어오지 않게
+    // 그다음 en·ko·현지어 문서는 없지만 다른 언어 문서와 사진이 있는 곳, 마지막으로 사진 없는 곳
+    const t2 = ok.filter(c => tier(c) === 2);
+    const okSet = new Set(ok);
+    const other = cands.filter(c => !okSet.has(c) && c.lat != null && c.image && c.urlAny && (c.labelEn || c.labelKo || c.labelLocal) && ![c.labelEn, c.labelKo, c.labelLocal].some(l => cityNames.has(l)));
+    for (const c of [...t2.filter(c => c.image), ...other, ...t2.filter(c => !c.image)]) {
+      if (chosen.length >= MIN) break;
+      if (onlyWorship(c)) { if (worship >= WORSHIP_FILL_MAX) continue; worship++; }
+      chosen.push(c);
+    }
+  }
   // 좌표가 거의 같은 중복(같은 건물의 박물관 2개 항목 등)은 유명한 쪽 하나만
   const kept = [];
   for (const c of chosen) if (!kept.some(k => km(k, c) < 0.03 && (k.labelEn || '') === (c.labelEn || ''))) kept.push(c);
@@ -187,7 +228,12 @@ function pick(cands, city) {
 
 async function build(city, ctx) {
   const lang = city.wikiLang || ctx.country?.wikiLang || 'en';
-  const chosen = pick(await queryCity(city, lang), city);
+  let chosen = pick(await queryCity(city, lang), city);
+  // 반경 안 후보가 10곳 미만(키갈리 등)이면 반경을 1.6배로 넓혀 한 번 더
+  if (chosen.length < MIN && city.country !== 'KR' && !REGION_QID[city.id]) {
+    const wide = pick(await queryCity({ ...city, radiusKm: Math.round(city.radiusKm * 1.6) }, lang), city);
+    if (wide.length > chosen.length) chosen = wide;
+  }
   if (!chosen.length) return [];
   // P18 사진이 없으면 그 항목의 위키백과 문서 대표 사진(자유 라이선스만)으로
   const noImg = chosen.filter(c => !c.image);
@@ -204,6 +250,24 @@ async function build(city, ctx) {
         }
       } catch { /* 사진 없이 진행 */ }
     }
+  }
+  // 그래도 사진이 없는 보조 항목(섬·산 등): 10곳이 넘으면 빼고, 모자라면 넓힌 반경의 사진 있는 후보로 바꾼다
+  const bare = chosen.filter(c => !c.image && !(c.cls.some(x => MUSEUM_SET.has(x) || LANDMARK_SET.has(x)) && c.n >= 2));
+  if (bare.length && city.country !== 'KR' && !REGION_QID[city.id]) {
+    const keep = chosen.filter(c => !bare.includes(c));
+    let extra = [];
+    if (keep.length < MIN) {
+      const cityNames = new Set([city.name.en, city.name.ko, city.local].filter(Boolean));
+      const have = new Set(chosen.map(c => c.qid));
+      try {
+        extra = (await queryCity({ ...city, radiusKm: Math.round(city.radiusKm * 1.6) }, lang))
+          .filter(c => !have.has(c.qid) && c.image && (c.urlEn || c.urlKo || c.urlLocal || c.urlAny) && (c.labelEn || c.labelKo || c.labelLocal)
+            && ![c.labelEn, c.labelKo, c.labelLocal].some(l => cityNames.has(l)))
+          .slice(0, MIN - keep.length);
+      } catch { /* 그대로 */ }
+    }
+    // 대체 후보가 모자라면 사진 없는 항목을 남겨 10곳을 지킨다 (그 경우 근처 명소 사진 체인으로)
+    chosen = [...keep, ...extra, ...bare.slice(0, Math.max(0, MIN - keep.length - extra.length))];
   }
   const [exEn, exKo, exLoc, imgs] = await Promise.all([
     extracts('en', chosen.map(c => c.titleEn)),
@@ -226,7 +290,7 @@ async function build(city, ctx) {
       overview: textLoc || textEn || textKo || undefined, overviewEn: textEn || undefined, overviewKo: textKo || undefined,
       poster: im?.url, posterCredit: im?.credit,
       homepage: c.site && /^https?:\/\//.test(c.site) ? c.site.replace(/^http:/, 'https:') : undefined,
-      sourceUrl: c.urlEn || c.urlKo || c.urlLocal, sourceUrlKo: c.urlKo || undefined,
+      sourceUrl: c.urlEn || c.urlKo || c.urlLocal || c.urlAny, sourceUrlKo: c.urlKo || undefined,
     };
   });
 }
@@ -264,3 +328,6 @@ export async function places(city, ctx) {
 }
 
 export const meta = { key: 'places', name: 'Wikidata 상설 명소 (박물관·미술관·동물원·궁전 등)', licence: 'Wikidata CC0 · Wikipedia text CC BY-SA 4.0 · images per-file (Commons)', url: 'https://query.wikidata.org/' };
+
+// 진단용 (scripts 밖에서 선정 결과만 비교할 때)
+export const _internal = { queryCity, pick, build };

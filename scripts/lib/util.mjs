@@ -18,12 +18,15 @@ const hostGap = new Map([
   // Wikimedia: 비로그인 API 속도 제한 → 호스트당 요청 간격 + 직렬 실행
   ['www.wikidata.org', 400],
   ['commons.wikimedia.org', 400],
-  ...['en', 'ko', 'de', 'fr', 'es', 'it', 'nl', 'pt', 'cs', 'hu', 'ca', 'ja', 'zh', 'th', 'vi', 'ms', 'id', 'tl'].map(l => [`${l}.wikipedia.org`, 400]),
+  ...['en', 'ko', 'de', 'fr', 'es', 'it', 'nl', 'pt', 'cs', 'hu', 'ca', 'ja', 'zh', 'th', 'vi', 'ms', 'id', 'tl', 'ar', 'sw', 'am', 'af'].map(l => [`${l}.wikipedia.org`, 400]),
   ['www.agendalx.pt', 300],
   // 3단계 (미국·호주·아시아)
   ['api.doorkeeper.jp', 1200],        // 비인증 요청 레이트 리밋이 낮다
   ['developer.nps.gov', 400],
   ['cloud.culture.tw', 300],
+  // 4단계
+  ['www.donneesquebec.ca', 300],
+  ['api.quicket.co.za', 300],
 ]);
 // 3단계 소스 모듈이 쓰는 봇 User-Agent (사용자 지정 형식)
 export const BOT_UA = 'NolgotBot/1.0 (+https://github.com/dayeonoh626-cyber/nolgot)';

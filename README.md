@@ -1,14 +1,15 @@
 # 놀곳 — 이번 주 어디 놀러 갈까?
 
 도시를 고르면 그 주변의 **축제·공연·전시·클래스·가이드투어·오디오가이드**를 모아 보여주는 웹앱(PWA)입니다.
-지금은 **한국 17개 시·도 + 독일 10개 도시 + 유럽 11개국 29개 도시**(영국·프랑스·스페인·헝가리·오스트리아·이탈리아·네덜란드·스위스·포르투갈·체코·벨기에)를 지원하고, 나라를 계속 추가할 수 있게 만들었어요.
+지금은 **6개 대륙 42개 나라 110개 도시**를 지원해요. 한국 17개 시·도, 독일 10개 도시, 유럽 11개국, 미국·호주·일본·대만·홍콩·동남아·중국 31개 도시, 캐나다·중남미·아프리카 23개 도시가 들어 있고, 모든 도시에 항목 10개 이상과 대표 이미지가 있어요.
 아이폰 Safari에서 **홈 화면에 추가**하면 일반 앱처럼 설치해서 쓸 수 있어요.
 
 **앱 주소:** https://dayeonoh626-cyber.github.io/nolgot/
 
 ## 주요 기능
 
-- **도시 선택·검색:** 한국·독일·유럽 도시 목록, 지역 검색, 현재 위치 주변
+- **도시 선택·검색:** 전 세계 110개 도시 목록, 지역 검색, 지도에서 고르기, 현재 위치 주변
+- **현지 사이트에서 더 찾아보기:** 도시별 공식 행사 달력·도시 매거진·예매처 카드, 다른 곳에서 찾은 행사를 직접 담기
 - **이벤트 정보:** 실제 포스터·사진(출처·라이선스 표기), 장르, 장소·주소, 시간, 기간, 참가비, 소개, 예매/예약 링크
 - **리스트 · 캘린더 · 지도** 보기, 이번 주말 추천, 기간·무료 필터
 - **오디오가이드:** 위키백과 기반으로 도시별 걷기 코스를 자동 생성. 앱이 한국어/영어로 읽어줍니다
@@ -188,13 +189,13 @@ docs/data-contract.md                     데이터 형식 명세
 | 5. 신뢰 | 후기·별점, 신고, 메시지 | 리뷰 DB, 운영 정책 |
 | 6. 오디오가이드 | 위치 기반 자동 재생, 오프라인 다운로드, 녹음 음성 | 오디오 호스팅(CDN), 지오펜싱 |
 
-다음 나라 계획: ~~유럽(2단계)~~ 완료 → 미국·호주·아시아 → 미주·아프리카.
+나라 확장: ~~한국·독일~~ → ~~유럽~~ → ~~미국·호주·아시아~~ → ~~미주·아프리카~~ 완료. 이제는 키(Ticketmaster 등)를 받아 이벤트 수를 늘리는 단계예요.
 
 ---
 
 ## English
 
-**놀곳 (Nolgot)** is an installable web app (PWA) for festivals, performances, exhibitions, classes, guided tours and audio guides in **17 Korean regions, 10 German cities and 29 cities in 11 other European countries** (UK, France, Spain, Hungary, Austria, Italy, Netherlands, Switzerland, Portugal, Czechia, Belgium), with list, calendar and map views, saved events with reminders, calendar export (.ics / Google) and a Korean/English UI.
+**놀곳 (Nolgot)** is an installable web app (PWA) for festivals, performances, exhibitions, classes, guided tours and audio guides in **110 cities in 42 countries on six continents** (Korea, Germany, 11 more European countries, the US, Australia, East and Southeast Asia, Canada, Latin America and Africa), every city with at least 10 items and a representative image for each, with list, calendar and map views, saved events with reminders, calendar export (.ics / Google) and a Korean/English UI.
 
 - **Install on iPhone:** open https://dayeonoh626-cyber.github.io/nolgot/ in Safari → **Share** → **Add to Home Screen**.
 - **Data:** a GitHub Actions workflow (daily, 06:00 KST) runs `scripts/build-data.mjs` and deploys to GitHub Pages. Without any keys it uses keyless official open data: Wikipedia-generated audio guides for every city; destination.one open data for Cologne, Düsseldorf, Leipzig and Dresden; the Cologne city events feed; kulturdaten.berlin; berlin.de festival and Christmas-market lists; museum-digital exhibitions; and five Seoul events through the public sample key.

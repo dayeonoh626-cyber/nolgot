@@ -31,6 +31,8 @@ async function* textChunks(res) {
  * @returns {Promise<{items:number, bytes:number}>}
  */
 export async function streamJsonArray(url, onItem, opts = {}) {
+  // itemDepth: 원소 객체의 중첩 깊이. 최상위 배열 [ {...} ] = 2 (기본), { "value": [ {...} ] } 처럼 한 겹 감싼 파일 = 3
+  const ITEM = opts.itemDepth || 2;
   const { res, done } = await openStream(url, opts);
   let buf = '', depth = 0, inStr = false, esc = false, start = -1, items = 0, bytes = 0, stop = false;
   try {
@@ -49,9 +51,9 @@ export async function streamJsonArray(url, onItem, opts = {}) {
         if (ch === 34) { inStr = true; continue; }
         if (ch === 123 || ch === 91) {           // { [
           depth++;
-          if (depth === 2) start = i;
+          if (depth === ITEM) start = i;
         } else if (ch === 125 || ch === 93) {    // } ]
-          if (depth === 2 && start >= 0) {
+          if (depth === ITEM && start >= 0) {
             const text = buf.slice(start, i + 1);
             items++;
             let obj; try { obj = JSON.parse(text); } catch { obj = null; }
@@ -62,7 +64,7 @@ export async function streamJsonArray(url, onItem, opts = {}) {
         }
       }
       if (stop) break;
-      if (start < 0 && depth <= 1) buf = ''; // 원소 사이 공백·쉼표는 버린다
+      if (start < 0 && depth < ITEM) buf = ''; // 원소 사이 공백·쉼표는 버린다
     }
   } finally {
     done();

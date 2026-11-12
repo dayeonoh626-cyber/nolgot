@@ -157,6 +157,7 @@ const venueName = e => String(e.place || (e.address || '').split(',')[0] || '').
 const LANG_OF = {
   KR: 'ko', DE: 'de', GB: 'en', FR: 'fr', ES: 'es', HU: 'hu', AT: 'de', IT: 'it', NL: 'nl', CH: 'de', PT: 'pt', CZ: 'cs', BE: 'fr',
   US: 'en', AU: 'en', JP: 'ja', TW: 'zh', HK: 'zh', SG: 'en', TH: 'th', VN: 'vi', MY: 'ms', PH: 'en', ID: 'id', CN: 'zh',
+  CA: 'en', MX: 'es', BR: 'pt', AR: 'es', CL: 'es', CO: 'es', PE: 'es', ZA: 'en', EG: 'ar', MA: 'fr', KE: 'en', NG: 'en', GH: 'en', TZ: 'en', ET: 'en', SN: 'fr', RW: 'en',
 };
 
 async function geoImages(lang, lat, lng, radius) {

@@ -50,6 +50,26 @@ export const COUNTRIES = {
   PH: { name: { ko: '필리핀', en: 'Philippines' }, wikiLang: 'en', currency: 'PHP', ticketmaster: false, geocode: true },
   ID: { name: { ko: '인도네시아', en: 'Indonesia' }, wikiLang: 'id', currency: 'IDR', ticketmaster: false, geocode: true },
   CN: { name: { ko: '중국', en: 'China' }, wikiLang: 'zh', currency: 'CNY', ticketmaster: 'CN', geocode: true }, // 이벤트 수집 안 함 (places·오디오가이드만, 문서 2-9)
+
+  // ---- 4단계: 아메리카 나머지 · 아프리카 — docs/sources-research-phase4.md 표 1 ----
+  // Ticketmaster: Discovery API 국가코드 표에 있는 나라만 문자열(재고는 키 받은 뒤 실측, CA·MX 말고는 0일 수 있음). EG·KE·NG·TZ·ET·SN·RW 는 코드 없음 → false.
+  CA: { name: { ko: '캐나다', en: 'Canada' }, wikiLang: 'en', currency: 'CAD', module: './sources/ca.mjs', ticketmaster: 'CA', geocode: true }, // 몬트리올은 도시별 wikiLang fr
+  MX: { name: { ko: '멕시코', en: 'Mexico' }, wikiLang: 'es', currency: 'MXN', ticketmaster: 'MX', geocode: true },
+  BR: { name: { ko: '브라질', en: 'Brazil' }, wikiLang: 'pt', currency: 'BRL', ticketmaster: 'BR', geocode: true },
+  AR: { name: { ko: '아르헨티나', en: 'Argentina' }, wikiLang: 'es', currency: 'ARS', ticketmaster: 'AR', geocode: true },
+  CL: { name: { ko: '칠레', en: 'Chile' }, wikiLang: 'es', currency: 'CLP', ticketmaster: 'CL', geocode: true },
+  CO: { name: { ko: '콜롬비아', en: 'Colombia' }, wikiLang: 'es', currency: 'COP', ticketmaster: 'CO', geocode: true },
+  PE: { name: { ko: '페루', en: 'Peru' }, wikiLang: 'es', currency: 'PEN', ticketmaster: 'PE', geocode: true },
+  ZA: { name: { ko: '남아프리카공화국', en: 'South Africa' }, wikiLang: 'en', currency: 'ZAR', module: './sources/za.mjs', ticketmaster: 'ZA', geocode: true }, // Quicket(QUICKET_API_KEY) 선택 키
+  EG: { name: { ko: '이집트', en: 'Egypt' }, wikiLang: 'ar', currency: 'EGP', ticketmaster: false, geocode: true },
+  MA: { name: { ko: '모로코', en: 'Morocco' }, wikiLang: 'fr', currency: 'MAD', ticketmaster: 'MA', geocode: true },
+  KE: { name: { ko: '케냐', en: 'Kenya' }, wikiLang: 'en', currency: 'KES', ticketmaster: false, geocode: true },
+  NG: { name: { ko: '나이지리아', en: 'Nigeria' }, wikiLang: 'en', currency: 'NGN', ticketmaster: false, geocode: true },
+  GH: { name: { ko: '가나', en: 'Ghana' }, wikiLang: 'en', currency: 'GHS', ticketmaster: 'GH', geocode: true },
+  TZ: { name: { ko: '탄자니아', en: 'Tanzania' }, wikiLang: 'en', currency: 'TZS', ticketmaster: false, geocode: true },
+  ET: { name: { ko: '에티오피아', en: 'Ethiopia' }, wikiLang: 'en', currency: 'ETB', ticketmaster: false, geocode: true },
+  SN: { name: { ko: '세네갈', en: 'Senegal' }, wikiLang: 'fr', currency: 'XOF', ticketmaster: false, geocode: true },
+  RW: { name: { ko: '르완다', en: 'Rwanda' }, wikiLang: 'en', currency: 'RWF', ticketmaster: false, geocode: true },
 };
 
 const c = (id, country, ko, en, lat, lng, radiusKm, tz, extra = {}) => ({ id, country, name: { ko, en }, lat, lng, radiusKm, tz, ...extra });
@@ -165,6 +185,33 @@ export const CITIES = [
   // ---- 중국 (이벤트 수집 없음: places·오디오가이드·딥링크만) ----
   c('shanghai', 'CN', '상하이', 'Shanghai', 31.2304, 121.4737, 25, 'Asia/Shanghai', { local: '上海' }),
   c('beijing', 'CN', '베이징', 'Beijing', 39.9042, 116.4074, 25, 'Asia/Shanghai', { local: '北京' }),
+
+  // ---- 4단계: 캐나다 ----
+  c('toronto', 'CA', '토론토', 'Toronto', 43.6532, -79.3832, 25, 'America/Toronto', { local: 'Toronto' }),
+  c('montreal', 'CA', '몬트리올', 'Montreal', 45.5019, -73.5674, 20, 'America/Toronto', { local: 'Montréal', wikiLang: 'fr' }), // IANA 정식 이름은 America/Toronto
+  c('vancouver', 'CA', '밴쿠버', 'Vancouver', 49.2827, -123.1207, 20, 'America/Vancouver', { local: 'Vancouver' }),
+  // ---- 중남미 ----
+  c('mexicocity', 'MX', '멕시코시티', 'Mexico City', 19.4326, -99.1332, 25, 'America/Mexico_City', { local: 'Ciudad de México' }),
+  c('saopaulo', 'BR', '상파울루', 'São Paulo', -23.5505, -46.6333, 25, 'America/Sao_Paulo', { local: 'São Paulo' }),
+  c('riodejaneiro', 'BR', '리우데자네이루', 'Rio de Janeiro', -22.9068, -43.1729, 25, 'America/Sao_Paulo', { local: 'Rio de Janeiro' }),
+  c('buenosaires', 'AR', '부에노스아이레스', 'Buenos Aires', -34.6037, -58.3816, 20, 'America/Argentina/Buenos_Aires', { local: 'Buenos Aires' }),
+  c('santiago', 'CL', '산티아고', 'Santiago', -33.4372, -70.6506, 20, 'America/Santiago', { local: 'Santiago' }),
+  c('bogota', 'CO', '보고타', 'Bogotá', 4.5981, -74.0760, 20, 'America/Bogota', { local: 'Bogotá' }),
+  c('medellin', 'CO', '메데인', 'Medellín', 6.2476, -75.5658, 15, 'America/Bogota', { local: 'Medellín' }),
+  c('lima', 'PE', '리마', 'Lima', -12.0464, -77.0428, 20, 'America/Lima', { local: 'Lima' }),
+  // ---- 아프리카 ----
+  c('capetown', 'ZA', '케이프타운', 'Cape Town', -33.9249, 18.4241, 25, 'Africa/Johannesburg', { local: 'Cape Town' }),
+  c('johannesburg', 'ZA', '요하네스버그', 'Johannesburg', -26.2041, 28.0473, 25, 'Africa/Johannesburg', { local: 'Johannesburg' }),
+  c('cairo', 'EG', '카이로', 'Cairo', 30.0444, 31.2357, 25, 'Africa/Cairo', { local: 'القاهرة' }), // 기자 피라미드(약 18km)까지
+  c('marrakech', 'MA', '마라케시', 'Marrakesh', 31.6295, -7.9811, 15, 'Africa/Casablanca', { local: 'مراكش' }),
+  c('casablanca', 'MA', '카사블랑카', 'Casablanca', 33.5731, -7.5898, 20, 'Africa/Casablanca', { local: 'الدار البيضاء' }),
+  c('nairobi', 'KE', '나이로비', 'Nairobi', -1.2864, 36.8172, 20, 'Africa/Nairobi', { local: 'Nairobi' }),
+  c('lagos', 'NG', '라고스', 'Lagos', 6.4550, 3.3941, 25, 'Africa/Lagos', { local: 'Lagos' }),
+  c('accra', 'GH', '아크라', 'Accra', 5.6037, -0.1870, 20, 'Africa/Accra', { local: 'Accra' }),
+  c('zanzibar', 'TZ', '잔지바르(스톤타운)', 'Zanzibar (Stone Town)', -6.1630, 39.1880, 30, 'Africa/Dar_es_Salaam', { local: 'Zanzibar' }),
+  c('addisababa', 'ET', '아디스아바바', 'Addis Ababa', 9.0300, 38.7400, 20, 'Africa/Addis_Ababa', { local: 'አዲስ አበባ' }),
+  c('dakar', 'SN', '다카르', 'Dakar', 14.6928, -17.4467, 20, 'Africa/Dakar', { local: 'Dakar' }),
+  c('kigali', 'RW', '키갈리', 'Kigali', -1.9441, 30.0619, 20, 'Africa/Kigali', { local: 'Kigali' }),
 ].map(city => ({ ...city, countryName: COUNTRIES[city.country].name }));
 
 export const cityById = new Map(CITIES.map(x => [x.id, x]));

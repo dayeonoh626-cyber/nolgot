@@ -112,7 +112,15 @@ const routeKm = s => s.slice(1).reduce((acc, x, i) => acc + km(s[i], x), 0);
 let builtThisRun = 0;
 const hashDays = id => [...id].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7) % 7; // 0~6일: 재생성 날짜 분산
 
+// 현지어 위키백과의 좌표 문서가 적어 코스를 못 만들면(예: 카이로 ar) 영어 위키백과로 한 번 더 시도한다.
 export async function wikipediaTours(city, ctx) {
+  const r = await toursFor(city, ctx);
+  const lang = city.wikiLang || ctx.country.wikiLang || 'en';
+  if (r.length || lang === 'en' || ctx._tourLang) return r;
+  return toursFor(city, { ...ctx, _tourLang: 'en' });
+}
+
+async function toursFor(city, ctx) {
   const today0 = todayIn(city.tz);
   const prev = ['highlights', 'museums', 'more'].map(t => ctx.prevById?.get(`wikitour-${city.id}-${t}`)).filter(Boolean);
   const maxAge = +(process.env.TOUR_REBUILD_DAYS || 30) + hashDays(city.id);
@@ -123,7 +131,7 @@ export async function wikipediaTours(city, ctx) {
   const cap = +(process.env.WIKI_BUILD_MAX || 20);
   if (builtThisRun >= cap) { ctx.warn?.(city.id, `오디오가이드 생성 보류 (이번 실행 상한 WIKI_BUILD_MAX=${cap})`); return reuse(); }
   builtThisRun++;
-  const lang = city.wikiLang || ctx.country.wikiLang || 'en';
+  const lang = ctx._tourLang || city.wikiLang || ctx.country.wikiLang || 'en';
   const [clat, clng] = city.wikiCenter || [city.lat, city.lng];
   let cands = [], geo = [], why = {};
   // 명소가 적으면(지방·도 단위) 검색 범위를 넓혀 다시 시도: 중심±2km → ±12km

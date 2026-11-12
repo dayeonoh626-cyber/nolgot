@@ -154,7 +154,10 @@ function nameScore(place, title, cityNames) {
   return ta.some(t => tb.has(t)) ? 1 : 0;
 }
 const venueName = e => String(e.place || (e.address || '').split(',')[0] || '').trim();
-const LANG_OF = { KR: 'ko', DE: 'de', GB: 'en', FR: 'fr', ES: 'es', HU: 'hu', AT: 'de', IT: 'it', NL: 'nl', CH: 'de', PT: 'pt', CZ: 'cs', BE: 'fr' };
+const LANG_OF = {
+  KR: 'ko', DE: 'de', GB: 'en', FR: 'fr', ES: 'es', HU: 'hu', AT: 'de', IT: 'it', NL: 'nl', CH: 'de', PT: 'pt', CZ: 'cs', BE: 'fr',
+  US: 'en', AU: 'en', JP: 'ja', TW: 'zh', HK: 'zh', SG: 'en', TH: 'th', VN: 'vi', MY: 'ms', PH: 'en', ID: 'id', CN: 'zh',
+};
 
 async function geoImages(lang, lat, lng, radius) {
   const j = await getJson(`https://${lang}.wikipedia.org/w/api.php?${new URLSearchParams({
@@ -249,6 +252,21 @@ export async function venueImages(events, cityById, { max = 3000, concurrency = 
   await commonsMeta(files, cache.files);
   const fileOk = f => { const m = cache.files[f]; return m && !m.bad && m.url ? m : null; };
 
+  // 4b) 현지어 위키 후보 사진이 모두 비자유·NC 등으로 걸러진 그룹 → 영어 위키 geosearch로 한 번 더 (해당 그룹만, 캐시 areaEn)
+  const failed = list.filter(g => {
+    const c = cache.venues[g.key]; if (!c || c.err || c.areaEn) return false;
+    const lang = g.city.wikiLang || LANG_OF[g.city.country] || 'en';
+    return lang !== 'en' && !(c.venue && fileOk(c.venue.file)) && !(c.area || []).some(a => fileOk(a.file));
+  });
+  await pool(failed.slice(0, 300), concurrency, async g => {
+    try {
+      let near = (await geoImages('en', g.lat, g.lng, 1000)).filter(x => !BAD_AREA.test(x.title));
+      if (!near.length) near = (await geoImages('en', g.lat, g.lng, 5000)).filter(x => !BAD_AREA.test(x.title));
+      cache.venues[g.key].areaEn = near.slice(0, 4).map(x => ({ file: x.file, title: x.title, d: +x.d.toFixed(2) }));
+    } catch { /* 다음 실행에서 */ }
+  });
+  if (failed.length) await commonsMeta(failed.flatMap(g => (cache.venues[g.key].areaEn || []).map(a => a.file)), cache.files);
+
   // 3) 장소 전용 도메인 판별: 도시 안에서 2곳 이상의 장소에 쓰인 도메인 = 포털·예매처 → 제외
   const hostOf = u => { try { return new URL(httpsUrl(u)).host.replace(/^www\./, ''); } catch { return ''; } };
   const hostVenues = new Map();
@@ -286,7 +304,7 @@ export async function venueImages(events, cityById, { max = 3000, concurrency = 
     if (vm && vs >= 2) pick = { poster: vm.url, credit: `${c.venue.title} — ${vm.credit}`, kind: 'venue', k: 'venue' };
     if (!pick) { const h = ownHost(g); const r = h && cache.roots[h]; if (r?.img) pick = { poster: r.img, credit: `${h} (og:image)`, kind: 'venue', k: 'venueSite' }; }
     if (!pick && vm && vs === 1) pick = { poster: vm.url, credit: `${c.venue.title} — ${vm.credit}`, kind: 'area', k: 'area' };
-    if (!pick) for (const a of c.area || []) { const m = fileOk(a.file); if (m) { pick = { poster: m.url, credit: `${a.title} — ${m.credit}`, kind: 'area', k: 'area' }; break; } }
+    if (!pick) for (const a of [...(c.area || []), ...(c.areaEn || [])]) { const m = fileOk(a.file); if (m) { pick = { poster: m.url, credit: `${a.title} — ${m.credit}`, kind: 'area', k: 'area' }; break; } }
     for (const e of g.events) {
       if (!pick) { st.none++; continue; }
       e.poster = pick.poster; e.posterCredit = pick.credit; e.posterKind = pick.kind; st[pick.k]++;

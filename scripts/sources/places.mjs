@@ -1,6 +1,6 @@
 // 상설 명소 (키 불필요) — 모든 도시에 자동 적용. "이번 주에 가볼 만한, 늘 열려 있는 곳".
 // 1) Wikidata 검색(haswbstatement+nearcoord) 1~2회/도시: 도시 반경(radiusKm) 안의 박물관·미술관·과학관·수족관·동물원·식물원·궁전·성
-//    (폐관 P576/P3999 제외, 나라 P17 일치, 한국 시·도는 행정구역 P131* 일치) → 사이트링크 수(=유명도) 순
+//    (폐관 P576/P3999 제외, 나라 P17 일치, 한국 시·도·홍콩은 행정구역 P131* 일치) → 사이트링크 수(=유명도) 순
 // 2) en/ko/현지어 위키백과 도입부 요약 → overview / overviewEn / overviewKo
 // 3) P18 사진 → Wikimedia Commons 썸네일(폭 800) + 저작자·라이선스 표기 (extmetadata)
 // 결과는 data/placescache.json 에 도시별로 저장(PLACES_TTL_DAYS, 기본 14일+분산) → 매일 빌드는 캐시 재사용.
@@ -17,9 +17,19 @@ const MAX = +(process.env.PLACES_MAX || 15);
 const MIN = 10;
 
 // 나라 → Wikidata 국가 (로마의 바티칸 박물관처럼 이웃 나라가 섞이는 경우 포함)
-const COUNTRY_QID = { KR: ['Q884'], DE: ['Q183'], GB: ['Q145'], FR: ['Q142'], ES: ['Q29'], HU: ['Q28'], AT: ['Q40'], IT: ['Q38', 'Q237'], NL: ['Q55'], CH: ['Q39'], PT: ['Q45'], CZ: ['Q213'], BE: ['Q31'] };
-// 한국 광역시·도: 반경이 이웃 시·도와 겹치므로(경기 ↔ 서울 등) 행정구역으로 거른다
-const REGION_QID = { seoul: 'Q8684', busan: 'Q16520', incheon: 'Q20934', daegu: 'Q20927', daejeon: 'Q20921', gwangju: 'Q41283', ulsan: 'Q41278', sejong: 'Q20929', gyeonggi: 'Q20937', gangwon: 'Q41071', chungbuk: 'Q41066', chungnam: 'Q41070', jeonbuk: 'Q41157', jeonnam: 'Q41161', gyeongbuk: 'Q41154', gyeongnam: 'Q41151', jeju: 'Q41164' };
+const COUNTRY_QID = {
+  KR: ['Q884'], DE: ['Q183'], GB: ['Q145'], FR: ['Q142'], ES: ['Q29'], HU: ['Q28'], AT: ['Q40'], IT: ['Q38', 'Q237'], NL: ['Q55'], CH: ['Q39'], PT: ['Q45'], CZ: ['Q213'], BE: ['Q31'],
+  // 3단계. 홍콩 항목은 Wikidata에서 대부분 P17=중국(Q148)이라 둘 다 받고, 아래 REGION_QID(홍콩 P131)로 선전(深圳)을 걸러낸다.
+  US: ['Q30'], AU: ['Q408'], JP: ['Q17'], TW: ['Q865'], HK: ['Q8646', 'Q148'], SG: ['Q334'], TH: ['Q869'], VN: ['Q881'], MY: ['Q833'], PH: ['Q928'], ID: ['Q252'], CN: ['Q148'],
+};
+// 반경이 이웃 행정구역과 겹치는 도시는 행정구역(P131 상위 체인)으로 거른다:
+// 한국 광역시·도(경기 ↔ 서울 등), 홍콩(반경 25km가 선전까지 닿음)
+const REGION_QID = {
+  seoul: 'Q8684', busan: 'Q16520', incheon: 'Q20934', daegu: 'Q20927', daejeon: 'Q20921', gwangju: 'Q41283', ulsan: 'Q41278', sejong: 'Q20929', gyeonggi: 'Q20937', gangwon: 'Q41071', chungbuk: 'Q41066', chungnam: 'Q41070', jeonbuk: 'Q41157', jeonnam: 'Q41161', gyeongbuk: 'Q41154', gyeongnam: 'Q41151', jeju: 'Q41164',
+  hongkong: 'Q8646',
+};
+// P131 정보가 없는 항목의 대체 판정 (한국: 가장 가까운 시·도 / 홍콩: 선전 경계(북위 약 22.5°) 남쪽)
+const regionFallback = (city, p) => city.country === 'KR' ? nearestKr(p) === city.id : city.id === 'hongkong' ? p.lat < 22.5 : true;
 
 // 박물관류 → '상설 전시'
 const MUSEUM = ['Q33506', 'Q207694', 'Q1007870', 'Q588140', 'Q3499307', 'Q1970365', 'Q16735822', 'Q3329412', 'Q17431399', 'Q1595639', 'Q2772772', 'Q1863818', 'Q2398990', 'Q842478', 'Q108860927', 'Q2327632', 'Q12104174', 'Q25047682', 'Q105725005', 'Q2244602', 'Q2516357', 'Q1200701', 'Q2087181', 'Q10624527', 'Q756102'];
@@ -104,7 +114,7 @@ async function queryCity(city, lang) {
       if (km({ lat, lng }, city) > radius) continue;
       if (region) { // 다른 시·도로 확인되면 제외, 행정구역 정보가 없으면 원래 반경 안일 때만
         const r = await regionOf(claimIds(e, 'P131'));
-        if (r ? r !== region : nearestKr({ lat, lng }) !== city.id) continue;
+        if (r ? r !== region : !regionFallback(city, { lat, lng })) continue;
       }
       const s = x.sitelinks;
       const wurl = (l, t) => t ? `https://${l}.wikipedia.org/wiki/${encodeURIComponent(t.replace(/ /g, '_'))}` : undefined;

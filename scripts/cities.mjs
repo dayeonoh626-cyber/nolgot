@@ -35,6 +35,21 @@ export const COUNTRIES = {
   PT: { name: { ko: '포르투갈', en: 'Portugal' }, wikiLang: 'pt', currency: 'EUR', module: './sources/pt.mjs', ticketmaster: 'PT', geocode: true },
   CZ: { name: { ko: '체코', en: 'Czechia' }, wikiLang: 'cs', currency: 'CZK', ticketmaster: 'CZ', geocode: true },
   BE: { name: { ko: '벨기에', en: 'Belgium' }, wikiLang: 'fr', currency: 'EUR', module: './sources/be.mjs', ticketmaster: 'BE', geocode: true }, // 안트베르펜은 도시별 wikiLang nl
+
+  // ---- 3단계: 미국 · 호주 · 아시아 — docs/sources-research-phase3.md 표 1 ----
+  // 아시아 Ticketmaster 는 국가코드만 확인(재고 미측정). VN·PH·ID 는 Discovery API 국가코드 목록에 없음 → false.
+  US: { name: { ko: '미국', en: 'United States' }, wikiLang: 'en', currency: 'USD', module: './sources/us.mjs', ticketmaster: 'US', geocode: true },
+  AU: { name: { ko: '호주', en: 'Australia' }, wikiLang: 'en', currency: 'AUD', module: './sources/au.mjs', ticketmaster: 'AU', geocode: true },
+  JP: { name: { ko: '일본', en: 'Japan' }, wikiLang: 'ja', currency: 'JPY', module: './sources/jp.mjs', ticketmaster: 'JP', geocode: true },
+  TW: { name: { ko: '대만', en: 'Taiwan' }, wikiLang: 'zh', currency: 'TWD', module: './sources/tw.mjs', ticketmaster: 'TW', geocode: true },
+  HK: { name: { ko: '홍콩', en: 'Hong Kong' }, wikiLang: 'zh', currency: 'HKD', module: './sources/hk.mjs', ticketmaster: 'HK', geocode: true },
+  SG: { name: { ko: '싱가포르', en: 'Singapore' }, wikiLang: 'en', currency: 'SGD', ticketmaster: 'SG', geocode: true },
+  TH: { name: { ko: '태국', en: 'Thailand' }, wikiLang: 'th', currency: 'THB', ticketmaster: 'TH', geocode: true },
+  VN: { name: { ko: '베트남', en: 'Vietnam' }, wikiLang: 'vi', currency: 'VND', ticketmaster: false, geocode: true },
+  MY: { name: { ko: '말레이시아', en: 'Malaysia' }, wikiLang: 'ms', currency: 'MYR', ticketmaster: 'MY', geocode: true },
+  PH: { name: { ko: '필리핀', en: 'Philippines' }, wikiLang: 'en', currency: 'PHP', ticketmaster: false, geocode: true },
+  ID: { name: { ko: '인도네시아', en: 'Indonesia' }, wikiLang: 'id', currency: 'IDR', ticketmaster: false, geocode: true },
+  CN: { name: { ko: '중국', en: 'China' }, wikiLang: 'zh', currency: 'CNY', ticketmaster: 'CN', geocode: true }, // 이벤트 수집 안 함 (places·오디오가이드만, 문서 2-9)
 };
 
 const c = (id, country, ko, en, lat, lng, radiusKm, tz, extra = {}) => ({ id, country, name: { ko, en }, lat, lng, radiusKm, tz, ...extra });
@@ -111,6 +126,45 @@ export const CITIES = [
   // ---- 벨기에 ----
   c('brussels', 'BE', '브뤼셀', 'Brussels', 50.8503, 4.3517, 15, 'Europe/Brussels', { local: 'Bruxelles / Brussel', wikiLang: 'fr' }),
   c('antwerp', 'BE', '안트베르펜', 'Antwerp', 51.2194, 4.4025, 12, 'Europe/Brussels', { local: 'Antwerpen', wikiLang: 'nl' }),
+
+  // ---- 미국 ----
+  c('newyork', 'US', '뉴욕', 'New York', 40.7128, -74.0060, 25, 'America/New_York', { local: 'New York' }),
+  c('losangeles', 'US', '로스앤젤레스', 'Los Angeles', 34.0522, -118.2437, 35, 'America/Los_Angeles', { local: 'Los Angeles' }),
+  c('sanfrancisco', 'US', '샌프란시스코', 'San Francisco', 37.7749, -122.4194, 15, 'America/Los_Angeles', { local: 'San Francisco' }),
+  c('chicago', 'US', '시카고', 'Chicago', 41.8781, -87.6298, 25, 'America/Chicago', { local: 'Chicago' }),
+  c('seattle', 'US', '시애틀', 'Seattle', 47.6062, -122.3321, 20, 'America/Los_Angeles', { local: 'Seattle' }),
+  c('boston', 'US', '보스턴', 'Boston', 42.3601, -71.0589, 20, 'America/New_York', { local: 'Boston' }),
+  c('washingtondc', 'US', '워싱턴 DC', 'Washington, D.C.', 38.8899, -77.0091, 20, 'America/New_York', { local: 'Washington, D.C.' }),
+  c('austin', 'US', '오스틴', 'Austin', 30.2672, -97.7431, 20, 'America/Chicago', { local: 'Austin' }),
+  c('neworleans', 'US', '뉴올리언스', 'New Orleans', 29.9511, -90.0715, 15, 'America/Chicago', { local: 'New Orleans' }),
+  c('miami', 'US', '마이애미', 'Miami', 25.7617, -80.1918, 25, 'America/New_York', { local: 'Miami' }),
+  // ---- 호주 ----
+  c('sydney', 'AU', '시드니', 'Sydney', -33.8688, 151.2093, 25, 'Australia/Sydney', { local: 'Sydney' }),
+  c('melbourne', 'AU', '멜버른', 'Melbourne', -37.8136, 144.9631, 25, 'Australia/Melbourne', { local: 'Melbourne' }),
+  c('brisbane', 'AU', '브리즈번', 'Brisbane', -27.4698, 153.0251, 25, 'Australia/Brisbane', { local: 'Brisbane' }),
+  c('perth', 'AU', '퍼스', 'Perth', -31.9505, 115.8605, 25, 'Australia/Perth', { local: 'Perth' }),
+  c('adelaide', 'AU', '애들레이드', 'Adelaide', -34.9285, 138.6007, 20, 'Australia/Adelaide', { local: 'Adelaide' }),
+  // ---- 일본 ----
+  c('tokyo', 'JP', '도쿄', 'Tokyo', 35.6812, 139.7671, 25, 'Asia/Tokyo', { local: '東京' }),
+  c('osaka', 'JP', '오사카', 'Osaka', 34.6937, 135.5023, 20, 'Asia/Tokyo', { local: '大阪' }),
+  c('kyoto', 'JP', '교토', 'Kyoto', 35.0116, 135.7681, 15, 'Asia/Tokyo', { local: '京都' }),
+  // ---- 대만 ----
+  c('taipei', 'TW', '타이베이', 'Taipei', 25.0330, 121.5654, 20, 'Asia/Taipei', { local: '臺北' }),
+  c('kaohsiung', 'TW', '가오슝', 'Kaohsiung', 22.6273, 120.3014, 20, 'Asia/Taipei', { local: '高雄' }),
+  // ---- 홍콩 ----
+  c('hongkong', 'HK', '홍콩', 'Hong Kong', 22.3027, 114.1772, 25, 'Asia/Hong_Kong', { local: '香港' }),
+  // ---- 동남아 ----
+  c('singapore', 'SG', '싱가포르', 'Singapore', 1.2903, 103.8520, 20, 'Asia/Singapore', { local: 'Singapore' }),
+  c('bangkok', 'TH', '방콕', 'Bangkok', 13.7563, 100.5018, 25, 'Asia/Bangkok', { local: 'กรุงเทพมหานคร' }),
+  c('hochiminh', 'VN', '호찌민', 'Ho Chi Minh City', 10.7769, 106.7009, 20, 'Asia/Ho_Chi_Minh', { local: 'Thành phố Hồ Chí Minh' }),
+  c('hanoi', 'VN', '하노이', 'Hanoi', 21.0285, 105.8542, 20, 'Asia/Ho_Chi_Minh', { local: 'Hà Nội' }), // 베트남 단일 시간대(UTC+7)
+  c('kualalumpur', 'MY', '쿠알라룸푸르', 'Kuala Lumpur', 3.1390, 101.6869, 20, 'Asia/Kuala_Lumpur', { local: 'Kuala Lumpur' }),
+  c('manila', 'PH', '마닐라', 'Manila', 14.5995, 120.9842, 20, 'Asia/Manila', { local: 'Maynila' }),
+  c('jakarta', 'ID', '자카르타', 'Jakarta', -6.1754, 106.8272, 25, 'Asia/Jakarta', { local: 'Jakarta' }),
+  c('bali', 'ID', '발리(덴파사르)', 'Bali (Denpasar)', -8.6500, 115.2167, 35, 'Asia/Makassar', { local: 'Denpasar' }),
+  // ---- 중국 (이벤트 수집 없음: places·오디오가이드·딥링크만) ----
+  c('shanghai', 'CN', '상하이', 'Shanghai', 31.2304, 121.4737, 25, 'Asia/Shanghai', { local: '上海' }),
+  c('beijing', 'CN', '베이징', 'Beijing', 39.9042, 116.4074, 25, 'Asia/Shanghai', { local: '北京' }),
 ].map(city => ({ ...city, countryName: COUNTRIES[city.country].name }));
 
 export const cityById = new Map(CITIES.map(x => [x.id, x]));

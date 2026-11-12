@@ -65,11 +65,14 @@ jobs:
           VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
           GYG_API_KEY: ${{ secrets.GYG_API_KEY }}
           IZI_API_KEY: ${{ secrets.IZI_API_KEY }}
+          # 3단계(미국): api.data.gov 무료 키 — 없으면 NPS 소스만 꺼진다
+          NPS_API_KEY: ${{ secrets.NPS_API_KEY }}
           PREV_BASE_URL: https://dayeonoh626-cyber.github.io/nolgot/data/cities/
           REBUILD_TOURS: ${{ inputs.rebuild_tours && '1' || '0' }}
           BUILD_COUNTRIES: ${{ inputs.countries || '' }}
           WIKI_BUILD_MAX: '20'
           # 키를 받으면 추가 (아직 통합 전 — README '유럽 키 소스' 참고): UITDATABANK_CLIENT_ID, EDFEST_API_KEY, EDFEST_API_SECRET, SKIDDLE_API_KEY
+          # 3단계 미통합 키 (docs/sources-research-phase3.md 5-C): TAT_API_KEY, CONNPASS_API_KEY, ATDW_API_KEY, SEATGEEK_CLIENT_ID
         run: node scripts/build-data.mjs
 
       - name: Check data files

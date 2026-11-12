@@ -5,7 +5,7 @@
 //       → 실패한 소스는 이전 데이터로 대체 → 지오코딩 → og:image 보강 → 중복 제거 → 저장
 //
 // 환경변수 (모두 선택):
-//   TOUR_API_KEY KOPIS_API_KEY SEOUL_API_KEY CULTURE_API_KEY TICKETMASTER_API_KEY VIATOR_API_KEY GYG_API_KEY IZI_API_KEY
+//   TOUR_API_KEY KOPIS_API_KEY SEOUL_API_KEY CULTURE_API_KEY TICKETMASTER_API_KEY VIATOR_API_KEY GYG_API_KEY IZI_API_KEY NPS_API_KEY(미국 국립공원)
 //   PREV_BASE_URL  이전 배포본 기본 주소 (예: https://dayeonoh626-cyber.github.io/nolgot/data/cities/)
 //   DAYS_AHEAD(120) OG_MAX(1200) GEOCODE_MAX(400) VENUE_MAX(3000) SKIP_PLACES=1 ONLY=seoul,berlin(디버그용 도시 제한) SKIP_WIKI=1
 //   BUILD_COUNTRIES=FR,ES  일부 나라만 빌드 (나머지 도시 파일은 그대로 두고 cities.json에는 모든 도시를 유지)

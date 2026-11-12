@@ -8,6 +8,16 @@
 // 순서 = 화면 순서. 도시 → 나라 → 공통 순으로 이어 붙는다.
 
 const ALL = '*';
+// Time Out 도시 가이드가 있는 도시 (2026-11 확인). id → URL slug
+const TIMEOUT = {
+  london: 'london', paris: 'paris', barcelona: 'barcelona', madrid: 'madrid', lisbon: 'lisbon', porto: 'porto', rome: 'rome', milan: 'milan',
+  berlin: 'berlin', amsterdam: 'amsterdam', prague: 'prague', budapest: 'budapest', vienna: 'vienna', manchester: 'manchester', edinburgh: 'edinburgh',
+  newyork: 'newyork', losangeles: 'los-angeles', sanfrancisco: 'san-francisco', chicago: 'chicago', seattle: 'seattle', boston: 'boston',
+  washingtondc: 'washington-dc', austin: 'austin', neworleans: 'new-orleans', miami: 'miami',
+  sydney: 'sydney', melbourne: 'melbourne', brisbane: 'brisbane', perth: 'perth', adelaide: 'adelaide',
+  tokyo: 'tokyo', osaka: 'osaka', taipei: 'taipei', hongkong: 'hong-kong', singapore: 'singapore', bangkok: 'bangkok',
+  kualalumpur: 'kuala-lumpur', hanoi: 'hanoi', manila: 'manila', jakarta: 'jakarta', bali: 'bali',
+};
 const LIVE = ['performance', 'festival'];
 const ART = ['exhibition'];
 const DO = ['workshop', 'tour'];
@@ -15,6 +25,7 @@ const DO = ['workshop', 'tour'];
 export const GUIDES = {
   // ---- 모든 도시 공통 ----
   generic: [
+    ['Time Out', 'https://www.timeout.com/{timeout}/things-to-do', ALL, '현지 에디터가 고른 이번 주 할 일', 'What local editors recommend this week'],
     ['Google 이벤트', 'https://www.google.com/search?q=events+in+{en}&ibp=htl;events', ALL, '구글이 모은 이번 주 행사 전체', 'Everything Google lists for this week'],
     ['Eventbrite', 'https://www.eventbrite.com/d/{country}--{enSlug}/events/', ['festival', 'performance', 'workshop'], '소규모 모임·파티·클래스', 'Small gatherings, parties and classes'],
     ['Meetup', 'https://www.meetup.com/find/?location={cc}--{en}&source=EVENTS', ['workshop', 'tour'], '취미 모임·언어교환·워크숍', 'Hobby groups, language exchange, workshops'],
@@ -34,6 +45,35 @@ export const GUIDES = {
       ['프립', 'https://www.frip.co.kr/search?keyword={ko}', DO, '원데이 클래스·액티비티', 'One-day classes and activities'],
       ['솜씨당', 'https://www.sssd.co.kr/', ['workshop'], '공방 원데이 클래스', 'Craft workshops'],
     ],
+    US: [
+      ['Ticketmaster', 'https://www.ticketmaster.com/search?q={en}', LIVE, '콘서트·스포츠·공연 예매', 'Concerts, sports and shows'],
+      ['National Park Service', 'https://www.nps.gov/planyourvisit/event-search.htm', ['tour', 'festival', 'workshop'], '국립공원 레인저 투어·행사', 'Ranger tours and park events'],
+    ],
+    AU: [
+      ['Ticketmaster AU', 'https://www.ticketmaster.com.au/search?q={en}', LIVE, '콘서트·공연 예매', 'Concerts and shows'],
+      ['Ticketek', 'https://www.ticketek.com.au/', LIVE, '호주 대표 티켓 예매처', "Australia's main ticket seller"],
+    ],
+    JP: [
+      ['Peatix', 'https://peatix.com/search?q={en}', ['festival', 'workshop', 'performance'], '모임·워크숍·소규모 행사', 'Meetups, workshops and small events'],
+      ['Time Out Japan', 'https://www.timeout.jp/', ALL, '일본 도시 가이드', 'Japanese city guide'],
+    ],
+    TW: [
+      ['KKTIX', 'https://kktix.com/', LIVE, '대만 공연·행사 예매', 'Taiwan shows and events'],
+      ['Accupass', 'https://www.accupass.com/search?q={en}', ALL, '행사·워크숍 플랫폼', 'Events and workshops'],
+    ],
+    HK: [
+      ['Discover Hong Kong', 'https://www.discoverhongkong.com/eng/what-s-new/events.html', ALL, '홍콩관광청 행사 달력', 'Tourism board events'],
+      ['LCSD 문화행사', 'https://www.lcsd.gov.hk/en/', ['performance', 'exhibition', 'festival'], '홍콩 정부 공연·전시', 'Government cultural venues'],
+    ],
+    SG: [
+      ['Visit Singapore', 'https://www.visitsingapore.com/whats-happening/all-happenings/', ALL, '싱가포르관광청 이벤트', 'Tourism board events'],
+    ],
+    TH: [
+      ['Thai Ticket Major', 'https://www.thaiticketmajor.com/', LIVE, '태국 공연 예매', 'Thai concerts and shows'],
+    ],
+    MY: [
+      ['Visit Kuala Lumpur', 'https://www.visitkualalumpur.com/', ALL, '쿠알라룸푸르 관광청', 'Kuala Lumpur tourism board'],
+    ],
     DE: [
       ['Eventim', 'https://www.eventim.de/search/?searchterm={en}', LIVE, '독일 최대 티켓 예매처', "Germany's largest ticket seller"],
       ['Reservix', 'https://www.reservix.de/', LIVE, '지역 공연·축제 예매', 'Regional shows and festivals'],
@@ -43,6 +83,10 @@ export const GUIDES = {
 
   // ---- 도시별 (공식 관광청·시청 캘린더, 도시 잡지) ----
   cities: {
+    sydney: [["City of Sydney What's On", 'https://www.whatson.cityofsydney.nsw.gov.au/', ALL, '시드니시 공식 행사 달력', 'Official city events calendar']],
+    melbourne: [["What's On Melbourne", 'https://whatson.melbourne.vic.gov.au/', ALL, '멜버른시 공식 행사 달력', 'Official city events calendar']],
+    brisbane: [['Visit Brisbane', 'https://www.visitbrisbane.com.au/whats-on', ALL, '관광청 이벤트', 'Tourism board events']],
+    tokyo: [['Walkerplus 도쿄', 'https://www.walkerplus.com/event_list/today/ar0313/', ALL, '오늘 도쿄 이벤트 (일본어)', "Today's Tokyo events (Japanese)"]],
     berlin: [
       ['berlin.de 행사 달력', 'https://www.berlin.de/en/events/', ALL, '베를린시 공식 행사 달력', 'Official city events calendar'],
       ['visitBerlin', 'https://www.visitberlin.de/en/event-calendar-berlin', ALL, '관광청 이벤트 캘린더', 'Tourism board event calendar'],
@@ -99,6 +143,7 @@ export function guidesFor(city, kind = 'all') {
   if (!city || kind === 'audioguide') return []; // 오디오투어는 앱이 직접 만든다
   const rows = [...(GUIDES.cities[city.id] || []), ...(GUIDES.countries[city.country] || []), ...GUIDES.generic];
   const fill = u => u
+    .replaceAll('{timeout}', TIMEOUT[city.id] || '')
     .replaceAll('{enSlug}', encodeURIComponent(slug(city.name?.en)))
     .replaceAll('{en}', encodeURIComponent(city.name?.en || ''))
     .replaceAll('{ko}', encodeURIComponent(city.name?.ko || city.name?.en || ''))
@@ -106,8 +151,9 @@ export function guidesFor(city, kind = 'all') {
     .replaceAll('{cc}', encodeURIComponent(String(city.country || '').toLowerCase()));
   const seen = new Set();
   return rows
-    .filter(([name, , kinds]) => {
+    .filter(([name, url, kinds]) => {
       if (seen.has(name)) return false;
+      if (url.includes('{timeout}') && !TIMEOUT[city.id]) return false;
       seen.add(name);
       return kind === 'all' || kinds === ALL || kinds.includes(kind);
     })

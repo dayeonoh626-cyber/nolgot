@@ -56,7 +56,7 @@
 ## v2.1 추가 필드 (데이터 에이전트, 하위 호환 — 앱은 무시해도 됨)
 | 위치 | 필드 | 설명 |
 |---|---|---|
-| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `hamburgtourismus` `bayerncloud` `visitfrankfurt` `stuttgart` `muenchenxmas` `wikidata`(독일 행사 회차) `openagenda` · 유럽: `parisqfap` `openagenda` `datatourisme` `madrid` `barcelona` `ivc` `andalucia` `firenze` `wienmarkets` `agendalx` `wellcome` · 공통: `ticketmaster` `viator` `getyourguide` `izi` `wikipedia` `places`). 소스 실패 시 이전 데이터 이월에 사용 |
+| 이벤트 | `sourceKey` | 소스 식별자 (`tourapi` `kopis` `cultureinfo` `seoul` `destinationone` `koeln` `kulturdaten` `berlinmarkets` `leipzigmarkets` `museumdigital` `hamburgtourismus` `bayerncloud` `visitfrankfurt` `stuttgart` `muenchenxmas` `wikidata`(독일 행사 회차) `openagenda` · 유럽: `parisqfap` `openagenda` `datatourisme` `madrid` `barcelona` `ivc` `andalucia` `firenze` `wienmarkets` `agendalx` `wellcome` · 3단계: `smithsonian` `our415` `nycparks` `chipublib` `chiparks` `nps`(키 필요) `brisbane` `iculture` `twtourism` `lcsd` `urbtix` `doorkeeper` `minato` · 공통: `ticketmaster` `viator` `getyourguide` `izi` `wikipedia` `places`). 소스 실패 시 이전 데이터 이월에 사용 |
 | 이벤트 | `alsoFrom` | 중복 병합된 다른 소스 이름 배열 |
 | 이벤트 | `geocoded` | 좌표를 주소 지오코딩(Nominatim)으로 얻었으면 `true` (정확도 낮을 수 있음) |
 | 이벤트 | `detail`, `enDetail`, `enSourceId` | 빌드 캐시용 내부 플래그 |
@@ -84,6 +84,16 @@
 | 이벤트 | `posterCredit` | `venue`/`area`의 Commons 사진은 `"{문서 제목} — {저작자} / {라이선스} (Wikimedia Commons)"`, 사이트 이미지는 `"{도메인} (og:image)"`. 비자유·NC·ND 파일은 쓰지 않는다. |
 
 대표 이미지 순서(빌드 `venueImages`, 모두 캐시): 소스 이미지 → 이벤트 페이지 og:image → 장소 사진(위키백과 geosearch 300m 안 장소명 일치 문서의 자유 라이선스 사진) → 장소 전용 도메인 첫 화면 og:image → 근처 명소 사진. 그려낸 이미지·플레이스홀더는 쓰지 않는다.
+
+### v2.4 (3단계: 미국 · 호주 · 아시아) — 형식 변경 없음
+- 새 나라 코드: `US` `AU` `JP` `TW` `HK` `SG` `TH` `VN` `MY` `PH` `ID` `CN`. 도시 31곳 추가(조사 문서 표 30곳 + 가오슝 `kaohsiung`) → 총 87곳.
+- 새 `tz`: `America/New_York` `America/Chicago` `America/Los_Angeles` `Australia/Sydney` `Australia/Melbourne` `Australia/Brisbane` `Australia/Perth` `Australia/Adelaide` `Asia/Tokyo` `Asia/Taipei` `Asia/Hong_Kong` `Asia/Singapore` `Asia/Bangkok` `Asia/Ho_Chi_Minh`(호찌민·하노이) `Asia/Kuala_Lumpur` `Asia/Manila` `Asia/Jakarta` `Asia/Makassar`(발리) `Asia/Shanghai`.
+- `price.currency`에 `USD` `AUD` `JPY` `TWD` `HKD` `SGD` `THB` `VND` `MYR` `PHP` `IDR` `CNY`가 올 수 있다(키 소스).
+- **`title`은 원어**: 일본어·중국어(번체)·태국어 등. 홍콩 `lcsd`·`urbtix`는 `title`=중문, `titleEn`=영문, `place`=중문 장소명, `placeEn`=영문 장소명. `lcsd`는 `overviewEn`(영문 설명)도 준다. 대만·일본 소스는 영문 제목이 없다.
+- 중국(`shanghai` `beijing`)·동남아 8곳·LA·시애틀·보스턴·오스틴·마이애미·뉴올리언스·시드니·멜버른·퍼스·애들레이드·교토는 키 없는 이벤트 피드가 없어 `places`(상설 명소)·`wikipedia`(오디오가이드)와 키 소스만 쓴다. 이벤트가 0건일 수 있다.
+- `doorkeeper` 항목: Doorkeeper API 약관상 **이벤트를 보여 줄 때 Doorkeeper 이벤트 페이지(`sourceUrl`) 링크를 반드시 함께 표시**해야 하고 `rel="nofollow"`를 붙이면 안 된다.
+- `smithsonian` 항목: 스미소니언 웹 이용약관(개방 라이선스 아님). 출처 표기 + `sourceUrl`(si.edu) 링크백 필수, 상업적 이용 전 확인 필요.
+- `nps`는 `NPS_API_KEY`가 있을 때만 켜진다(없으면 `meta.sources[]`에 `enabled:false, reason`).
 
 ## 원칙
 - 이미지는 **소스가 제공한 것**(API 이미지, 이벤트 공식 페이지의 og:image, Wikimedia Commons)만. 없으면 `poster` 생략 → 앱은 이미지 없는 단색 텍스트 카드.

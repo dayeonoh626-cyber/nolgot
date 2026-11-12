@@ -18,9 +18,16 @@ const hostGap = new Map([
   // Wikimedia: 비로그인 API 속도 제한 → 호스트당 요청 간격 + 직렬 실행
   ['www.wikidata.org', 400],
   ['commons.wikimedia.org', 400],
-  ...['en', 'ko', 'de', 'fr', 'es', 'it', 'nl', 'pt', 'cs', 'hu', 'ca'].map(l => [`${l}.wikipedia.org`, 400]),
+  ...['en', 'ko', 'de', 'fr', 'es', 'it', 'nl', 'pt', 'cs', 'hu', 'ca', 'ja', 'zh', 'th', 'vi', 'ms', 'id', 'tl'].map(l => [`${l}.wikipedia.org`, 400]),
   ['www.agendalx.pt', 300],
+  // 3단계 (미국·호주·아시아)
+  ['api.doorkeeper.jp', 1200],        // 비인증 요청 레이트 리밋이 낮다
+  ['developer.nps.gov', 400],
+  ['cloud.culture.tw', 300],
 ]);
+// 3단계 소스 모듈이 쓰는 봇 User-Agent (사용자 지정 형식)
+export const BOT_UA = 'NolgotBot/1.0 (+https://github.com/dayeonoh626-cyber/nolgot)';
+export const BOT = { headers: { 'User-Agent': BOT_UA } };
 const hostNext = new Map();
 async function throttle(url) {
   let host; try { host = new URL(url).host; } catch { return; }
@@ -155,6 +162,21 @@ export function kindEu(text, fallback = 'festival') {
   if (EU_PERF.test(t)) return 'performance';
   if (EU_FEST.test(t)) return 'festival';
   return fallback;
+}
+/* ---------- 아시아(중·일) 종류 분류 — 영어 키워드는 kindEu 로 넘긴다 ---------- */
+const AS_TOUR = /導覽|导览|導賞|导赏|ガイドツアー|ツアー|まち歩き|街歩き|散策|見学会|走讀|走读|遊程|游程/;
+const AS_WORK = /講座|讲座|工作坊|ワークショップ|体験|體驗|体验|教室|課程|课程|研習|研习|講習|讲习|手作|手作り|DIY|セミナー|勉強会|もくもく会|ハンズオン|學習|学習|講演会|讲座|親子活動|說故事|故事/;
+const AS_EXPO = /展覽|展览|展示|展覧|特展|個展|个展|聯展|联展|企画展|写真展|美術展|作品展|展$|^展|》展|」展|博物館.*展|展出/;
+const AS_PERF = /演出|音樂會|音乐会|演唱會|演唱会|演奏|戲劇|戏剧|舞蹈|舞劇|歌劇|歌剧|粵劇|粤剧|京劇|劇場|剧场|公演|コンサート|ライブ|リサイタル|上映|映画|電影|电影|落語|狂言|能楽|歌舞伎|舞台|ミュージカル|音楽祭|合唱|樂團|乐团|交響|交响/;
+const AS_FEST = /祭|節|节|フェス|フェスタ|市集|マルシェ|市場|嘉年華|嘉年华|花火|燈會|灯会|イルミネーション|パレード|フェア|博覧会|博覽會/;
+export function kindAsia(text, fallback = 'festival') {
+  const t = String(text || '');
+  if (AS_TOUR.test(t)) return 'tour';
+  if (AS_PERF.test(t)) return 'performance';
+  if (AS_EXPO.test(t)) return 'exhibition';
+  if (AS_WORK.test(t)) return 'workshop';
+  if (AS_FEST.test(t)) return 'festival';
+  return kindEu(t, fallback);
 }
 export const GENRE_KO = { tour: '가이드 투어', workshop: '워크숍·클래스', exhibition: '전시', performance: '공연', festival: '축제·행사', audioguide: '오디오 가이드' };
 export const GENRE_EN = { tour: 'Guided tour', workshop: 'Workshop', exhibition: 'Exhibition', performance: 'Performance', festival: 'Festival & event', audioguide: 'Audio guide' };

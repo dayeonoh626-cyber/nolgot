@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-12T06:12:19.437Z",
+ "updatedAt": "2026-11-12T07:17:58.408Z",
  "cities": [
   {
    "id": "seoul",
@@ -1363,6 +1363,753 @@
    "lng": 4.4025,
    "radiusKm": 12,
    "tz": "Europe/Brussels",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "newyork",
+   "name": {
+    "ko": "뉴욕",
+    "en": "New York"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 40.7128,
+   "lng": -74.006,
+   "radiusKm": 25,
+   "tz": "America/New_York",
+   "count": 175,
+   "counts": {
+    "festival": 13,
+    "exhibition": 15,
+    "workshop": 66,
+    "performance": 20,
+    "audioguide": 2,
+    "tour": 59
+   },
+   "coordCoverage": 99.4,
+   "posterCoverage": 100
+  },
+  {
+   "id": "losangeles",
+   "name": {
+    "ko": "로스앤젤레스",
+    "en": "Los Angeles"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 34.0522,
+   "lng": -118.2437,
+   "radiusKm": 35,
+   "tz": "America/Los_Angeles",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "sanfrancisco",
+   "name": {
+    "ko": "샌프란시스코",
+    "en": "San Francisco"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 37.7749,
+   "lng": -122.4194,
+   "radiusKm": 15,
+   "tz": "America/Los_Angeles",
+   "count": 461,
+   "counts": {
+    "workshop": 390,
+    "performance": 49,
+    "exhibition": 17,
+    "audioguide": 2,
+    "tour": 2,
+    "festival": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "chicago",
+   "name": {
+    "ko": "시카고",
+    "en": "Chicago"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 41.8781,
+   "lng": -87.6298,
+   "radiusKm": 25,
+   "tz": "America/Chicago",
+   "count": 540,
+   "counts": {
+    "workshop": 310,
+    "performance": 90,
+    "exhibition": 17,
+    "audioguide": 2,
+    "tour": 20,
+    "festival": 101
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "seattle",
+   "name": {
+    "ko": "시애틀",
+    "en": "Seattle"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 47.6062,
+   "lng": -122.3321,
+   "radiusKm": 20,
+   "tz": "America/Los_Angeles",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "boston",
+   "name": {
+    "ko": "보스턴",
+    "en": "Boston"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 42.3601,
+   "lng": -71.0589,
+   "radiusKm": 20,
+   "tz": "America/New_York",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "washingtondc",
+   "name": {
+    "ko": "워싱턴 DC",
+    "en": "Washington, D.C."
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 38.8899,
+   "lng": -77.0091,
+   "radiusKm": 20,
+   "tz": "America/New_York",
+   "count": 242,
+   "counts": {
+    "festival": 16,
+    "workshop": 120,
+    "exhibition": 15,
+    "tour": 57,
+    "performance": 32,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "austin",
+   "name": {
+    "ko": "오스틴",
+    "en": "Austin"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 30.2672,
+   "lng": -97.7431,
+   "radiusKm": 20,
+   "tz": "America/Chicago",
+   "count": 16,
+   "counts": {
+    "audioguide": 1,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "neworleans",
+   "name": {
+    "ko": "뉴올리언스",
+    "en": "New Orleans"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 29.9511,
+   "lng": -90.0715,
+   "radiusKm": 15,
+   "tz": "America/Chicago",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "miami",
+   "name": {
+    "ko": "마이애미",
+    "en": "Miami"
+   },
+   "country": "US",
+   "countryName": {
+    "ko": "미국",
+    "en": "United States"
+   },
+   "lat": 25.7617,
+   "lng": -80.1918,
+   "radiusKm": 25,
+   "tz": "America/New_York",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "sydney",
+   "name": {
+    "ko": "시드니",
+    "en": "Sydney"
+   },
+   "country": "AU",
+   "countryName": {
+    "ko": "호주",
+    "en": "Australia"
+   },
+   "lat": -33.8688,
+   "lng": 151.2093,
+   "radiusKm": 25,
+   "tz": "Australia/Sydney",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "melbourne",
+   "name": {
+    "ko": "멜버른",
+    "en": "Melbourne"
+   },
+   "country": "AU",
+   "countryName": {
+    "ko": "호주",
+    "en": "Australia"
+   },
+   "lat": -37.8136,
+   "lng": 144.9631,
+   "radiusKm": 25,
+   "tz": "Australia/Melbourne",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "brisbane",
+   "name": {
+    "ko": "브리즈번",
+    "en": "Brisbane"
+   },
+   "country": "AU",
+   "countryName": {
+    "ko": "호주",
+    "en": "Australia"
+   },
+   "lat": -27.4698,
+   "lng": 153.0251,
+   "radiusKm": 25,
+   "tz": "Australia/Brisbane",
+   "count": 425,
+   "counts": {
+    "workshop": 263,
+    "performance": 50,
+    "exhibition": 24,
+    "festival": 76,
+    "tour": 10,
+    "audioguide": 2
+   },
+   "coordCoverage": 79.5,
+   "posterCoverage": 100
+  },
+  {
+   "id": "perth",
+   "name": {
+    "ko": "퍼스",
+    "en": "Perth"
+   },
+   "country": "AU",
+   "countryName": {
+    "ko": "호주",
+    "en": "Australia"
+   },
+   "lat": -31.9505,
+   "lng": 115.8605,
+   "radiusKm": 25,
+   "tz": "Australia/Perth",
+   "count": 15,
+   "counts": {
+    "exhibition": 13,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "adelaide",
+   "name": {
+    "ko": "애들레이드",
+    "en": "Adelaide"
+   },
+   "country": "AU",
+   "countryName": {
+    "ko": "호주",
+    "en": "Australia"
+   },
+   "lat": -34.9285,
+   "lng": 138.6007,
+   "radiusKm": 20,
+   "tz": "Australia/Adelaide",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "tokyo",
+   "name": {
+    "ko": "도쿄",
+    "en": "Tokyo"
+   },
+   "country": "JP",
+   "countryName": {
+    "ko": "일본",
+    "en": "Japan"
+   },
+   "lat": 35.6812,
+   "lng": 139.7671,
+   "radiusKm": 25,
+   "tz": "Asia/Tokyo",
+   "count": 112,
+   "counts": {
+    "workshop": 79,
+    "festival": 14,
+    "audioguide": 2,
+    "exhibition": 15,
+    "performance": 2
+   },
+   "coordCoverage": 68.8,
+   "posterCoverage": 100
+  },
+  {
+   "id": "osaka",
+   "name": {
+    "ko": "오사카",
+    "en": "Osaka"
+   },
+   "country": "JP",
+   "countryName": {
+    "ko": "일본",
+    "en": "Japan"
+   },
+   "lat": 34.6937,
+   "lng": 135.5023,
+   "radiusKm": 20,
+   "tz": "Asia/Tokyo",
+   "count": 32,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15,
+    "workshop": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "kyoto",
+   "name": {
+    "ko": "교토",
+    "en": "Kyoto"
+   },
+   "country": "JP",
+   "countryName": {
+    "ko": "일본",
+    "en": "Japan"
+   },
+   "lat": 35.0116,
+   "lng": 135.7681,
+   "radiusKm": 15,
+   "tz": "Asia/Tokyo",
+   "count": 13,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 10,
+    "workshop": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "taipei",
+   "name": {
+    "ko": "타이베이",
+    "en": "Taipei"
+   },
+   "country": "TW",
+   "countryName": {
+    "ko": "대만",
+    "en": "Taiwan"
+   },
+   "lat": 25.033,
+   "lng": 121.5654,
+   "radiusKm": 20,
+   "tz": "Asia/Taipei",
+   "count": 60,
+   "counts": {
+    "exhibition": 30,
+    "workshop": 5,
+    "festival": 12,
+    "audioguide": 2,
+    "performance": 11
+   },
+   "coordCoverage": 71.7,
+   "posterCoverage": 100
+  },
+  {
+   "id": "kaohsiung",
+   "name": {
+    "ko": "가오슝",
+    "en": "Kaohsiung"
+   },
+   "country": "TW",
+   "countryName": {
+    "ko": "대만",
+    "en": "Taiwan"
+   },
+   "lat": 22.6273,
+   "lng": 120.3014,
+   "radiusKm": 20,
+   "tz": "Asia/Taipei",
+   "count": 161,
+   "counts": {
+    "performance": 59,
+    "exhibition": 76,
+    "workshop": 18,
+    "tour": 1,
+    "festival": 5,
+    "audioguide": 2
+   },
+   "coordCoverage": 82.6,
+   "posterCoverage": 100
+  },
+  {
+   "id": "hongkong",
+   "name": {
+    "ko": "홍콩",
+    "en": "Hong Kong"
+   },
+   "country": "HK",
+   "countryName": {
+    "ko": "홍콩",
+    "en": "Hong Kong"
+   },
+   "lat": 22.3027,
+   "lng": 114.1772,
+   "radiusKm": 25,
+   "tz": "Asia/Hong_Kong",
+   "count": 666,
+   "counts": {
+    "performance": 414,
+    "exhibition": 243,
+    "audioguide": 2,
+    "festival": 3,
+    "workshop": 4
+   },
+   "coordCoverage": 56.5,
+   "posterCoverage": 100
+  },
+  {
+   "id": "singapore",
+   "name": {
+    "ko": "싱가포르",
+    "en": "Singapore"
+   },
+   "country": "SG",
+   "countryName": {
+    "ko": "싱가포르",
+    "en": "Singapore"
+   },
+   "lat": 1.2903,
+   "lng": 103.852,
+   "radiusKm": 20,
+   "tz": "Asia/Singapore",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "bangkok",
+   "name": {
+    "ko": "방콕",
+    "en": "Bangkok"
+   },
+   "country": "TH",
+   "countryName": {
+    "ko": "태국",
+    "en": "Thailand"
+   },
+   "lat": 13.7563,
+   "lng": 100.5018,
+   "radiusKm": 25,
+   "tz": "Asia/Bangkok",
+   "count": 15,
+   "counts": {
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "hochiminh",
+   "name": {
+    "ko": "호찌민",
+    "en": "Ho Chi Minh City"
+   },
+   "country": "VN",
+   "countryName": {
+    "ko": "베트남",
+    "en": "Vietnam"
+   },
+   "lat": 10.7769,
+   "lng": 106.7009,
+   "radiusKm": 20,
+   "tz": "Asia/Ho_Chi_Minh",
+   "count": 12,
+   "counts": {
+    "exhibition": 10,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "hanoi",
+   "name": {
+    "ko": "하노이",
+    "en": "Hanoi"
+   },
+   "country": "VN",
+   "countryName": {
+    "ko": "베트남",
+    "en": "Vietnam"
+   },
+   "lat": 21.0285,
+   "lng": 105.8542,
+   "radiusKm": 20,
+   "tz": "Asia/Ho_Chi_Minh",
+   "count": 15,
+   "counts": {
+    "exhibition": 14,
+    "audioguide": 1
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "kualalumpur",
+   "name": {
+    "ko": "쿠알라룸푸르",
+    "en": "Kuala Lumpur"
+   },
+   "country": "MY",
+   "countryName": {
+    "ko": "말레이시아",
+    "en": "Malaysia"
+   },
+   "lat": 3.139,
+   "lng": 101.6869,
+   "radiusKm": 20,
+   "tz": "Asia/Kuala_Lumpur",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "manila",
+   "name": {
+    "ko": "마닐라",
+    "en": "Manila"
+   },
+   "country": "PH",
+   "countryName": {
+    "ko": "필리핀",
+    "en": "Philippines"
+   },
+   "lat": 14.5995,
+   "lng": 120.9842,
+   "radiusKm": 20,
+   "tz": "Asia/Manila",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "jakarta",
+   "name": {
+    "ko": "자카르타",
+    "en": "Jakarta"
+   },
+   "country": "ID",
+   "countryName": {
+    "ko": "인도네시아",
+    "en": "Indonesia"
+   },
+   "lat": -6.1754,
+   "lng": 106.8272,
+   "radiusKm": 25,
+   "tz": "Asia/Jakarta",
+   "count": 17,
+   "counts": {
+    "exhibition": 15,
+    "audioguide": 2
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "bali",
+   "name": {
+    "ko": "발리(덴파사르)",
+    "en": "Bali (Denpasar)"
+   },
+   "country": "ID",
+   "countryName": {
+    "ko": "인도네시아",
+    "en": "Indonesia"
+   },
+   "lat": -8.65,
+   "lng": 115.2167,
+   "radiusKm": 35,
+   "tz": "Asia/Makassar",
+   "count": 16,
+   "counts": {
+    "audioguide": 1,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "shanghai",
+   "name": {
+    "ko": "상하이",
+    "en": "Shanghai"
+   },
+   "country": "CN",
+   "countryName": {
+    "ko": "중국",
+    "en": "China"
+   },
+   "lat": 31.2304,
+   "lng": 121.4737,
+   "radiusKm": 25,
+   "tz": "Asia/Shanghai",
+   "count": 17,
+   "counts": {
+    "audioguide": 2,
+    "exhibition": 15
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
+  },
+  {
+   "id": "beijing",
+   "name": {
+    "ko": "베이징",
+    "en": "Beijing"
+   },
+   "country": "CN",
+   "countryName": {
+    "ko": "중국",
+    "en": "China"
+   },
+   "lat": 39.9042,
+   "lng": 116.4074,
+   "radiusKm": 25,
+   "tz": "Asia/Shanghai",
    "count": 17,
    "counts": {
     "audioguide": 2,

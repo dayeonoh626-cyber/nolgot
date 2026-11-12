@@ -1,5 +1,5 @@
 // 오프라인 캐시 + 알림 클릭 처리
-const VERSION = 'nolgot-v4';
+const VERSION = 'nolgot-v5';
 const LIB_CACHE = 'nolgot-lib-v1';   // 버전 고정 CDN 라이브러리 (Leaflet 1.9.4) — 캐시 우선
 const LIB_HOST = 'cdnjs.cloudflare.com';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'guides.js', 'manifest.webmanifest',

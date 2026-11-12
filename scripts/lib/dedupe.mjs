@@ -7,6 +7,7 @@ const score = e => (e.poster ? 4 : 0) + (e.lat != null ? 2 : 0) + (e.overview ? 
 
 function same(a, b) {
   if (a.kind === 'audioguide' || b.kind === 'audioguide') return false;
+  if (a.permanent !== b.permanent) return false; // 상설 명소(permanent)는 날짜 있는 행사와 합치지 않는다
   if (!(a.startDate <= b.endDate && b.startDate <= a.endDate)) return false;
   const ta = a._nt, tb = b._nt;
   if (!ta || !tb) return false;

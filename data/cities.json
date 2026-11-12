@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-11T16:34:22.933Z",
+ "updatedAt": "2026-11-12T06:12:19.437Z",
  "cities": [
   {
    "id": "seoul",
@@ -16,9 +16,10 @@
    "lng": 126.978,
    "radiusKm": 25,
    "tz": "Asia/Seoul",
-   "count": 7,
+   "count": 22,
    "counts": {
     "audioguide": 2,
+    "exhibition": 15,
     "performance": 4,
     "festival": 1
    },
@@ -40,12 +41,13 @@
    "lng": 129.0756,
    "radiusKm": 25,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 17,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 15
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "incheon",
@@ -62,12 +64,13 @@
    "lng": 126.7052,
    "radiusKm": 30,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "daegu",
@@ -84,12 +87,13 @@
    "lng": 128.6014,
    "radiusKm": 25,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "daejeon",
@@ -106,12 +110,13 @@
    "lng": 127.3845,
    "radiusKm": 20,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "gwangju",
@@ -128,10 +133,12 @@
    "lng": 126.8526,
    "radiusKm": 20,
    "tz": "Asia/Seoul",
-   "count": 0,
-   "counts": {},
-   "coordCoverage": null,
-   "posterCoverage": null
+   "count": 10,
+   "counts": {
+    "exhibition": 10
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
   },
   {
    "id": "ulsan",
@@ -148,12 +155,13 @@
    "lng": 129.3114,
    "radiusKm": 25,
    "tz": "Asia/Seoul",
-   "count": 1,
+   "count": 11,
    "counts": {
-    "audioguide": 1
+    "audioguide": 1,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "sejong",
@@ -170,12 +178,13 @@
    "lng": 127.289,
    "radiusKm": 20,
    "tz": "Asia/Seoul",
-   "count": 1,
+   "count": 11,
    "counts": {
+    "exhibition": 10,
     "audioguide": 1
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "gyeonggi",
@@ -192,12 +201,13 @@
    "lng": 127.0286,
    "radiusKm": 70,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 17,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 15
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "gangwon",
@@ -214,10 +224,12 @@
    "lng": 128.8761,
    "radiusKm": 120,
    "tz": "Asia/Seoul",
-   "count": 0,
-   "counts": {},
-   "coordCoverage": null,
-   "posterCoverage": null
+   "count": 10,
+   "counts": {
+    "exhibition": 10
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
   },
   {
    "id": "chungbuk",
@@ -234,12 +246,13 @@
    "lng": 127.489,
    "radiusKm": 80,
    "tz": "Asia/Seoul",
-   "count": 1,
+   "count": 11,
    "counts": {
-    "audioguide": 1
+    "audioguide": 1,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "chungnam",
@@ -256,12 +269,13 @@
    "lng": 126.8022,
    "radiusKm": 90,
    "tz": "Asia/Seoul",
-   "count": 1,
+   "count": 14,
    "counts": {
-    "audioguide": 1
+    "audioguide": 1,
+    "exhibition": 13
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "jeonbuk",
@@ -278,10 +292,12 @@
    "lng": 127.148,
    "radiusKm": 80,
    "tz": "Asia/Seoul",
-   "count": 0,
-   "counts": {},
-   "coordCoverage": null,
-   "posterCoverage": null
+   "count": 10,
+   "counts": {
+    "exhibition": 10
+   },
+   "coordCoverage": 100,
+   "posterCoverage": 100
   },
   {
    "id": "jeonnam",
@@ -298,12 +314,13 @@
    "lng": 126.4629,
    "radiusKm": 110,
    "tz": "Asia/Seoul",
-   "count": 1,
+   "count": 11,
    "counts": {
-    "audioguide": 1
+    "audioguide": 1,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 90
   },
   {
    "id": "gyeongbuk",
@@ -320,12 +337,13 @@
    "lng": 128.5056,
    "radiusKm": 120,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "gyeongnam",
@@ -342,12 +360,13 @@
    "lng": 128.6925,
    "radiusKm": 100,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "jeju",
@@ -364,12 +383,13 @@
    "lng": 126.5312,
    "radiusKm": 50,
    "tz": "Asia/Seoul",
-   "count": 2,
+   "count": 12,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 10
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "berlin",
@@ -386,17 +406,17 @@
    "lng": 13.405,
    "radiusKm": 25,
    "tz": "Europe/Berlin",
-   "count": 872,
+   "count": 887,
    "counts": {
-    "exhibition": 79,
-    "festival": 204,
-    "performance": 399,
-    "workshop": 166,
+    "exhibition": 97,
+    "festival": 201,
+    "performance": 403,
     "audioguide": 2,
+    "workshop": 162,
     "tour": 22
    },
-   "coordCoverage": 98.7,
-   "posterCoverage": 3.6
+   "coordCoverage": 98.8,
+   "posterCoverage": 100
   },
   {
    "id": "munich",
@@ -413,16 +433,16 @@
    "lng": 11.5755,
    "radiusKm": 20,
    "tz": "Europe/Berlin",
-   "count": 83,
+   "count": 98,
    "counts": {
-    "exhibition": 52,
+    "exhibition": 67,
     "festival": 26,
     "performance": 1,
     "audioguide": 2,
     "tour": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 61.7
+   "posterCoverage": 100
   },
   {
    "id": "hamburg",
@@ -439,17 +459,17 @@
    "lng": 9.9937,
    "radiusKm": 20,
    "tz": "Europe/Berlin",
-   "count": 1480,
+   "count": 1494,
    "counts": {
     "tour": 86,
-    "festival": 149,
-    "performance": 1079,
-    "workshop": 162,
+    "festival": 150,
+    "performance": 1086,
+    "exhibition": 17,
     "audioguide": 2,
-    "exhibition": 2
+    "workshop": 153
    },
    "coordCoverage": 100,
-   "posterCoverage": 0.5
+   "posterCoverage": 99.9
   },
   {
    "id": "cologne",
@@ -466,17 +486,17 @@
    "lng": 6.9603,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 251,
+   "count": 282,
    "counts": {
-    "tour": 48,
-    "festival": 116,
-    "exhibition": 23,
-    "performance": 45,
-    "workshop": 17,
+    "tour": 49,
+    "festival": 126,
+    "exhibition": 39,
+    "performance": 46,
+    "workshop": 20,
     "audioguide": 2
    },
-   "coordCoverage": 99.6,
-   "posterCoverage": 71.1
+   "coordCoverage": 98.9,
+   "posterCoverage": 99.6
   },
   {
    "id": "frankfurt",
@@ -493,17 +513,17 @@
    "lng": 8.6821,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 79,
+   "count": 94,
    "counts": {
     "festival": 24,
-    "exhibition": 14,
+    "exhibition": 29,
     "tour": 21,
     "performance": 16,
     "workshop": 2,
     "audioguide": 2
    },
-   "coordCoverage": 98.7,
-   "posterCoverage": 18.2
+   "coordCoverage": 98.9,
+   "posterCoverage": 100
   },
   {
    "id": "stuttgart",
@@ -520,17 +540,17 @@
    "lng": 9.1829,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 877,
+   "count": 881,
    "counts": {
-    "exhibition": 51,
-    "performance": 685,
-    "festival": 114,
-    "audioguide": 2,
+    "exhibition": 65,
+    "performance": 679,
+    "festival": 110,
     "workshop": 14,
+    "audioguide": 2,
     "tour": 11
    },
-   "coordCoverage": 22.3,
-   "posterCoverage": 1
+   "coordCoverage": 88,
+   "posterCoverage": 99.9
   },
   {
    "id": "duesseldorf",
@@ -547,17 +567,17 @@
    "lng": 6.7735,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 86,
+   "count": 101,
    "counts": {
-    "tour": 9,
-    "exhibition": 5,
+    "tour": 10,
+    "exhibition": 20,
     "workshop": 8,
-    "festival": 44,
+    "festival": 43,
     "performance": 18,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 63.1
+   "posterCoverage": 100
   },
   {
    "id": "leipzig",
@@ -574,16 +594,17 @@
    "lng": 12.3731,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 57,
+   "count": 71,
    "counts": {
     "festival": 20,
     "performance": 23,
     "tour": 11,
+    "exhibition": 14,
     "audioguide": 2,
     "workshop": 1
    },
    "coordCoverage": 100,
-   "posterCoverage": 85.5
+   "posterCoverage": 100
   },
   {
    "id": "dresden",
@@ -600,15 +621,16 @@
    "lng": 13.7373,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 35,
+   "count": 51,
    "counts": {
-    "exhibition": 3,
+    "exhibition": 18,
     "festival": 25,
+    "tour": 1,
     "audioguide": 2,
     "performance": 5
    },
    "coordCoverage": 100,
-   "posterCoverage": 84.8
+   "posterCoverage": 100
   },
   {
    "id": "nuremberg",
@@ -625,15 +647,15 @@
    "lng": 11.0767,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 31,
+   "count": 46,
    "counts": {
-    "exhibition": 14,
+    "exhibition": 29,
     "festival": 12,
     "tour": 3,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 44.8
+   "posterCoverage": 100
   },
   {
    "id": "london",
@@ -650,11 +672,11 @@
    "lng": -0.1278,
    "radiusKm": 30,
    "tz": "Europe/London",
-   "count": 18,
+   "count": 33,
    "counts": {
     "tour": 7,
+    "exhibition": 16,
     "audioguide": 2,
-    "exhibition": 1,
     "performance": 5,
     "workshop": 2,
     "festival": 1
@@ -677,12 +699,13 @@
    "lng": -2.2426,
    "radiusKm": 20,
    "tz": "Europe/London",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "edinburgh",
@@ -699,12 +722,13 @@
    "lng": -3.1883,
    "radiusKm": 15,
    "tz": "Europe/London",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "liverpool",
@@ -721,12 +745,13 @@
    "lng": -2.9916,
    "radiusKm": 15,
    "tz": "Europe/London",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "paris",
@@ -743,17 +768,17 @@
    "lng": 2.3522,
    "radiusKm": 20,
    "tz": "Europe/Paris",
-   "count": 2012,
+   "count": 2029,
    "counts": {
-    "exhibition": 355,
-    "festival": 500,
+    "exhibition": 370,
+    "festival": 501,
     "tour": 107,
-    "performance": 741,
-    "workshop": 307,
+    "performance": 737,
+    "workshop": 312,
     "audioguide": 2
    },
    "coordCoverage": 98.8,
-   "posterCoverage": 98.6
+   "posterCoverage": 100
   },
   {
    "id": "lyon",
@@ -770,17 +795,17 @@
    "lng": 4.8357,
    "radiusKm": 15,
    "tz": "Europe/Paris",
-   "count": 264,
+   "count": 269,
    "counts": {
     "tour": 8,
-    "exhibition": 10,
-    "performance": 123,
-    "festival": 116,
-    "audioguide": 2,
-    "workshop": 5
+    "exhibition": 25,
+    "workshop": 5,
+    "festival": 115,
+    "performance": 114,
+    "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 88.5
+   "posterCoverage": 99.3
   },
   {
    "id": "marseille",
@@ -797,17 +822,17 @@
    "lng": 5.3698,
    "radiusKm": 20,
    "tz": "Europe/Paris",
-   "count": 665,
+   "count": 680,
    "counts": {
-    "exhibition": 53,
-    "tour": 63,
-    "festival": 133,
-    "performance": 374,
-    "workshop": 40,
+    "exhibition": 70,
+    "tour": 61,
+    "festival": 132,
+    "performance": 372,
+    "workshop": 43,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 57.2
+   "posterCoverage": 100
   },
   {
    "id": "nice",
@@ -824,17 +849,17 @@
    "lng": 7.262,
    "radiusKm": 15,
    "tz": "Europe/Paris",
-   "count": 77,
+   "count": 88,
    "counts": {
-    "exhibition": 5,
-    "festival": 20,
+    "exhibition": 20,
+    "festival": 19,
     "audioguide": 2,
     "performance": 33,
     "tour": 8,
-    "workshop": 9
+    "workshop": 6
    },
    "coordCoverage": 100,
-   "posterCoverage": 61.3
+   "posterCoverage": 100
   },
   {
    "id": "madrid",
@@ -851,17 +876,17 @@
    "lng": -3.7038,
    "radiusKm": 20,
    "tz": "Europe/Madrid",
-   "count": 1238,
+   "count": 1253,
    "counts": {
-    "festival": 185,
-    "tour": 75,
-    "exhibition": 87,
-    "workshop": 197,
-    "performance": 692,
+    "festival": 187,
+    "tour": 72,
+    "exhibition": 101,
+    "workshop": 198,
+    "performance": 693,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 0
+   "posterCoverage": 100
   },
   {
    "id": "barcelona",
@@ -878,17 +903,17 @@
    "lng": 2.1686,
    "radiusKm": 15,
    "tz": "Europe/Madrid",
-   "count": 1488,
+   "count": 1503,
    "counts": {
-    "exhibition": 336,
-    "performance": 916,
-    "workshop": 177,
-    "tour": 52,
+    "exhibition": 353,
+    "performance": 918,
+    "workshop": 172,
+    "tour": 53,
     "audioguide": 2,
     "festival": 5
    },
    "coordCoverage": 100,
-   "posterCoverage": 66.6
+   "posterCoverage": 99.9
   },
   {
    "id": "valencia",
@@ -905,13 +930,14 @@
    "lng": -0.3763,
    "radiusKm": 15,
    "tz": "Europe/Madrid",
-   "count": 66,
+   "count": 80,
    "counts": {
-    "performance": 64,
+    "performance": 63,
+    "exhibition": 15,
     "audioguide": 2
    },
-   "coordCoverage": 90.9,
-   "posterCoverage": 0
+   "coordCoverage": 92.5,
+   "posterCoverage": 100
   },
   {
    "id": "seville",
@@ -928,15 +954,15 @@
    "lng": -5.9845,
    "radiusKm": 15,
    "tz": "Europe/Madrid",
-   "count": 7,
+   "count": 22,
    "counts": {
-    "exhibition": 2,
-    "audioguide": 2,
+    "exhibition": 17,
     "performance": 1,
+    "audioguide": 2,
     "festival": 1,
     "workshop": 1
    },
-   "coordCoverage": 42.9,
+   "coordCoverage": 81.8,
    "posterCoverage": 100
   },
   {
@@ -954,12 +980,13 @@
    "lng": 19.0402,
    "radiusKm": 20,
    "tz": "Europe/Budapest",
-   "count": 2,
+   "count": 17,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 15
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "vienna",
@@ -976,13 +1003,14 @@
    "lng": 16.3738,
    "radiusKm": 20,
    "tz": "Europe/Vienna",
-   "count": 18,
+   "count": 33,
    "counts": {
     "festival": 16,
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 0
+   "posterCoverage": 100
   },
   {
    "id": "salzburg",
@@ -999,12 +1027,13 @@
    "lng": 13.055,
    "radiusKm": 15,
    "tz": "Europe/Vienna",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "rome",
@@ -1021,12 +1050,13 @@
    "lng": 12.4964,
    "radiusKm": 20,
    "tz": "Europe/Rome",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "milan",
@@ -1043,12 +1073,13 @@
    "lng": 9.19,
    "radiusKm": 20,
    "tz": "Europe/Rome",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "florence",
@@ -1065,17 +1096,17 @@
    "lng": 11.2558,
    "radiusKm": 12,
    "tz": "Europe/Rome",
-   "count": 109,
+   "count": 127,
    "counts": {
-    "performance": 48,
-    "festival": 15,
+    "performance": 49,
+    "festival": 16,
     "tour": 28,
-    "exhibition": 14,
+    "exhibition": 30,
     "workshop": 2,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 60.7
+   "posterCoverage": 100
   },
   {
    "id": "venice",
@@ -1092,12 +1123,13 @@
    "lng": 12.3155,
    "radiusKm": 12,
    "tz": "Europe/Rome",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "naples",
@@ -1114,12 +1146,13 @@
    "lng": 14.2681,
    "radiusKm": 15,
    "tz": "Europe/Rome",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "amsterdam",
@@ -1136,12 +1169,13 @@
    "lng": 4.9041,
    "radiusKm": 15,
    "tz": "Europe/Amsterdam",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "rotterdam",
@@ -1158,12 +1192,13 @@
    "lng": 4.4777,
    "radiusKm": 15,
    "tz": "Europe/Amsterdam",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "zurich",
@@ -1180,12 +1215,13 @@
    "lng": 8.5417,
    "radiusKm": 15,
    "tz": "Europe/Zurich",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "geneva",
@@ -1202,13 +1238,13 @@
    "lng": 6.1432,
    "radiusKm": 12,
    "tz": "Europe/Zurich",
-   "count": 486,
+   "count": 501,
    "counts": {
-    "performance": 178,
-    "exhibition": 37,
-    "workshop": 82,
-    "festival": 161,
-    "tour": 26,
+    "tour": 25,
+    "exhibition": 52,
+    "festival": 162,
+    "workshop": 80,
+    "performance": 180,
     "audioguide": 2
    },
    "coordCoverage": 100,
@@ -1229,17 +1265,17 @@
    "lng": -9.1393,
    "radiusKm": 15,
    "tz": "Europe/Lisbon",
-   "count": 471,
+   "count": 484,
    "counts": {
-    "exhibition": 147,
-    "tour": 48,
-    "festival": 32,
+    "exhibition": 162,
+    "festival": 31,
     "performance": 241,
+    "tour": 47,
     "audioguide": 2,
     "workshop": 1
    },
-   "coordCoverage": 60.1,
-   "posterCoverage": 99.8
+   "coordCoverage": 61.8,
+   "posterCoverage": 100
   },
   {
    "id": "porto",
@@ -1256,12 +1292,13 @@
    "lng": -8.6291,
    "radiusKm": 12,
    "tz": "Europe/Lisbon",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "prague",
@@ -1278,12 +1315,13 @@
    "lng": 14.4378,
    "radiusKm": 20,
    "tz": "Europe/Prague",
-   "count": 2,
+   "count": 17,
    "counts": {
+    "exhibition": 15,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   },
   {
    "id": "brussels",
@@ -1300,11 +1338,11 @@
    "lng": 4.3517,
    "radiusKm": 15,
    "tz": "Europe/Brussels",
-   "count": 7,
+   "count": 22,
    "counts": {
+    "exhibition": 16,
     "audioguide": 2,
     "festival": 2,
-    "exhibition": 1,
     "performance": 2
    },
    "coordCoverage": 100,
@@ -1325,12 +1363,13 @@
    "lng": 4.4025,
    "radiusKm": 12,
    "tz": "Europe/Brussels",
-   "count": 2,
+   "count": 17,
    "counts": {
-    "audioguide": 2
+    "audioguide": 2,
+    "exhibition": 15
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 100
   }
  ]
 }

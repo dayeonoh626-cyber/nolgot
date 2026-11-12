@@ -7,15 +7,16 @@
 // 환경변수 (모두 선택):
 //   TOUR_API_KEY KOPIS_API_KEY SEOUL_API_KEY CULTURE_API_KEY TICKETMASTER_API_KEY VIATOR_API_KEY GYG_API_KEY IZI_API_KEY
 //   PREV_BASE_URL  이전 배포본 기본 주소 (예: https://dayeonoh626-cyber.github.io/nolgot/data/cities/)
-//   DAYS_AHEAD(120) OG_MAX(500) GEOCODE_MAX(200) ONLY=seoul,berlin(디버그용 도시 제한) SKIP_WIKI=1
+//   DAYS_AHEAD(120) OG_MAX(1200) GEOCODE_MAX(400) VENUE_MAX(3000) SKIP_PLACES=1 ONLY=seoul,berlin(디버그용 도시 제한) SKIP_WIKI=1
 //   BUILD_COUNTRIES=FR,ES  일부 나라만 빌드 (나머지 도시 파일은 그대로 두고 cities.json에는 모든 도시를 유지)
 //   WIKI_BUILD_MAX(20)     한 번에 새로 생성하는 오디오가이드 도시 수 (나머지는 다음 실행)
 import { writeFileSync, readFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { CITIES, COUNTRIES } from './cities.mjs';
 import { getJson, todayIn, addDaysStr, pool, isYmd, validLatLng } from './lib/util.mjs';
-import { enrichImages, geocodeEvents } from './lib/enrich.mjs';
+import { enrichImages, geocodeEvents, venueImages } from './lib/enrich.mjs';
 import { dedupe } from './lib/dedupe.mjs';
 import { wikipediaTours, meta as wikiMeta } from './sources/wikipedia-tours.mjs';
+import { places, meta as placesMeta } from './sources/places.mjs';
 import { GENERIC } from './sources/generic.mjs';
 
 const T0 = Date.now();
@@ -97,6 +98,7 @@ mark('country');
 /* ---------- 3. 도시별 공통 소스 ---------- */
 const generic = [
   ...(process.env.SKIP_WIKI === '1' ? [] : [{ key: wikiMeta.key, name: wikiMeta.name, fn: wikipediaTours, licence: wikiMeta.licence, url: wikiMeta.url }]),
+  ...(process.env.SKIP_PLACES === '1' ? [] : [{ key: placesMeta.key, name: placesMeta.name, fn: places, licence: placesMeta.licence, url: placesMeta.url }]),
   ...GENERIC,
 ];
 // 공통 소스끼리는 호스트가 달라 동시에 돌리고(호스트별 속도 제한은 util.http가 지킴), 각 소스 안에서는 도시 동시성 제한
@@ -138,14 +140,19 @@ for (const c of cities) {
 
 /* ---------- 5. 지오코딩 (독일 주소 → Nominatim, 캐시) ---------- */
 const geoTargets = all.filter(e => COUNTRIES[cityById.get(e.cityId).country].geocode);
-const geo = await geocodeEvents(geoTargets, cityById, { max: +(process.env.GEOCODE_MAX || 200), countries: Object.entries(COUNTRIES).filter(([, v]) => v.geocode).map(([k]) => k.toLowerCase()) });
+const geo = await geocodeEvents(geoTargets, cityById, { max: +(process.env.GEOCODE_MAX || 400), countries: Object.entries(COUNTRIES).filter(([, v]) => v.geocode).map(([k]) => k.toLowerCase()) });
 console.log(`[${elapsed()}] 지오코딩: 호출 ${geo.calls} · 좌표 확보 ${geo.hits}`);
 mark('geocode');
 
 /* ---------- 6. og:image 보강 ---------- */
-const img = await enrichImages(all, { max: +(process.env.OG_MAX || 500), concurrency: +(process.env.OG_CONCURRENCY || 8) });
+const img = await enrichImages(all, { max: +(process.env.OG_MAX || 1200), concurrency: +(process.env.OG_CONCURRENCY || 8) });
 console.log(`[${elapsed()}] og:image: 요청 ${img.fetched} · 확보 ${img.found} · 대기 ${img.pending} · 공통 이미지 제거 ${img.generic}`);
 mark('ogimage');
+
+/* ---------- 6b. 대표 이미지 대체 체인: 장소 사진 → 장소 사이트 og:image → 주변 명소 사진 (posterKind) ---------- */
+const vimg = await venueImages(all, cityById, { max: +(process.env.VENUE_MAX || 3000), concurrency: +(process.env.VENUE_CONCURRENCY || 6) });
+console.log(`[${elapsed()}] 대표 이미지: 장소 사진 ${vimg.venue} · 장소 사이트 ${vimg.venueSite} · 주변 명소 ${vimg.area} · 없음 ${vimg.none} · 조회 ${vimg.lookups} · 대기 ${vimg.pending} · 좌표 빌림 ${vimg.coordsBorrowed}`);
+mark('venueimg');
 
 /* ---------- 7. 중복 제거 + 저장 ---------- */
 const clean = e => {

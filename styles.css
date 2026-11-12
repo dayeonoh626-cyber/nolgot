@@ -1133,3 +1133,9 @@ body:has(#kindTabs[hidden]) .map-view { top: calc(56px + var(--safe-t)); }
 }
 .add-form input:focus-visible, .add-form select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .add-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+/* 근처 명소 사진임을 알리는 작은 라벨 (행사 포스터와 구분) */
+.poster { position: relative; }
+.poster-kind {
+  position: absolute; right: 8px; bottom: 8px; padding: 3px 8px; border-radius: 999px;
+  background: rgba(31, 26, 20, .72); color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em; pointer-events: none;
+}

@@ -280,7 +280,9 @@ function noImgHTML(e, cls = '') {
 function posterHTML(e, cls = '') {
   const src = safeUrl(e.poster);
   if (!src) return noImgHTML(e, cls);
-  return `<div class="poster ${cls}" data-noimg="${esc(noImgHTML(e, cls))}"><img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>`;
+  // area = 행사장이 아니라 근처 명소·동네 사진 → '주변 사진' 표시
+  const near = e.posterKind === 'area' ? `<span class="poster-kind">${esc(t('photo.area'))}</span>` : '';
+  return `<div class="poster ${cls}" data-noimg="${esc(noImgHTML(e, cls))}"><img src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">${near}</div>`;
 }
 // 이미지 로드 실패 → 텍스트 카드로 교체 (캡처 단계에서 img error를 잡는다)
 document.addEventListener('error', ev => {
@@ -312,7 +314,6 @@ function expMetaHTML(e) {
   if (dur) bits.push(`<span class="duration">${esc(dur)}</span>`);
   if (e.provider) bits.push(`<span class="provider">${esc(e.provider)}</span>`);
   if (e.stops?.length) bits.push(`<span class="duration">${esc(t('audio.stops', { n: e.stops.length }))}</span>`);
-  if (e.permanent && !bits.length) bits.push(`<span class="duration">${esc(L(e, 'genre') || t('st.always'))}</span>`);
   return bits.length ? `<span class="exp-meta">${bits.join('')}</span>` : '';
 }
 
@@ -783,7 +784,7 @@ function openDetail(id, preferDay, { fromHistory = false } = {}) {
     <button class="close" data-close aria-label="${esc(t('detail.close'))}">✕</button>
     <div class="scroll">
       ${posterHTML(e, 'detail-poster')}
-      ${e.poster && e.posterCredit ? `<div class="poster-credit">${esc(t('detail.photo'))}: ${esc(e.posterCredit)}</div>` : ''}
+      ${e.poster && e.posterCredit ? `<div class="poster-credit">${esc(t(e.posterKind === 'area' ? 'detail.photoArea' : e.posterKind === 'venue' ? 'detail.photoVenue' : 'detail.photo'))}: ${esc(e.posterCredit)}</div>` : ''}
       <div class="detail-body">
         ${tagsHTML(e)}
         <h2 id="detailTitle">${esc(L(e, 'title'))}</h2>

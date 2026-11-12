@@ -44,6 +44,8 @@ jobs:
           path: |
             data/geocache.json
             data/imagecache.json
+            data/venuecache.json
+            data/placescache.json
           key: enrich-${{ github.run_id }}
           restore-keys: enrich-
 

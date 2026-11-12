@@ -62,7 +62,7 @@
 | 소스 | 다루는 것 | 접근 | 이미지/라이선스 | 검증 | 판정 |
 |---|---|---|---|---|---|
 | **DZT German Tourism Knowledge Graph** (open-data-germany.org) | 전국 관광 자산 약 10만+(POI·투어·**이벤트**·식당 등), 주 관광청 데이터 통합 (BayernCloud, 작센, NRW 등) | API 키 **무료**(독일관광청 GNTB 신청), SPARQL/REST, 문서: purl.archive.org/gtkg/api-doc | schema.org 기반, 오픈 라이선스 레코드 | 🟡 논문·DZT 페이지로 확인, 엔드포인트 ❓ | **키 받아 통합 — 독일 축제/관광 이벤트 최우선** |
-| BayernCloud Tourismus API (bayerncloud.digital/docs) | 바이에른 이벤트·POI (오픈데이터 약 1.2만 건, 2023 기준) | 계정/토큰 | 오픈 라이선스 레코드만 자동 공유 | 🟡 | **키 받아 통합** (뮌헨·뉘른베르크) — DZT 그래프로 일부 대체 가능 |
+| BayernCloud Tourismus API (bayerncloud.digital/docs) | 바이에른 이벤트·POI (오픈데이터 약 1.2만 건, 2023 기준) | 계정/토큰 | 오픈 라이선스 레코드만 자동 공유 | 🟡 | API는 토큰 필요 → **키 없는 DCAT 덤프로 통합함** (2-1-a) |
 | **Travel-API Leipzig** (opendata.leipzig.de) | 라이프치히 및 주변 이벤트·POI·투어 | CSV/JSON/GeoJSON, destination.one Open Data Finder | **CC BY 3.0 DE** | 🟡 | **바로 통합 (키 불필요)** |
 | Tourismusdaten Köln (offenedaten-koeln.de / open.nrw) | 쾰른 향후 3개월 이벤트 | destination.one Open Data Finder | cc-by/4.0 (카탈로그 표기) | 🟡 다운로드 URL ❓, 개방성 점수 낮음 | **바로 통합 시도** — 리소스 URL 확인 필요 |
 | Open Data Finder RTG (루르 관광) | 루르 지역 이벤트 | destination.meta API, JSON/JSON-LD/GeoJSON/RSS | 오픈 | 🟡 | 참고 (현재 도시 목록 밖, 뒤셀도르프 인근) |
@@ -73,13 +73,47 @@
 | Museumsportal Berlin | 베를린 박물관 200곳 전시·행사 | 공개 API 미확인 (berlin.de·visitBerlin에 인터페이스로 공급) | — | 🟡 | **딥링크만** (데이터 제휴 문의: museumsportal@kulturprojekte.berlin) |
 | visitBerlin 캘린더 | 베를린 관광 이벤트 | 공개 API 미확인 | — | ❓ | **딥링크만** |
 | opendata.muenchen.de (CKAN) | Gasteig·Messe 등 일부 이벤트 데이터 | CKAN JSON | 오픈 | 🟡 | 낮은 가치 — 도시 전체 캘린더 아님 |
-| Hamburg (transparenz.hamburg.de) | 함부르크 관광 캘린더는 CultureBase(Kulturserver) 기반 | CultureBase JSON은 **파트너 전용** | — | 🟡 | 보류 (Kulturserver 지원팀 문의) |
+| Hamburg (transparenz.hamburg.de) | 함부르크 관광 캘린더는 CultureBase(Kulturserver) 기반 | CultureBase JSON은 **파트너 전용** | — | 🟡 | (2026-11) Hamburg Tourismus 행사DB가 UDP OGC API로 dl-de/by-2.0 공개 → **통합함** (2-1-a) |
 | Dresden (opendata.dresden.de) | 공식 행사 달력 인터페이스 존재(2018 Alexa 스킬 사례) | 공개 문서 ❓ | — | ❓ | 보류 |
-| Frankfurt / Stuttgart / Düsseldorf / Nürnberg | — | 도시 이벤트 오픈데이터 확인 못 함 | — | ❓ | DZT 그래프 + Ticketmaster로 커버 |
+| Frankfurt / Stuttgart / Düsseldorf / Nürnberg | — | (2026-11 갱신) 아래 2-1-a 참고: 슈투트가르트 공식 RSS, 프랑크푸르트 destination.one, 뒤셀도르프 반경 검색, 뉘른베르크 BayernCloud | — | ✅ | 통합 |
 | Staatliche Museen zu Berlin (SMB) | 소장품 오픈액세스(recherche.smb.museum), 전시 페이지는 HTML | 소장품 API 예정/NFDI4Culture 경유, **전시 일정 API 없음** | 소장품 이미지 오픈 | 🟡 | 전시: **딥링크만** / 오디오투어 이미지 보강 후보 |
 | Deutsche Digitale Bibliothek API | 문화유산 메타데이터 (CC0), 가상전시(DDBstudio) | 키 필요(무료 등록) | CC0 메타데이터 | 🟡 이벤트/전시 일정 엔드포인트 ❓ | 이벤트 용도 아님 → 사용 안 함 |
 | GovData.de | 독일 전체 오픈데이터 카탈로그 | CKAN | — | 🟡 | 탐색용 (새 이벤트 데이터셋 발견 시 추가) |
 | VHS(시민대학) 강좌 데이터 | 클래스 | 베를린 공개 API 없음, 빌레펠트(CC BY 4.0 강좌장소)·모에르스 등 일부만 | — | 🟡 | 사용 안 함(대상 도시 아님) / 딥링크 |
+
+#### 2-1-a. 2026-11 독일 확장 조사 (키 없는 소스만, 실제 호출로 검증)
+
+**통합함** (`scripts/sources/de.mjs`, `de-bayerncloud.mjs`)
+
+| 소스 (sourceKey) | 도시 | 접근 | 라이선스 | 검증 결과 |
+|---|---|---|---|---|
+| **Hamburg Tourismus Veranstaltungsdatenbank** — "MRH Veranstaltungen" (`hamburgtourismus`) | 함부르크 | OGC API Features `api.hamburg.de/datasets/v1/mrh_veranstaltungsdaten/collections/spielstaetten_mit_veranstaltungen_6_wochen/items?bbox=…&limit=10000` (회차 단위, 향후 6주, 매일 갱신). 같은 데이터: WFS `geodienste.hamburg.de/MRH_WFS_Veranstaltungsdaten` | **dl-de/by-2.0**, Quellenvermerk „Hamburg Tourismus GmbH" (metaver.de 메타데이터 `73107851-234E-40AC-BCC2-8F355FC1516D`) | ✅ 반경 20km 1.5만 회차 → 시리즈 단위로 합쳐 상한 `HH_MAX`(1500). 이미지 없음, hamburg-tourism.de 행사 페이지에도 og:image 없음 |
+| **BayernCloud Tourismus** — "Veranstaltungen und Erlebnisse in Bayern" (`bayerncloud`) | 뮌헨·뉘른베르크 | DCAT 배포 JSON-LD 덤프 `data.bayerncloud.digital/dcat/36a736f7-…jsonld` (~120MB, 월 1회 정도, 다운로드 약 100초). API(`/api/v4/endpoints`)는 **토큰 필요** → 덤프만 사용. 평탄화된 @graph를 스트리밍 파싱 후 Place·Image·Concept 조인 | 항목별 **CC0 / CC BY 4.0 / CC BY-SA 4.0** (NC 2건 제외), copyrightNotice 표기 | ✅ 뮌헨 반경 55, 뉘른베르크 29 (museen-in-bayern.de 전시·투어 다수). 이미지 거의 없음 |
+| **destination.one 반경 검색** (`destinationone`) | 쾰른·뒤셀도르프·라이프치히·드레스덴·함부르크 | `meta.et4.de/rest.ashx/search/?experience=…&latitude=&longitude=&distance=<m>` — 예전 `q=city:` 대신 반경. 새로 찾은 오픈 experience: **`open-data-niedersachsen-tourismus`** (함부르크 남쪽 근교) | 항목별 PD/CC0/CC BY(-SA) | ✅ 뒤셀도르프 15→80, 드레스덴 9→35, 쾰른 170→186, 함부르크 +14. 추측한 이름(open-data-bw/-bayern/-hamburg/-hessen/-thueringen/-rlp 등 30여 개)은 모두 `INVALID_EXPERIENCE` |
+| **Frankfurt Tourismus experience `visitfrankfurt`** (`visitfrankfurt`) | 프랑크푸르트 | frankfurt-tourismus.de 페이지의 `<meta name="experience">`. 키 없이 공개 응답(비공개 프로젝트는 licensekey 필요) | 448건 중 **항목 라이선스가 CC-BY-SA/CC0인 것만**(약 100건) 사용, 이미지도 CC(비 NC)만. FTCG는 행사 등록 시 최소 CC BY-SA를 요구 | ✅ 73건(반경 15km). ⚠️ 오픈데이터 전용 풀이 아니라 웹사이트용 풀이므로 데이터 라이선스에만 근거 — 운영 정책상 꺼야 하면 SOURCES에서 이 항목만 제거 |
+| **Landeshauptstadt Stuttgart 행사 RSS** (`stuttgart`) | 슈투트가르트 | `stuttgart.de/service/veranstaltungen?sp:categories[77306][]=<분류>&sp:out=rss` (분류별 최대 1000회차, 1년치) + 행사별 iCal(`?sp:out=iCal`)의 LOCATION으로 주소 | © 도시. 공식 구독 피드이며 robots.txt `Allow: /`, `Content-Signal: search=yes, use=reference` → 제목·일시·짧은 소개·원문 링크만, 이미지 없음 | ✅ 종교 예배·상담 등 제외 후 약 880건. iCal은 `STG_ICAL_MAX`(250)개까지, 이전 빌드 주소 재사용 |
+| **München Weihnachtsmärkte** (`muenchenxmas`) | 뮌헨 | opendata.muenchen.de CKAN `package_show?id=weihnachtsmaerkte-muenchen` → 최신 CSV | CC BY 4.0 | ✅ 25곳 (좌표·웹사이트 포함) |
+| **Wikidata SPARQL** (`wikidata`) | 전체 | P580/P582 + P276/P131 → 도시 | CC0 (이미지 Commons) | ✅ 하지만 수가 적음(대형 행사 몇 건). 학술회의·연구프로젝트·스톨퍼슈타인·1년 넘는 기간 제외 |
+| **OpenAgenda 공개 미러** (`openagenda`) | 전체 | opendatasoft `evenements-publics-openagenda` 반경 검색 | Licence Ouverte | ✅ 독일 도시 합계 약 10건 |
+| kulturdaten.berlin (기존) | 베를린 | 기본값 상향: `KD_DAYS` 21→45, `KD_MAX_PAGES` 25→70, `KD_MAX_ATTRACTIONS` 500→1200 | CC BY 4.0 | ✅ 예전 25쪽 상한은 16일 지점에서 잘리고 있었음(하루 60~100회차) |
+
+**검토 후 제외**
+
+| 후보 | 이유 |
+|---|---|
+| DZT Knowledge Graph (`proxy.opendatagermany.io`) | 401 — API 키 필요. GraphDB는 IP 제한(403) |
+| BayernCloud API v4 endpoints | 401 토큰 필요 (덤프로 대체) |
+| Open Data Finder RTG (루르) | 라이선스 키 발급 필요, 카탈로그 라이선스 "other-closed" |
+| Open Data Pool BW / mein.toubiz (TMBW) | 공개 키 없는 이벤트 API 확인 못 함 |
+| opendata.muenchen.de 기타 | 통계(월별 관객수 등)뿐, 행사 목록 없음 |
+| transparenz.hamburg.de | 건축허가 PDF 등만. 행사 데이터는 위 MRH 데이터셋(UDP)로 대체 |
+| offenedaten.frankfurt.de "Bürgerhäuser Veranstaltungen" | 연간 통계 CSV (개별 행사 아님) |
+| opendata.stuttgart.de, opendata.dresden.de, opendata.duesseldorf.de, open.bydata Nürnberg | 행사 데이터셋 없음 (통계·과거 Weihnachtsmärkte 2021 CSV뿐) |
+| Hamburg Eventlotse WFS | 인증 필요 ("Missing authorization") |
+| berlin.de Weihnachtsmärkte JSON | 동작하지만 아직 2025 데이터(48건, 2026 갱신 전) — 갱신되면 자동 반영 |
+| nuernberg.de / muenchen.de / frankfurt.de / dresden.de 행사 캘린더 | 공개 피드·API 없음 (frankfurt.de는 403) → 스크래핑 안 함 |
+| museum-digital | 위치명 누락 없음(현재 Stuttgart 9, Berlin 4, Frankfurt 1, Köln 1이 전부) |
+| Eventim, Ticketmaster 웹, RA, Eventbrite, Meetup, Rausgegangen | 지시에 따라 조사·스크래핑 안 함 |
 
 ### 2-2. 민간 예매·이벤트·클래스·투어 (독일)
 

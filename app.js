@@ -1,6 +1,7 @@
 // 놀곳 — 전 세계 도시의 이벤트·체험·오디오투어 PWA (빌드 없이 GitHub Pages에서 동작)
 // 데이터 형식: docs/data-contract.md
 import { t, getLang, setLang, REGION_EN } from './i18n.js';
+import { guidesFor } from './guides.js';
 
 /* ------------------------------------------------------------------ */
 /* 설정값                                                              */
@@ -192,6 +193,7 @@ function nearestCity(p) {
 function status(e) {
   const td = todayIn(eventTz(e));
   if (e.endDate < td) return { text: t('st.ended'), cls: 'st-ended' };
+  if (e.permanent) return { text: t('st.always'), cls: 'st-live' };
   if (EXP_KINDS.has(e.kind) && diffDays(e.startDate, e.endDate) > 60) return { text: t('st.anytime'), cls: 'st-live' };
   if (e.startDate > td) { const n = diffDays(td, e.startDate); return { text: n === 1 ? t('st.tomorrow') : t('st.dday', { n }), cls: 'st-soon' }; }
   const left = diffDays(td, e.endDate);
@@ -202,7 +204,8 @@ function status(e) {
 }
 const statusHTML = st => `<span class="st ${st.cls}">${esc(st.text)}</span>`;
 // 상시 체험(오늘~+365일 같은 긴 기간)은 날짜 대신 체험 정보로 보여준다
-const isEvergreen = e => EXP_KINDS.has(e.kind) && diffDays(e.startDate, e.endDate) > 60;
+// permanent: 늘 열려 있는 명소·상설 전시 (날짜 있는 행사가 아님)
+const isEvergreen = e => !!e.permanent || (EXP_KINDS.has(e.kind) && diffDays(e.startDate, e.endDate) > 60);
 
 function inArea(e) {
   if (state.near) {
@@ -309,6 +312,7 @@ function expMetaHTML(e) {
   if (dur) bits.push(`<span class="duration">${esc(dur)}</span>`);
   if (e.provider) bits.push(`<span class="provider">${esc(e.provider)}</span>`);
   if (e.stops?.length) bits.push(`<span class="duration">${esc(t('audio.stops', { n: e.stops.length }))}</span>`);
+  if (e.permanent && !bits.length) bits.push(`<span class="duration">${esc(L(e, 'genre') || t('st.always'))}</span>`);
   return bits.length ? `<span class="exp-meta">${bits.join('')}</span>` : '';
 }
 
@@ -365,6 +369,72 @@ function deeplinksHTML(place, kind) {
     <p class="deeplinks-label">${esc(t(kind === 'tour' ? 'deeplinks.tour' : kind === 'workshop' ? 'deeplinks.workshop' : 'deeplinks.any', { place }))}</p>
     <div class="deeplinks-row">${links.map(([n, u]) => `<a class="deeplink" href="${u}" target="_blank" rel="noopener">${esc(n)} <span aria-hidden="true">↗</span><span class="sr-only">${esc(t('deeplinks.external'))}</span></a>`).join('')}</div>
   </div>`;
+}
+
+// 현지 이벤트 사이트 카드 — 놀곳에 없는 행사는 공식 캘린더·잡지·예매처에서 보고, 찾은 걸 직접 담을 수 있게 한다
+function guidesHTML(kind, thin) {
+  const city = curCity() || (state.near ? nearestCity(state.coords || {})?.city : null);
+  const list = guidesFor(city, kind);
+  if (!list.length) return '';
+  const en = getLang() === 'en';
+  return `<section class="guides ${thin ? 'thin' : ''}" aria-labelledby="guidesTitle">
+    <div class="section-title" id="guidesTitle">${esc(t('guides.title', { city: cityName(city) }))}</div>
+    <p class="guides-sub">${esc(t(thin ? 'guides.subThin' : 'guides.sub'))}</p>
+    <div class="guides-grid">${list.map(g => `<a class="guide-card" href="${esc(g.url)}" target="_blank" rel="noopener">
+      <b>${esc(g.name)}</b><span>${esc(en ? g.en : g.ko)}</span><span class="sr-only">${esc(t('deeplinks.external'))}</span></a>`).join('')}</div>
+    <button class="btn wide block" data-action="add-own">＋ ${esc(t('guides.add'))}</button>
+  </section>`;
+}
+
+// 다른 사이트에서 찾은 행사를 직접 입력해 관심·캘린더·알림에 담기
+function openAddForm() {
+  const dlg = $('#detail');
+  audio.stop();
+  dlg.dataset.id = '';
+  const city = curCity();
+  const td = todayIn(city?.tz || LOCAL_TZ);
+  const kinds = KINDS.filter(k => k !== 'all' && k !== 'audioguide');
+  const k0 = kinds.includes(state.kind) ? state.kind : 'festival';
+  dlg.setAttribute('aria-labelledby', 'addTitle');
+  dlg.innerHTML = `
+    <button class="close" data-close aria-label="${esc(t('detail.close'))}">✕</button>
+    <div class="scroll">
+      <form class="add-form" id="addForm">
+        <h2 id="addTitle">${esc(t('add.title'))}</h2>
+        <p class="note">${esc(t('add.desc'))}</p>
+        <label>${esc(t('add.name'))}<input name="title" required maxlength="140" autocomplete="off"></label>
+        <label>${esc(t('add.kind'))}<select name="kind">${kinds.map(k => `<option value="${k}" ${k === k0 ? 'selected' : ''}>${esc(kindLabel(k))}</option>`).join('')}</select></label>
+        <div class="add-row">
+          <label>${esc(t('add.start'))}<input type="date" name="startDate" required value="${td}"></label>
+          <label>${esc(t('add.end'))}<input type="date" name="endDate"></label>
+        </div>
+        <label>${esc(t('add.time'))}<input type="time" name="startTime"></label>
+        <label>${esc(t('add.place'))}<input name="place" maxlength="140" autocomplete="off"></label>
+        <label>${esc(t('add.link'))}<input type="url" name="homepage" inputmode="url" placeholder="https://" autocomplete="off"></label>
+        <button class="btn primary wide block" type="submit">${esc(t('add.save'))}</button>
+      </form>
+    </div>`;
+  openSheet(dlg, '#add');
+}
+
+function saveOwnEvent(form) {
+  const f = Object.fromEntries(new FormData(form));
+  const title = String(f.title || '').trim();
+  if (!title || !f.startDate) return;
+  const city = curCity();
+  const end = f.endDate && f.endDate >= f.startDate ? f.endDate : f.startDate;
+  const id = `my-${Date.now().toString(36)}`;
+  const kind = f.kind || 'festival';
+  state.saved[id] = {
+    id, kind, title, genre: kindLabel(kind), place: String(f.place || '').trim(), address: '',
+    startDate: f.startDate, endDate: end, startTime: f.startTime || undefined, time: f.startTime || '',
+    homepage: safeUrl(String(f.homepage || '').trim()) || undefined, cityId: city?.id || state.cityId,
+    tz: city?.tz || LOCAL_TZ, source: t('add.source'), own: true, lat: null, lng: null, savedAt: Date.now(),
+  };
+  LS.set('saved', state.saved);
+  toast(t('add.saved'));
+  render();
+  openDetail(id);
 }
 
 function regionName() {
@@ -428,11 +498,13 @@ function renderResults() {
     html += reminderBannerHTML();
     const [ws, we] = weekendRange(base);
     const weekend = sortByDate(all.filter(e => !isEvergreen(e) && overlaps(e, ws, we)), base)
-      .sort((a, b) => isSaved(b.id) - isSaved(a.id)) // 저장한 것 먼저, 나머지는 날짜순 유지
+      .sort((a, b) => isSaved(b.id) - isSaved(a.id) || !!b.poster - !!a.poster) // 저장한 것 → 포스터 있는 것 먼저, 나머지는 날짜순 유지
       .slice(0, 12);
     html += railHTML(t('weekend.title'), fmtRange(ws, we), weekend);
     const exps = all.filter(e => BOOKABLE.has(e.kind)).sort((a, b) => expScore(b) - expScore(a)).slice(0, 10);
     html += railHTML(t('rail.experiences'), '', exps);
+    const places = all.filter(e => e.permanent).slice(0, 15);
+    html += railHTML(t('rail.places'), '', places);
     const audio = all.filter(e => e.kind === 'audioguide').slice(0, 10);
     html += railHTML(t('rail.audio'), '', audio);
   }
@@ -440,6 +512,10 @@ function renderResults() {
   // 목록: '전체'에서는 날짜 있는 이벤트만 (체험·오디오는 위 레일과 각 탭에서)
   const list = applyFilter(all.filter(e => matchesQuery(e, q) && (state.kind !== 'all' || q || !isEvergreen(e))), base);
   sortList(list, base);
+
+  // 결과가 적으면 현지 사이트 안내를 목록 위에, 넉넉하면 맨 아래에
+  const thin = list.length < 30;
+  if (thin) html += guidesHTML(state.kind, true);
 
   const sorts = SORTS.filter(s => s !== 'distance' || state.coords);
   const titleKey = state.kind === 'all' ? 'list.title' : 'list.titleKind';
@@ -462,6 +538,7 @@ function renderResults() {
     html += `<div class="list">${list.slice(0, 200).map(cardHTML).join('')}</div>`;
     if (list.length > 200) html += `<p class="note">${esc(t('list.more', { n: list.length - 200 }))}</p>`;
   }
+  if (!thin) html += guidesHTML(state.kind, false);
   return html;
 }
 
@@ -890,7 +967,11 @@ if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => {};
 /* ------------------------------------------------------------------ */
 function toggleSave(id) {
   const e = findEvent(id); if (!e) return;
-  if (state.saved[id]) { delete state.saved[id]; toast(t('toast.unsaved')); }
+  if (state.saved[id]) {
+    const own = state.saved[id].own;
+    delete state.saved[id]; toast(t(own ? 'add.removed' : 'toast.unsaved'));
+    if (own) { LS.set('saved', state.saved); closeDetail(); return render(); } // 직접 담은 행사는 지우면 끝
+  }
   else {
     const { stops, ...rest } = e; // 오디오 스톱 전문은 저장 용량이 커서 제외 (다시 열 때 도시 데이터에서 찾음)
     state.saved[id] = { ...rest, stopsCount: stops?.length, cityId: e.cityId || state.cityId, tz: eventTz(e), savedAt: Date.now() };
@@ -1672,6 +1753,7 @@ document.addEventListener('click', async ev => {
       mapUI.map.setView([state.coords.lat, state.coords.lng], 14);
       return offerCitySwitch(state.coords);
     }
+    if (action === 'add-own') return openAddForm();
     if (action === 'clear-search') { state.query = ''; const i = $('#searchInput'); if (i) { i.value = ''; i.focus(); } return renderResultsOnly(); }
     if (action === 'toggle-cal') {
       const p = $('#calPanel'); p.hidden = !p.hidden;
@@ -1692,6 +1774,10 @@ document.addEventListener('click', async ev => {
     }
     if (action === 'reset' && confirm(t('set.resetConfirm'))) { state.saved = {}; LS.set('saved', {}); render(); }
   }
+});
+
+document.addEventListener('submit', ev => {
+  if (ev.target.id === 'addForm') { ev.preventDefault(); saveOwnEvent(ev.target); }
 });
 
 // 시트 바깥(백드롭) 탭 / Esc 로 닫기

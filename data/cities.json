@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-11T12:48:37.323Z",
+ "updatedAt": "2026-11-11T16:34:22.933Z",
  "cities": [
   {
    "id": "seoul",
@@ -386,17 +386,17 @@
    "lng": 13.405,
    "radiusKm": 25,
    "tz": "Europe/Berlin",
-   "count": 334,
+   "count": 872,
    "counts": {
-    "exhibition": 50,
-    "festival": 87,
-    "performance": 109,
+    "exhibition": 79,
+    "festival": 204,
+    "performance": 399,
+    "workshop": 166,
     "audioguide": 2,
-    "workshop": 78,
-    "tour": 8
+    "tour": 22
    },
-   "coordCoverage": 99.4,
-   "posterCoverage": 7.5
+   "coordCoverage": 98.7,
+   "posterCoverage": 3.6
   },
   {
    "id": "munich",
@@ -413,12 +413,16 @@
    "lng": 11.5755,
    "radiusKm": 20,
    "tz": "Europe/Berlin",
-   "count": 2,
+   "count": 83,
    "counts": {
-    "audioguide": 2
+    "exhibition": 52,
+    "festival": 26,
+    "performance": 1,
+    "audioguide": 2,
+    "tour": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 61.7
   },
   {
    "id": "hamburg",
@@ -435,12 +439,17 @@
    "lng": 9.9937,
    "radiusKm": 20,
    "tz": "Europe/Berlin",
-   "count": 2,
+   "count": 1480,
    "counts": {
-    "audioguide": 2
+    "tour": 86,
+    "festival": 149,
+    "performance": 1079,
+    "workshop": 162,
+    "audioguide": 2,
+    "exhibition": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 0.5
   },
   {
    "id": "cologne",
@@ -457,17 +466,17 @@
    "lng": 6.9603,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 237,
+   "count": 251,
    "counts": {
-    "festival": 113,
+    "tour": 48,
+    "festival": 116,
     "exhibition": 23,
-    "tour": 47,
-    "performance": 39,
-    "workshop": 13,
+    "performance": 45,
+    "workshop": 17,
     "audioguide": 2
    },
-   "coordCoverage": 99.2,
-   "posterCoverage": 72.3
+   "coordCoverage": 99.6,
+   "posterCoverage": 71.1
   },
   {
    "id": "frankfurt",
@@ -484,13 +493,17 @@
    "lng": 8.6821,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 3,
+   "count": 79,
    "counts": {
-    "exhibition": 1,
+    "festival": 24,
+    "exhibition": 14,
+    "tour": 21,
+    "performance": 16,
+    "workshop": 2,
     "audioguide": 2
    },
-   "coordCoverage": 66.7,
-   "posterCoverage": 0
+   "coordCoverage": 98.7,
+   "posterCoverage": 18.2
   },
   {
    "id": "stuttgart",
@@ -507,13 +520,17 @@
    "lng": 9.1829,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 11,
+   "count": 877,
    "counts": {
-    "exhibition": 9,
-    "audioguide": 2
+    "exhibition": 51,
+    "performance": 685,
+    "festival": 114,
+    "audioguide": 2,
+    "workshop": 14,
+    "tour": 11
    },
-   "coordCoverage": 100,
-   "posterCoverage": 100
+   "coordCoverage": 22.3,
+   "posterCoverage": 1
   },
   {
    "id": "duesseldorf",
@@ -530,13 +547,17 @@
    "lng": 6.7735,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 17,
+   "count": 86,
    "counts": {
-    "festival": 15,
+    "tour": 9,
+    "exhibition": 5,
+    "workshop": 8,
+    "festival": 44,
+    "performance": 18,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": 86.7
+   "posterCoverage": 63.1
   },
   {
    "id": "leipzig",
@@ -553,16 +574,16 @@
    "lng": 12.3731,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 51,
+   "count": 57,
    "counts": {
-    "festival": 14,
+    "festival": 20,
     "performance": 23,
     "tour": 11,
     "audioguide": 2,
     "workshop": 1
    },
    "coordCoverage": 100,
-   "posterCoverage": 95.9
+   "posterCoverage": 85.5
   },
   {
    "id": "dresden",
@@ -579,13 +600,15 @@
    "lng": 13.7373,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 11,
+   "count": 35,
    "counts": {
+    "exhibition": 3,
+    "festival": 25,
     "audioguide": 2,
-    "festival": 9
+    "performance": 5
    },
    "coordCoverage": 100,
-   "posterCoverage": 100
+   "posterCoverage": 84.8
   },
   {
    "id": "nuremberg",
@@ -602,12 +625,15 @@
    "lng": 11.0767,
    "radiusKm": 15,
    "tz": "Europe/Berlin",
-   "count": 2,
+   "count": 31,
    "counts": {
+    "exhibition": 14,
+    "festival": 12,
+    "tour": 3,
     "audioguide": 2
    },
    "coordCoverage": 100,
-   "posterCoverage": null
+   "posterCoverage": 44.8
   },
   {
    "id": "london",
